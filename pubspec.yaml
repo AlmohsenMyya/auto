@@ -53,6 +53,7 @@ dependencies:
   google_maps_flutter: ^2.5.3
   firebase_core: ^2.25.4
   firebase_messaging: ^14.7.15
+  flutter_animate: ^4.4.1
 
 dev_dependencies:
   flutter_test:
@@ -96,6 +97,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Alexandria
+      fonts:
+        - asset: assets/fonts/Alexandria-Regular.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

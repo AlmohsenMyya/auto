@@ -94,14 +94,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: widget.widthBorder ?? 1,
-            color: AppColors.mainYellowColor,
+            color: AppColors.blueB4,
           ),
           borderRadius: BorderRadius.all(
             Radius.circular(widget.circularSize ?? screenWidth(10)),
           ),
         ),
         errorStyle: const TextStyle(
-          color: AppColors.mainOrangeColor,
+          color: AppColors.mainRedColor,
         ),
         hintStyle: TextStyle(
           color: widget.colorHintText ?? AppColors.mainGreyColor,

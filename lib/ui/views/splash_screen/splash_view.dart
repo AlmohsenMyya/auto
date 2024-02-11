@@ -1,10 +1,10 @@
 import 'package:auto/ui/shared/colors.dart';
+import 'package:auto/ui/shared/my_images.dart';
 import 'package:auto/ui/shared/utils.dart';
 import 'package:auto/ui/views/splash_screen/splash_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_svg/svg.dart';
-
 import 'package:get/get.dart';
 
 class SplashView extends StatefulWidget {
@@ -19,26 +19,22 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            SvgPicture.asset(
-              'assets/images/Background icons.svg',
-              fit: BoxFit.cover,
+    return Scaffold(
+      backgroundColor: AppColors.mainGrey2Color,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: Image.asset(MyImages.logo),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.only(top: screenWidth(10)),
+            child: const SpinKitThreeBounce(
+              color: AppColors.blueB4,
+              size: 50.0,
             ),
-            Center(
-              child: SvgPicture.asset('assets/images/Logo.svg'),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.only(top: screenWidth(1)),
-              child: const SpinKitThreeBounce(
-                color: AppColors.mainOrangeColor,
-                size: 50.0,
-              ),
-            )
-          ],
-        ),
+          ),
+        ].animate(interval: 50.ms).scale(delay: 300.ms),
       ),
     );
   }

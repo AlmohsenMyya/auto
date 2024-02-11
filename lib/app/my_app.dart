@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           connectivityService.connectivityStatusController.stream,
       initialData: ConnectivityStatus.onLine,
       child: GetMaterialApp(
-          //theme: ThemeData(fontFamily: 'Al-Jazeera-Arabic'),
+          theme: ThemeData(fontFamily: 'Alexandria'),
           defaultTransition: GetPlatform.isAndroid
               ? Transition.rightToLeftWithFade
               : Transition.cupertino,

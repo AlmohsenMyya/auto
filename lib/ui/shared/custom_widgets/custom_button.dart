@@ -36,18 +36,15 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed ,
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor ?? AppColors.mainYellowColor,
+        backgroundColor: backgroundColor ?? AppColors.blueB4,
         shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.circular(circularBorder ?? screenWidth(0))),
+            borderRadius: BorderRadius.circular(circularBorder ?? screenWidth(0))),
         side: borderColor != null
-            ? BorderSide(
-                width: 1, color: borderColor ?? AppColors.mainYellowColor)
+            ? BorderSide(width: 1, color: borderColor ?? AppColors.blueB4)
             : null,
-        fixedSize: Size(
-            screenWidth(widthButton ?? 1.2), screenWidth(heightButton ?? 7)),
+        fixedSize: Size(screenWidth(widthButton ?? 1), screenWidth(heightButton ?? 7)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +54,6 @@ class CustomButton extends StatelessWidget {
                 width: screenWidth(10),
                 child: SvgPicture.asset(
                   'images/$svgName.svg',
-                  
                 )),
             // SizedBox(
             //   width: screenWidth(15),

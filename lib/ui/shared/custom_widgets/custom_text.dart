@@ -22,26 +22,30 @@ class CustomText extends StatelessWidget {
     this.textAlign = TextAlign.center,
     this.textDecoration = TextDecoration.none,
     this.overflow,
+    this.decorationThickness,
+    this.decorationColor,
   });
 
   final TextStyleType textType;
   final String text;
   final Color? textColor;
+  final Color? decorationColor;
   final TextAlign? textAlign;
   final double? fontSize;
   final FontWeight? fontWeight;
   final TextDecoration? textDecoration;
   final TextOverflow? overflow;
+  final double? decorationThickness;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       textAlign: textAlign,
-      overflow: overflow ,
+      overflow: overflow,
       softWrap: true,
       //maxLines: 6,
-     // textScaleFactor: 1.0,
+      // textScaleFactor: 1.0,
       style: getTextStyle(),
     );
   }
@@ -97,9 +101,11 @@ class CustomText extends StatelessWidget {
         return TextStyle(
           height: 1.2,
           decoration: textDecoration,
+          decorationColor: decorationColor,
           color: textColor,
           fontSize: fontSize,
           fontWeight: fontWeight,
+          decorationThickness: decorationThickness ?? 0,
         );
     }
   }
