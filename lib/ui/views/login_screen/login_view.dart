@@ -5,6 +5,7 @@ import 'package:auto/ui/shared/custom_widgets/custom_text_field.dart';
 import 'package:auto/ui/shared/my_images.dart';
 import 'package:auto/ui/shared/utils.dart';
 import 'package:auto/ui/views/login_screen/login_controller.dart';
+import 'package:auto/ui/views/subscription_screen/subscription_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
@@ -94,7 +95,9 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(() => const SubscriptionView());
+                    },
                     child: const CustomText(
                       textType: TextStyleType.custom,
                       text: "المتابعة كزائر",
