@@ -1,6 +1,8 @@
 import 'package:auto/ui/shared/colors.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
+import 'package:auto/ui/shared/main_app_bar.dart';
 import 'package:auto/ui/shared/utils.dart';
+import 'package:auto/ui/views/subjects_screen/subject_view.dart';
 import 'package:auto/ui/views/subscription_screen/subscription_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -25,6 +27,20 @@ class _SubscriptionViewState extends State<SubscriptionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+appBar: MainAppBar(
+
+  showArrowBack: false,
+  onTap:() =>  Get.back(),
+  titleTextStyle:   TextStyle(
+//
+//
+      color: Theme.of(context).colorScheme.primary,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: 'Alexandria'),
+  titleText: 'اتمتة',
+
+  // textStyle: const TextStyle(color: Colors.black)
+
+),
+
       drawer: Padding(
         padding: const EdgeInsetsDirectional.symmetric(vertical: 50),
         child: Drawer(
@@ -86,15 +102,15 @@ class _SubscriptionViewState extends State<SubscriptionView> {
       ),
       body: CustomScrollView(
         slivers: [
-          const SliverAppBar(
-            centerTitle: true,
-            pinned: true,
-            title: CustomText(
-              textType: TextStyleType.custom,
-              text: "Auto(اتمتة)",
-              textColor: AppColors.blueB4,
-            ),
-          ),
+          // const SliverAppBar(
+          //   centerTitle: true,
+          //   pinned: true,
+          //   title: CustomText(
+          //     textType: TextStyleType.custom,
+          //     text: "Auto(اتمتة)",
+          //     textColor: AppColors.blueB4,
+          //   ),
+          // ),
           SliverPadding(
             padding: const EdgeInsetsDirectional.all(20),
             sliver: SliverList.separated(
@@ -102,7 +118,11 @@ class _SubscriptionViewState extends State<SubscriptionView> {
               itemCount: 4,
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    
+                    Get.to( ()=>const SubjectView());
+                    
+                  },
                   child: Container(
                     width: double.infinity,
                     height: screenHeight(5),

@@ -1,3 +1,5 @@
+
+//todo for svg
 class MyIcons {
   static const String _path = 'assets/icons/';
 
