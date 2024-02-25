@@ -4,7 +4,7 @@ import 'package:auto/core/services/connectivity_service.dart';
 import 'package:auto/core/services/location_service.dart';
 import 'package:auto/core/services/notification_service.dart';
 import 'package:auto/firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,11 +26,11 @@ Future<void> main() async {
   Get.put(ConnectivityService());
   Get.put(MyAppController());
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
-  Get.put(NotificationService());
+  // Get.put(NotificationService());
 
   runApp(const MyApp());
 }

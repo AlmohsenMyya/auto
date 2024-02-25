@@ -1,3 +1,4 @@
+import 'package:auto/config/theme/app_theme.dart';
 import 'package:auto/core/enums/connectivity_status.dart';
 import 'package:auto/core/translation/app_translation.dart';
 import 'package:auto/core/utils/general_util.dart';
@@ -5,46 +6,52 @@ import 'package:auto/ui/shared/colors.dart';
 import 'package:auto/ui/views/splash_screen/splash_view.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 ThemeData lightTheme = ThemeData(
+  appBarTheme:  AppBarTheme(titleTextStyle:TextStyle(  fontFamily: 'Alexandria',  color:const ColorScheme.light().primary) ),
   useMaterial3: true,
   fontFamily: 'Alexandria',
+primaryIconTheme: const IconThemeData( color: Colors.black),
+  iconTheme: const  IconThemeData(color: Colors.black),
   brightness: Brightness.light,
   primaryColor: AppColors.mainWhiteColor,
   colorScheme: const ColorScheme(
+
     brightness: Brightness.light,
-    primary: Colors.orange,
+    primary:  Color(0xFF48b4e0),
     onPrimary: Colors.white,
     secondary: Colors.green,
-    onSecondary: Colors.white,
-    primaryContainer: Colors.orange,
+    onSecondary: Colors.black,
+    primaryContainer: Colors.white,
     error: Colors.black,
     onError: Colors.white,
     background: Colors.white,
-    onBackground: Colors.white,
+    onBackground: Colors.red,
     surface: Colors.white,
-    onSurface: Colors.white,
+    onSurface: Colors.black,
   ),
 );
 ThemeData darkTheme = ThemeData(
+  appBarTheme:   AppBarTheme(titleTextStyle:TextStyle(  fontFamily: 'Alexandria',  color:const ColorScheme.dark().primary) ),
   useMaterial3: true,
-  // primaryColor: AppColors.mainGrey2Color,
-  // primaryColorDark: AppColors.mainGrey2Color,
+  primaryColor: AppColors.mainGrey2Color,
+  primaryColorDark: AppColors.mainGrey2Color,
   brightness: Brightness.dark,
   fontFamily: 'Alexandria',
   colorScheme: const ColorScheme(
     brightness: Brightness.dark,
-    primary: Colors.red,
+    primary:  Colors.white,
     onPrimary: Colors.white,
     secondary: Colors.green,
-    onSecondary: Colors.white,
-    primaryContainer: Colors.pink,
+    onSecondary: Colors.black,
+    primaryContainer: Colors.white,
     error: Colors.black,
     onError: Colors.white,
-    background: Colors.grey,
-    onBackground: Colors.white,
+    background: Color(0xFF262626),
+    onBackground: Colors.red,
     surface: Colors.grey,
     onSurface: Colors.white,
   ),
@@ -57,15 +64,19 @@ class MyApp extends StatelessWidget {
   //mmmm
   @override
   Widget build(BuildContext context) {
-    return StreamProvider(
+    return ScreenUtilInit(
+      
+      designSize: const Size(375, 812),
+      builder:(context, child) =>  StreamProvider(
       create: (context) => connectivityService.connectivityStatusController.stream,
       initialData: ConnectivityStatus.onLine,
       child: GetMaterialApp(
-          theme: lightTheme,
+          theme: AppTheme.light,
           themeMode: ThemeMode.light,
-          darkTheme: darkTheme,
+          darkTheme: AppTheme.dark,
+
           defaultTransition:
-              GetPlatform.isAndroid ? Transition.rightToLeftWithFade : Transition.cupertino,
+          GetPlatform.isAndroid ? Transition.rightToLeftWithFade : Transition.cupertino,
           transitionDuration: const Duration(milliseconds: 400),
           translations: AppTranlation(),
           locale: getLocal(),
@@ -80,12 +91,12 @@ class MyApp extends StatelessWidget {
           // ),
           title: 'Auto',
           home:
-              //storage.getTokenInfo() != null
-              ///?
-              const SplashView()
-          //: const SignInView()
-          ),
-    );
+          //storage.getTokenInfo() != null
+          ///?
+          const SplashView()
+        //: const SignInView()
+      ),
+    ),);
   }
 }
 
