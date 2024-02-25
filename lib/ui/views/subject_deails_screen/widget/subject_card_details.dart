@@ -1,11 +1,13 @@
 
+import 'package:auto/core/utils/extension/widget_extension.dart';
 import 'package:auto/ui/shared/colors.dart';
 import 'package:auto/ui/shared/main_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 class SubjectCardDetails extends StatelessWidget {
 
 
-  String name;
+  Map<String,dynamic> name;
   SubjectCardDetails({
     required this.name,
     super.key});
@@ -27,9 +29,11 @@ class SubjectCardDetails extends StatelessWidget {
       child: Align(alignment: Alignment.center,child: Padding(padding: EdgeInsets.all(8),child: Text(
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          name),)),
+          name.keys.first),)),
 
-    );
+    ).onTap(() => Get.to(name.values
+    .first),);
+
   }
 }
 

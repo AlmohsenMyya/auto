@@ -30,7 +30,7 @@ extension ContextExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
 
   /// Returns Theme.of(context).textTheme
-  TextTheme get textTheme => Theme.of(this).textTheme;
+  TextTheme get exTextTheme => Theme.of(this).textTheme;
 
   /// Returns DefaultTextStyle.of(context)
   DefaultTextStyle get defaultTextStyle => DefaultTextStyle.of(this);
@@ -46,6 +46,20 @@ extension ContextExtensions on BuildContext {
 
   /// Returns primaryColor Color
   Color get primaryColor => theme.primaryColor;
+
+
+
+  Color get exPrimaryContainer => theme.colorScheme.primaryContainer;
+  Color get exSecondary => theme.colorScheme.secondary;
+  Color get exOnSecondary => theme.colorScheme.onSecondary;
+  Color get exOnBackground => theme.colorScheme.onBackground;
+  Color get exBackground => theme.colorScheme.background;
+  Color get exPrimaryColor => theme.colorScheme.primary;
+  Color get exOnPrimaryContainer => theme.colorScheme.onPrimaryContainer;
+
+
+
+
 
   /// Returns accentColor Color
   Color get accentColor => theme.colorScheme.secondary;
@@ -67,7 +81,7 @@ extension ContextExtensions on BuildContext {
 
   bool isTablet() =>
       MediaQuery.of(this).size.width < desktopBreakpointGlobal &&
-      MediaQuery.of(this).size.width >= tabletBreakpointGlobal;
+          MediaQuery.of(this).size.width >= tabletBreakpointGlobal;
 
   bool isDesktop() => MediaQuery.of(this).size.width >= desktopBreakpointGlobal;
 
