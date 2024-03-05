@@ -97,7 +97,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Get.to(() => const SubscriptionView());
+                      // Get.to(() => const SubscriptionView());
                     },
                     child: const CustomText(
                       textType: TextStyleType.custom,
