@@ -5,6 +5,7 @@ class MainAppBar extends AppBar {
       {
         showArrowBack=true,
         Key? key,
+        this.backGroundColor,
       this.titleTextStyle,
       this.actionsWidget = const [],
       required this.titleText,
@@ -16,7 +17,7 @@ class MainAppBar extends AppBar {
       this.shape1,
       this.onTap,
       this.textStyle})
-      : super(
+      : super(backgroundColor: backGroundColor,
           key: key,
           toolbarHeight: size != null ? size.width * .15 : null,
           foregroundColor: foreColor,
@@ -47,6 +48,7 @@ class MainAppBar extends AppBar {
         );
   final Size? size;
  bool? showArrowBack;
+ final Color? backGroundColor;
   final TextStyle? titleTextStyle;
   final String titleText;
   final TextStyle? textStyle;

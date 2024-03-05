@@ -5,10 +5,10 @@ part of 'app_theme.dart';
 const _darkColorScheme = ColorScheme.dark(
 
   primary : Color(0xFF000000),
-  onPrimary : Color(0xff000000),
+  onPrimary : Color(0xffffffff),
 
-  primaryContainer: Color(0xff429F3D),
-  onPrimaryContainer: Color(0xffF7F7F7),
+  primaryContainer: Color(0xffF7F7F7),
+  onPrimaryContainer: Color(0xff636363),
 
 
   secondary : Color(0xFFFFBE19),
@@ -23,7 +23,7 @@ const _darkColorScheme = ColorScheme.dark(
   onError : Color(0xFFFFFFFF),
   onErrorContainer : Color(0xFF410E0B),
 
-  background : Color(0xFFFFFFFF),
+  background : Color(0xFF000000),
   onBackground :  Color(0xFFFFFFFF),
 
   surface : Color(0xFFFBFDFD),

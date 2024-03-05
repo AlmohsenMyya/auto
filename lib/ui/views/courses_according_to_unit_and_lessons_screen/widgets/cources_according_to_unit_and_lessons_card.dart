@@ -22,7 +22,7 @@ class CoursesAccordingToUnitAndLessonsCardWidget extends StatelessWidget {
                   5.h.verticalSpace,
                   Text(
                     "الدورة الاولى :",
-                    style: context.exTextTheme.headline3!
+                    style: context.exTextTheme.subtitle1!
                         .copyWith(color: context.exPrimaryColor),
                   ),
                   10.h.verticalSpace,

@@ -56,6 +56,8 @@ extension ContextExtensions on BuildContext {
   Color get exBackground => theme.colorScheme.background;
   Color get exPrimaryColor => theme.colorScheme.primary;
   Color get exOnPrimaryContainer => theme.colorScheme.onPrimaryContainer;
+  Color get exSurface => theme.colorScheme.surface;
+  Color get exOutLine => theme.colorScheme.outline;
 
 
 
@@ -93,7 +95,7 @@ extension ContextExtensions on BuildContext {
 
   bool get canPop => Navigator.canPop(this);
 
-  void pop<T extends Object>([T? result]) => Navigator.pop(this, result);
+  // void pop<T extends Object>([T? result]) => Navigator.pop(this, result);
 
   TargetPlatform get platform => Theme.of(this).platform;
 

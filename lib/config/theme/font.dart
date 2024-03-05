@@ -43,15 +43,12 @@ String get _sFAdobeCleanBoldFamily => 'AdobeCleanBold';
 String get _sFCairoBoldFamily => 'Cairo';
 String get _sFCairoRegularFamily => 'CairoRegular';
 String get _sFCairoSemiBoldFamily => 'CairoSemiBold';
-
-
-
 String get _sFAlexandriaFamily => 'Alexandria';
 
 extension FamilyUtils on TextStyle {
   TextStyle get cairoBold =>
       copyWith(fontWeight: _semiBold, fontFamily: _sFCairoBoldFamily);
-TextStyle get sbd =>
+  TextStyle get sbd =>
       copyWith(fontWeight: _semiBold, fontFamily: _sFDisplaySemiBoldFamily);
 
 
@@ -105,15 +102,15 @@ abstract class _FontSize {
 
   static double get heading_01 => _heading_01FontSize.sp;
 
-  static const double _heading_01FontSize = 10;
+  static const double _heading_01FontSize = 46;
 
   static double get heading_02 => _heading_02FontSize.sp;
 
-  static const double _heading_02FontSize = 14;
+  static const double _heading_02FontSize = 36;
 
   static double get heading_03 => _heading_03FontSize.sp;
 
-  static const double _heading_03FontSize = 18;
+  static const double _heading_03FontSize = 30;
 
   static double get heading_04 => _heading_04FontSize.sp;
 
@@ -129,7 +126,7 @@ abstract class _FontSize {
 
   static double get subtitle_01 => _subtitle_01FontSize.sp;
 
-  static const double _subtitle_01FontSize = 14;
+  static const double _subtitle_01FontSize = 18;
 
   static double get subtitle_02 => _subtitle_02FontSize.sp;
 

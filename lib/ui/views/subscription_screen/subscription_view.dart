@@ -1,7 +1,9 @@
+import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/ui/shared/colors.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
 import 'package:auto/ui/shared/main_app_bar.dart';
 import 'package:auto/ui/shared/utils.dart';
+import 'package:auto/ui/views/notification_screen/notification_screen.dart';
 import 'package:auto/ui/views/subjects_screen/subject_view.dart';
 import 'package:auto/ui/views/subscription_screen/subscription_controller.dart';
 import 'package:flutter/material.dart';
@@ -27,20 +29,20 @@ class _SubscriptionViewState extends State<SubscriptionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-appBar: MainAppBar(
-
-  showArrowBack: false,
-  onTap:() =>  Get.back(),
-  titleTextStyle:   TextStyle(
+      appBar: MainAppBar(
+        showArrowBack: false,
+        onTap: () => Get.back(),
+        titleTextStyle: TextStyle(
 //
 //
-      color: Theme.of(context).colorScheme.primary,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: 'Alexandria'),
-  titleText: 'اتمتة',
+            color: Theme.of(context).colorScheme.primary,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Alexandria'),
+        titleText: 'اتمتة',
 
-  // textStyle: const TextStyle(color: Colors.black)
-
-),
-
+        // textStyle: const TextStyle(color: Colors.black)
+      ),
       drawer: Padding(
         padding: const EdgeInsetsDirectional.symmetric(vertical: 50),
         child: Drawer(
@@ -53,7 +55,9 @@ appBar: MainAppBar(
                 InkWell(
                   borderRadius: BorderRadius.circular(screenWidth(10)),
                   splashColor: AppColors.blueB4,
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(NotificationScreen());
+                  },
                   child: const Row(
                     children: [
                       Icon(
@@ -77,7 +81,8 @@ appBar: MainAppBar(
                   borderRadius: BorderRadius.circular(screenWidth(10)),
                   splashColor: AppColors.blueB4,
                   onTap: () {
-                    Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                    Get.changeThemeMode(
+                        Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
                   },
                   child: Row(
                     children: [
@@ -119,16 +124,15 @@ appBar: MainAppBar(
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {
-                    
-                    Get.to( ()=>const SubjectView());
-                    
+                    Get.to(() => const SubjectView());
                   },
                   child: Container(
+
                     width: double.infinity,
                     height: screenHeight(5),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: AppColors.blueB4,
+                      color: context.exPrimaryColor,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const CustomText(
