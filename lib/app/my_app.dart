@@ -64,39 +64,42 @@ class MyApp extends StatelessWidget {
   //mmmm
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      
-      designSize: const Size(375, 812),
-      builder:(context, child) =>  StreamProvider(
-      create: (context) => connectivityService.connectivityStatusController.stream,
-      initialData: ConnectivityStatus.onLine,
-      child: GetMaterialApp(
-          theme: AppTheme.light,
-          themeMode: ThemeMode.light,
-          darkTheme: AppTheme.dark,
 
-          defaultTransition:
-          GetPlatform.isAndroid ? Transition.rightToLeftWithFade : Transition.cupertino,
-          transitionDuration: const Duration(milliseconds: 400),
-          translations: AppTranlation(),
-          locale: getLocal(),
-          fallbackLocale: getLocal(),
-          builder: BotToastInit(),
-          navigatorObservers: [BotToastNavigatorObserver()],
-          debugShowCheckedModeBanner: false,
-          // theme: ThemeData(
-          //   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          //       // backgroundColor: Colors.transparent,
-          //       ),
-          // ),
-          title: 'Auto',
-          home:
-          //storage.getTokenInfo() != null
-          ///?
-          const SplashView()
-        //: const SignInView()
-      ),
-    ),);
+
+
+    return ScreenUtilInit(
+
+      designSize: const Size(375, 812),
+      builder:(context, child) =>StreamProvider(
+        create: (context) => connectivityService.connectivityStatusController.stream,
+        initialData: ConnectivityStatus.onLine,
+        child: GetMaterialApp(
+            theme: AppTheme.light,
+            themeMode: ThemeMode.light,
+            darkTheme: AppTheme.dark,
+
+            defaultTransition:
+            GetPlatform.isAndroid ? Transition.rightToLeftWithFade : Transition.cupertino,
+            transitionDuration: const Duration(milliseconds: 400),
+            translations: AppTranlation(),
+            locale: getLocal(),
+            fallbackLocale: getLocal(),
+            builder: BotToastInit(),
+            navigatorObservers: [BotToastNavigatorObserver()],
+            debugShowCheckedModeBanner: false,
+// theme: ThemeData(
+//   bottomNavigationBarTheme: BottomNavigationBarThemeData(
+//       // backgroundColor: Colors.transparent,
+//       ),
+// ),
+            title: 'Auto',
+            home:
+//storage.getTokenInfo() != null
+            ///?
+            const SplashView()
+//: const SignInView()
+        ),
+      ),);
   }
 }
 

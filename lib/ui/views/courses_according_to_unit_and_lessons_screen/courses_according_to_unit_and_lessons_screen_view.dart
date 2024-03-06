@@ -20,16 +20,21 @@ class CoursesAccordingToLessonsAndUnitView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(
-          onTap: () => Navigator.of(context).pop(),          titleText: 'دورات مصنفة حسب الوحدة والدروس',
-          titleTextStyle: context.exTextTheme.headline3!.copyWith(
+          backGroundColor: context.exOnPrimaryContainer,
+          onTap: () => Navigator.of(context).pop(),
+          titleText: 'دورات مصنفة حسب الوحدة والدروس',
+          titleTextStyle: context.exTextTheme.bodyText1!.copyWith(
               color: context.exOnBackground, fontFamily: 'Alexandria')),
       body: Column(children: [
         //todo search
+
+10.h.verticalSpace,
         Container(
           width: 0.85.sw,
           height: 50.h,
           decoration: BoxDecoration(
-              color: context.exOnPrimaryContainer, borderRadius: BorderRadius.circular(12.w)),
+              color: context.exOnPrimaryContainer,
+              borderRadius: BorderRadius.circular(12.w)),
           child: ValueListenableBuilder(
             valueListenable: openTextField,
             builder: (context, value, child) => Align(
@@ -39,10 +44,8 @@ class CoursesAccordingToLessonsAndUnitView extends StatelessWidget {
                     onTap: () => openTextField.value = true,
                     onTapOutside: (event) {
                       focusNode.unfocus();
-                      if(
-                   identical(searchController.text,''))
-                        openTextField.value=false;
-
+                      if (identical(searchController.text, ''))
+                        openTextField.value = false;
                     },
                     focusNode: focusNode,
                     decoration: InputDecoration(
@@ -58,7 +61,7 @@ class CoursesAccordingToLessonsAndUnitView extends StatelessWidget {
                                     CustomText(
                                       textType: TextStyleType.body,
                                       text: 'ابحث هنا',
-                                      textColor: context.exOnBackground,
+                                      textColor: context.exPrimaryContainer,
                                     )
                                   ]),
                         border: InputBorder.none))),
