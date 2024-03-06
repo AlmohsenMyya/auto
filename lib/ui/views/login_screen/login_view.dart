@@ -28,7 +28,6 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Form(
         key: controller.formKey,
         child: CustomScrollView(
@@ -97,7 +96,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Get.to(() => const SubscriptionView());
+                      //Get.to(() => const SubscriptionView());
                     },
                     child: const CustomText(
                       textType: TextStyleType.custom,
