@@ -1,4 +1,1 @@
-enum NotificationType {
-  subsecription,
-  changeColor,
-}
+// TODO Implement this library.

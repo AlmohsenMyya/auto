@@ -1,4 +1,4 @@
 enum OperationType {
- none,
- category,
+  none,
+  category,
 }
