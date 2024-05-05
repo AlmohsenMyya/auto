@@ -11,7 +11,7 @@ const _darkColorScheme = ColorScheme.dark(
   onPrimaryContainer: Color(0xff636363),
 
 
-  secondary : Color(0xFFFFBE19),
+  secondary :Color(0xFF48b4e0),
   onSecondary : Color(0xFFFFFFFF),
 
   tertiary: Color(0xffEB6713),
