@@ -29,18 +29,19 @@ class _SubscriptionViewState extends State<SubscriptionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.exOnPrimaryContainer,
       appBar: MainAppBar(
         showArrowBack: false,
         onTap: () => Get.back(),
         titleTextStyle: TextStyle(
 //
 //
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.onBackground,
             fontSize: 25,
             fontWeight: FontWeight.bold,
             fontFamily: 'Alexandria'),
         titleText: 'اتمتة',
-
+        backGroundColor: context.exOnPrimaryContainer,
         // textStyle: const TextStyle(color: Colors.black)
       ),
       drawer: Padding(
@@ -81,8 +82,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                   borderRadius: BorderRadius.circular(screenWidth(10)),
                   splashColor: AppColors.blueB4,
                   onTap: () {
-                    Get.changeThemeMode(
-                        Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                    Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
                   },
                   child: Row(
                     children: [
@@ -127,12 +127,11 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                     Get.to(() => const SubjectView());
                   },
                   child: Container(
-
                     width: double.infinity,
                     height: screenHeight(5),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: context.exPrimaryColor,
+                      color: context.exSecondary,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const CustomText(
