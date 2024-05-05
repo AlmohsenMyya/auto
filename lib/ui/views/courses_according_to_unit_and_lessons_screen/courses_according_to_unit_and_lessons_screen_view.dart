@@ -28,7 +28,7 @@ class CoursesAccordingToLessonsAndUnitView extends StatelessWidget {
       body: Column(children: [
         //todo search
 
-10.h.verticalSpace,
+        10.h.verticalSpace,
         Container(
           width: 0.85.sw,
           height: 50.h,
