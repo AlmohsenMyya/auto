@@ -87,17 +87,9 @@ class MyApp extends StatelessWidget {
             builder: BotToastInit(),
             navigatorObservers: [BotToastNavigatorObserver()],
             debugShowCheckedModeBanner: false,
-// theme: ThemeData(
-//   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-//       // backgroundColor: Colors.transparent,
-//       ),
-// ),
+
             title: 'Auto',
-            home:
-//storage.getTokenInfo() != null
-            ///?
-            const SplashView()
-//: const SignInView()
+            home:const SplashView()
         ),
       ),);
   }

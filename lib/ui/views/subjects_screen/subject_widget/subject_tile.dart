@@ -11,39 +11,49 @@ class SubjectTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(onTap: () => Get.to(SubjectDetailsScreen()),child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Container(
-        height: 80.h,
-        width: 100.w,
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          color: context.exOnPrimaryContainer,
-            borderRadius: BorderRadius.circular(10.w),
-            border: Border.all(
-                color: Theme.of(context).colorScheme.primary, width: 2.w
-            )),
-        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          CustomNetworkImage(ImageConst.subjectImageConst,
-              boxFit: BoxFit.cover, width: 69.w),
-          SizedBox(
-            width: 10,
-          ),
-          RichText(text: TextSpan(
-              text: 'اسم المادة :  ',
-              style: TextStyle(color: Theme.of(context).colorScheme.onBackground,fontFamily: 'Alexandria',fontWeight: FontWeight.bold),
-              children: [
-                TextSpan(text: 'رياضيات',style: TextStyle(color: Theme.of(context).colorScheme.onBackground,fontFamily: 'Alexandria',fontWeight: FontWeight.w500))
-
-              ]
-
-          )),
-          SizedBox(width: 120,),
-          IconButton(onPressed: () {
-            Get.to(const SubjectDetailsScreen());
-          }, icon:const  Icon(Icons.arrow_forward))
-        ]),
+    return InkWell(
+      onTap: () => Get.to(SubjectDetailsScreen()),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Container(
+          height: 80.h,
+          width: 100.w,
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+              color: context.exOnPrimaryContainer,
+              borderRadius: BorderRadius.circular(10.w),
+              border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2.w)),
+          child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+            CustomNetworkImage(ImageConst.subjectImageConst, boxFit: BoxFit.cover, width: 69.w),
+            SizedBox(
+              width: 10.w,
+            ),
+            RichText(
+                text: TextSpan(
+                    text: 'اسم المادة :  ',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onBackground,
+                        fontFamily: 'Alexandria',
+                        fontWeight: FontWeight.bold),
+                    children: [
+                  TextSpan(
+                      text: 'رياضيات',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onBackground,
+                          fontFamily: 'Alexandria',
+                          fontWeight: FontWeight.w500))
+                ])),
+            SizedBox(
+              width: 83.w,
+            ),
+            IconButton(
+                onPressed: () {
+                  Get.to(const SubjectDetailsScreen());
+                },
+                icon: const Icon(Icons.arrow_forward))
+          ]),
+        ),
       ),
-    ),);
+    );
   }
 }
