@@ -31,7 +31,7 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
   ValueNotifier<bool> animatedOpacityCounterValue = ValueNotifier(false);
   ValueNotifier<bool> outSideCounter = ValueNotifier(false);
   ValueNotifier<bool> expansionTile = ValueNotifier(false);
-  bool open = false;
+  bool open = true;
   Timer? timer;
 
   late CountdownTimerController _timeControllerOutSide =
