@@ -3,7 +3,7 @@ import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/core/utils/helpers/media_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:overscroll_pop/overscroll_pop.dart';
+// import 'package:overscroll_pop/overscroll_pop.dart';
 import 'package:photo_view/photo_view.dart';
 
 
@@ -49,8 +49,9 @@ class _ImageViewScreenState extends State<ImageViewScreen> {
         backgroundColor: Colors.black,
         body: Stack(
           children: [
-            OverscrollPop(dragToPopDirection: DragToPopDirection.vertical,enable: true,
-                child:   Column(
+            // OverscrollPop(dragToPopDirection: DragToPopDirection.vertical,enable: true,
+            //     child:
+                Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     LinearProgressIndicator(
@@ -73,7 +74,8 @@ class _ImageViewScreenState extends State<ImageViewScreen> {
                     ),
                     const SizedBox(),
                   ],
-                )),
+                ),
+            // ),
             Positioned(
               top: 0,
               width: size.width,
