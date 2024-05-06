@@ -10,7 +10,25 @@ class SharedPreferenceRepository {
   String prefFirstLanch = 'first_lanuch';
   String prefIsLoggedIn = 'login';
   String prefTokenInfo = 'token_info';
+  String showCaseCounter = "showCaseCounter";
   String prefAppLang = 'app_language';
+
+  setshowCaseCounter(int value) {
+    setPreferance(
+      dataType: DataType.int,
+      key: showCaseCounter,
+      value: value,
+    );
+  }
+
+  int? getshowCaseCounter() {
+    if (globalSharedPrefs.containsKey(showCaseCounter)) {
+      return getPrefrance(key: prefTokenInfo);
+    } else {
+      return 0;
+    }
+  }
+
 
   setTokenInfo(TokenInfo value) {
     setPreferance(
