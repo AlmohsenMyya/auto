@@ -1,6 +1,8 @@
+import 'package:auto/core/data/repositories/read_all_models.dart';
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/ui/shared/colors.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
+import 'package:auto/ui/shared/custom_widgets/custom_toast.dart';
 import 'package:auto/ui/shared/main_app_bar.dart';
 import 'package:auto/ui/shared/utils.dart';
 import 'package:auto/ui/views/notification_screen/notification_screen.dart';
@@ -82,7 +84,8 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                   borderRadius: BorderRadius.circular(screenWidth(10)),
                   splashColor: AppColors.blueB4,
                   onTap: () {
-                    Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                    Get.changeThemeMode(
+                        Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
                   },
                   child: Row(
                     children: [
@@ -105,7 +108,8 @@ class _SubscriptionViewState extends State<SubscriptionView> {
           ),
         ),
       ),
-      body: CustomScrollView(
+      body:Obx(() =>  controller.isLoading.value ? Container(color: Colors.yellow,):
+      CustomScrollView(
         slivers: [
           // const SliverAppBar(
           //   centerTitle: true,
@@ -120,10 +124,10 @@ class _SubscriptionViewState extends State<SubscriptionView> {
             padding: const EdgeInsetsDirectional.all(20),
             sliver: SliverList.separated(
               separatorBuilder: (context, index) => const SizedBox(height: 5),
-              itemCount: 4,
-              itemBuilder: (context, index) {
+              itemCount: controller.branchs.length,
+              itemBuilder: (context, index2) {
                 return InkWell(
-                  onTap: () {
+                  onTap: () async {
                     Get.to(() => const SubjectView());
                   },
                   child: Container(
@@ -134,9 +138,9 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                       color: context.exSecondary,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const CustomText(
+                    child:  CustomText(
                       textType: TextStyleType.custom,
-                      text: "سبر ترشيحي علمي",
+                      text: controller.branchs[index2].name,
                     ),
                   ),
                 ).animate().scale(delay: 300.ms);
@@ -144,7 +148,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
             ),
           ),
         ],
-      ),
+      ),)
     );
   }
 }
