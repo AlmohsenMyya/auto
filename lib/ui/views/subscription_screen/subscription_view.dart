@@ -128,7 +128,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
               itemBuilder: (context, index2) {
                 return InkWell(
                   onTap: () async {
-                    Get.to(() => const SubjectView());
+                    Get.to(() =>  SubjectView(branch_id:index2+1 ,));
                   },
                   child: Container(
                     width: double.infinity,

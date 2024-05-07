@@ -7,7 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SubjectTile extends StatelessWidget {
-  const SubjectTile({super.key});
+  String subject_name;
+
+  SubjectTile({super.key, required this.subject_name});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +24,11 @@ class SubjectTile extends StatelessWidget {
           decoration: BoxDecoration(
               color: context.exOnPrimaryContainer,
               borderRadius: BorderRadius.circular(10.w),
-              border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2.w)),
+              border: Border.all(
+                  color: Theme.of(context).colorScheme.primary, width: 2.w)),
           child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            CustomNetworkImage(ImageConst.subjectImageConst, boxFit: BoxFit.cover, width: 69.w),
+            CustomNetworkImage(ImageConst.subjectImageConst,
+                boxFit: BoxFit.cover, width: 69.w),
             SizedBox(
               width: 10.w,
             ),
@@ -37,15 +41,13 @@ class SubjectTile extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                     children: [
                   TextSpan(
-                      text: 'رياضيات',
+                      text: subject_name,
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onBackground,
                           fontFamily: 'Alexandria',
                           fontWeight: FontWeight.w500))
                 ])),
-            SizedBox(
-              width: 83.w,
-            ),
+          Spacer(),
             IconButton(
                 onPressed: () {
                   Get.to(const SubjectDetailsScreen());

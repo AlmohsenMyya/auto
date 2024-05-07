@@ -21,11 +21,11 @@ class Branch {
 }
 
 class Subject {
-  final int id;
+  final int? id;
   final String name;
   final String? image;
   final int branchId;
-  final List<Part> parts;
+  final List<Part>? parts;
 
   Subject({
     required this.id,
@@ -37,13 +37,14 @@ class Subject {
 
   factory Subject.fromJson(Map<String, dynamic> json) {
     return Subject(
-      id: json['id'],
-      name: json['name'],
-      image: json['image'],
-      branchId: json['branch_id'],
-      parts: (json['parts'] as List)
-          .map((partJson) => Part.fromJson(partJson))
-          .toList(),
+        id: json['id'],
+        name: json['name'],
+        image: json['image'],
+        branchId: json['branch_id'],
+        parts: null
+        // (json['parts'] = null) ?? (json['parts'] as List)
+        // .map((partJson) => Part.fromJson(partJson))
+        // .toList(),
     );
   }
 }

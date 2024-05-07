@@ -38,14 +38,19 @@ class JsonReader {
     return branches;
   }
 
-  static Map<String, List<Subject>> extractSubjects(
-      Map<String, dynamic> jsonData) {
-    Map<String, List<Subject>> subjects = {};
-    jsonData['subjects'].forEach((key, value) {
-      subjects[key] = (value as List)
+  static List<Subject> extractSubjects(Map<String, dynamic> jsonData, int branchId) {
+    // Initialize an empty list to store subjects
+    List<Subject> subjects = [];
+print("+++ ${jsonData['subjects'] != null }${jsonData['subjects'][branchId.toString()] != null}");
+    // Check if the subjects map contains data for the provided branch ID
+    if (jsonData['subjects'] != null && jsonData['subjects'][branchId.toString()] != null) {
+      // Extract subjects for the provided branch ID
+      subjects = (jsonData['subjects'][branchId.toString()] as List)
           .map((subjectJson) => Subject.fromJson(subjectJson))
           .toList();
-    });
+      print("hb hjb jhb $subjects");
+    }
+
     return subjects;
   }
 
