@@ -58,7 +58,7 @@ class _SubjectViewState extends State<SubjectView> {
                 child: ListView.separated(
                     itemBuilder: (context, index) {
                       return SubjectTile(
-                        subject_name: controller.subjects[index].name,
+                        subject: controller.subjects[index],
                       );
                     },
                     separatorBuilder: (context, index) =>

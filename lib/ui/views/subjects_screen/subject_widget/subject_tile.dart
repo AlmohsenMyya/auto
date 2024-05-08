@@ -6,15 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class SubjectTile extends StatelessWidget {
-  String subject_name;
+import '../../../../core/data/models/local_json/all_models.dart';
 
-  SubjectTile({super.key, required this.subject_name});
+class SubjectTile extends StatelessWidget {
+  Subject subject;
+
+  SubjectTile({super.key, required this.subject});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(SubjectDetailsScreen()),
+      onTap: () => Get.to(SubjectDetailsScreen(subject: subject,)),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Container(
@@ -41,7 +43,7 @@ class SubjectTile extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                     children: [
                   TextSpan(
-                      text: subject_name,
+                      text: subject.name,
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onBackground,
                           fontFamily: 'Alexandria',
@@ -50,7 +52,7 @@ class SubjectTile extends StatelessWidget {
           Spacer(),
             IconButton(
                 onPressed: () {
-                  Get.to(const SubjectDetailsScreen());
+                  Get.to( SubjectDetailsScreen(  subject: subject,));
                 },
                 icon: const Icon(Icons.arrow_forward))
           ]),

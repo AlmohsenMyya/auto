@@ -4,23 +4,22 @@ import 'package:get/get.dart';
 import '../../../core/data/models/local_json/all_models.dart';
 import '../../../core/data/repositories/read_all_models.dart';
 
-class SubjectController extends BaseController {
+class CoursesController extends BaseController {
   late Map<String, dynamic> jsonfile;
   RxBool isLoading = true.obs;
 
-  late List<Subject> subjects;
+  late List<Course> courses;
 
-  void readfile(int branch_id) async {
-    isLoading.value = true ;
+  void readfile(int subject_id) async {
+    isLoading.value = true;
     // TODO: implement onInit
     jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
-    subjects = JsonReader.extractSubjects(jsonfile ,branch_id );
+    courses = JsonReader.extractCourses(jsonfile, subject_id);
     isLoading.value = false;
   }
 
   @override
   void onInit() {
-
     super.onInit();
   }
 }
