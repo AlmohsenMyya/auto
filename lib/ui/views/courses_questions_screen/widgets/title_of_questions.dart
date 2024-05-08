@@ -37,7 +37,7 @@ class _TitleOfQuestionsState extends State<TitleOfQuestions> {
                   10.w.horizontalSpace,
                   RichText(
                       text: TextSpan(
-                          text: controller.open.value ?'السؤال الاول :': 'السؤال الاول :',
+                          text: controller.openExpand.value ?'السؤال الاول :': 'السؤال الاول :',
                           style: context.exTextTheme.subtitle1!
                               .copyWith(
                               color: context.exOnBackground),

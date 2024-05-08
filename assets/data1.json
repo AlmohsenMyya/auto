@@ -1,12 +1,10 @@
 {
   "branches": [
     {
-      "id": 1,
-      "name": "الفرع العلمي",
+      "name": "الفرع العلمي ",
       "image": null
     },
     {
-      "id": 2,
       "name": "الفرع الأدبي",
       "image": null
     }
@@ -14,55 +12,46 @@
   "subjects": {
     "1": [
       {
-        "id": 1,
         "name": "الرياضيات ",
         "image": null,
         "branch_id": 1
       },
       {
-        "id": 2,
         "name": "العلوم ",
         "image": null,
         "branch_id": 1
       },
       {
-        "id": 3,
         "name": "الفيزياء ",
         "image": null,
         "branch_id": 1
       },
       {
-        "id": 4,
         "name": "الكيمياء ",
         "image": null,
         "branch_id": 1
       },
       {
-        "id": 5,
         "name": "اللغة العربية",
         "image": null,
         "branch_id": 1
       },
       {
-        "id": 6,
         "name": "اللغة الإنكليزية",
         "image": null,
         "branch_id": 1
       },
       {
-        "id": 7,
         "name": "اللغة الفرنسية",
         "image": null,
         "branch_id": 1
       },
       {
-        "id": 8,
         "name": "التربية الوطنية",
         "image": null,
         "branch_id": 1
       },
       {
-        "id": 9,
         "name": "التربية الدينية ",
         "image": null,
         "branch_id": 1
@@ -70,72 +59,61 @@
     ],
     "2": [
       {
-        "id": 10,
         "name": "الجغرافيا ",
         "image": null,
         "branch_id": 2
       },
       {
-        "id": 11,
         "name": "التاريح ",
         "image": null,
         "branch_id": 2
       },
       {
-        "id": 12,
         "name": "العلوم السياسية ",
         "image": null,
         "branch_id": 2
       },
       {
-        "id": 13,
         "name": "التاريخ الحديث ",
         "image": null,
         "branch_id": 2
       },
       {
-        "id": 14,
         "name": "اللغة العربية",
         "image": null,
         "branch_id": 2
       },
       {
-        "id": 15,
         "name": "اللغة الإنكليزية",
         "image": null,
         "branch_id": 2
       },
       {
-        "id": 16,
         "name": "اللغة الفرنسية",
         "image": null,
         "branch_id": 2
       },
       {
-        "id": 17,
         "name": "التربية الوطنية",
         "image": null,
         "branch_id": 2
       },
       {
-        "id": 18,
         "name": "التربية الدينية ",
         "image": null,
         "branch_id": 2
       }
     ],
-    "3": []
+    "3" : []
   },
   "parts": {
     "1": [
       {
-        "id": 1,
         "name": "الجزء الأول",
         "image": null,
         "subject_id": 1
       },
       {
-        "id": 2,
         "name": "الجزء الثاني",
         "image": null,
         "subject_id": 1
@@ -154,19 +132,16 @@
     "1": [],
     "2": [
       {
-        "id": 34,
         "name": "عصبية",
         "image": null,
         "subject_id": 2
       },
       {
-        "id": 35,
         "name": "التكاثر",
         "image": null,
         "subject_id": 2
       },
       {
-        "id": 36,
         "name": "وراثة",
         "image": null,
         "subject_id": 2
@@ -174,31 +149,26 @@
     ],
     "3": [
       {
-        "id": 10,
         "name": "الحركة و التحريك",
         "image": null,
         "subject_id": 3
       },
       {
-        "id": 11,
         "name": "الكهرباء و المغناطيسية",
         "image": null,
         "subject_id": 3
       },
       {
-        "id": 12,
         "name": "أمواج مستقرة",
         "image": null,
         "subject_id": 3
       },
       {
-        "id": 13,
         "name": "الكترونيات",
         "image": null,
         "subject_id": 3
       },
       {
-        "id": 14,
         "name": "فلكية",
         "image": null,
         "subject_id": 3
@@ -206,25 +176,21 @@
     ],
     "4": [
       {
-        "id": 1,
         "name": "الكيمياء نووية",
         "image": null,
         "subject_id": 4
       },
       {
-        "id": 2,
         "name": "الغازات",
         "image": null,
         "subject_id": 4
       },
       {
-        "id": 3,
         "name": "حركية التفاعلات الكيميائية  والتوازن الكيميائي",
         "image": null,
         "subject_id": 4
       },
       {
-        "id": 4,
         "name": "الكيمياء التحليلية",
         "image": null,
         "subject_id": 4
@@ -232,31 +198,26 @@
     ],
     "5": [
       {
-        "id": 15,
         "name": "قضايا وطنية و قومية",
         "image": null,
         "subject_id": 5
       },
       {
-        "id": 16,
         "name": "الغربة و الاغتراب في الأدب المهجري",
         "image": null,
         "subject_id": 5
       },
       {
-        "id": 17,
         "name": "فن الرواية",
         "image": null,
         "subject_id": 5
       },
       {
-        "id": 18,
         "name": "ظواهر وجدانية",
         "image": null,
         "subject_id": 5
       },
       {
-        "id": 19,
         "name": " أدب القضايا الاجتماعية",
         "image": null,
         "subject_id": 5
@@ -266,31 +227,26 @@
     "7": [],
     "8": [
       {
-        "id": 5,
         "name": "عضوية",
         "image": null,
         "subject_id": 8
       },
       {
-        "id": 6,
         "name": "تطوير الذات",
         "image": null,
         "subject_id": 8
       },
       {
-        "id": 7,
         "name": "الوطن و المواطنة",
         "image": null,
         "subject_id": 8
       },
       {
-        "id": 8,
         "name": "الحقوق و الواجبات",
         "image": null,
         "subject_id": 8
       },
       {
-        "id": 9,
         "name": "التنمية المستدامة",
         "image": null,
         "subject_id": 8
@@ -301,43 +257,36 @@
   "units_part": {
     "1": [
       {
-        "id": 20,
         "name": "متتاليات",
         "image": null,
         "part_id": 1
       },
       {
-        "id": 21,
         "name": "نهايات و استمرار",
         "image": null,
         "part_id": 1
       },
       {
-        "id": 22,
         "name": "اشتقاق",
         "image": null,
         "part_id": 1
       },
       {
-        "id": 23,
         "name": "نهاية متتالية",
         "image": null,
         "part_id": 1
       },
       {
-        "id": 24,
         "name": "التابع اللوغارتمي النيبري",
         "image": null,
         "part_id": 1
       },
       {
-        "id": 25,
         "name": "لتابع الأسي",
         "image": null,
         "part_id": 1
       },
       {
-        "id": 26,
         "name": "تكامل و توابع أصلية",
         "image": null,
         "part_id": 1
@@ -345,43 +294,36 @@
     ],
     "2": [
       {
-        "id": 27,
         "name": "الأشعة في الفراغ",
         "image": null,
         "part_id": 2
       },
       {
-        "id": 28,
         "name": "الجداء السلمي في الفراغ",
         "image": null,
         "part_id": 2
       },
       {
-        "id": 29,
         "name": "المستقيمات و المستويات في الفراغ",
         "image": null,
         "part_id": 2
       },
       {
-        "id": 30,
         "name": "عقدية",
         "image": null,
         "part_id": 2
       },
       {
-        "id": 31,
         "name": "تطبيقات عقدية",
         "image": null,
         "part_id": 2
       },
       {
-        "id": 32,
         "name": "تحليل التوافقي",
         "image": null,
         "part_id": 2
       },
       {
-        "id": 33,
         "name": "احتمالات",
         "image": null,
         "part_id": 2
@@ -389,20 +331,7 @@
     ]
   },
   "lessons": {
-    "20": [
-      {
-        "id": 20,
-        "name": "الدرس الاول",
-        "image": null,
-        "unit_id": 1
-      },
-      {
-        "id": 21,
-        "name": "الدرس الثاني",
-        "image": null,
-        "unit_id": 1
-      }
-    ],
+    "20": [],
     "21": [],
     "22": [],
     "23": [],
@@ -456,9 +385,6 @@
         {
           "id": 1,
           "text": "What is the capital of France?",
-          "part_id": null,
-          "unit_id": 1,
-          "lesson_id": null,
           "answers": [
             {
               "id": 1,
@@ -492,9 +418,6 @@
         {
           "id": 2,
           "text": "What is the largest ocean?",
-          "part_id": null,
-          "unit_id": 2,
-          "lesson_id": null,
           "answers": [
             {
               "id": 5,
@@ -521,9 +444,6 @@
         {
           "id": 3,
           "text": "What is the biggest governorate in syria?",
-          "part_id": null,
-          "unit_id": 5,
-          "lesson_id": null,
           "answers": [
             {
               "id": 9,
@@ -601,9 +521,6 @@
         {
           "id": 5,
           "text": "where is Al-Hadara street in syria?",
-          "part_id": null,
-          "unit_id": 5,
-          "lesson_id": null,
           "answers": [
             {
               "id": 17,
@@ -637,9 +554,6 @@
         {
           "id": 4,
           "text": "What is the capital city in syria?",
-          "part_id": null,
-          "unit_id": 7,
-          "lesson_id": null,
           "answers": [
             {
               "id": 13,
@@ -666,9 +580,6 @@
         {
           "id": 6,
           "text": "where is Al-Shahbaa hotel in syria?",
-          "part_id": null,
-          "unit_id": 6,
-          "lesson_id": null,
           "answers": [
             {
               "id": 21,

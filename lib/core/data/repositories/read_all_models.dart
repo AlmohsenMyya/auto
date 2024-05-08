@@ -62,7 +62,7 @@ print("+++ ${jsonData['subjects'] != null }${jsonData['subjects'][branchId.toStr
         .toList();
     return sliders;
   }
-  // Map<String, dynamic> jsonData = JsonReader.readDataFromJson('data.json');
+  // Map<String, dynamic> jsonData = JsonReader.readDataFromJson('data1.json');
   //
   // List<Branch> branches = JsonReader.extractBranches(jsonData);
   //

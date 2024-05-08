@@ -1,16 +1,18 @@
 class Branch {
+  final int? branch_id;
+
   final String name;
   final String? image;
+
   // final List<Subject?> subjects;
 
-  Branch({
-    required this.name,
-    this.image,
-    // required this.subjects,
-  });
+  Branch({required this.name, this.image, this.branch_id
+      // required this.subjects,
+      });
 
   factory Branch.fromJson(Map<String, dynamic> json) {
     return Branch(
+      branch_id: json['id'],
       name: json['name'],
       image: json['image'],
       // subjects: (json['subjects'] as List)
@@ -21,30 +23,31 @@ class Branch {
 }
 
 class Subject {
-  final int? id;
+  final int? subject_id;
   final String name;
   final String? image;
-  final int branchId;
-  final List<Part>? parts;
+  final int branch_id;
+
+  // final List<Part>? parts;
 
   Subject({
-    required this.id,
+    required this.subject_id,
     required this.name,
     this.image,
-    required this.branchId,
-    required this.parts,
+    required this.branch_id,
+    // required this.parts,
   });
 
   factory Subject.fromJson(Map<String, dynamic> json) {
     return Subject(
-        id: json['id'],
-        name: json['name'],
-        image: json['image'],
-        branchId: json['branch_id'],
-        parts: null
-        // (json['parts'] = null) ?? (json['parts'] as List)
-        // .map((partJson) => Part.fromJson(partJson))
-        // .toList(),
+      subject_id: json['id'],
+      name: json['name'],
+      image: json['image'],
+      branch_id: json['branch_id'],
+      // parts: null
+      // (json['parts'] = null) ?? (json['parts'] as List)
+      // .map((partJson) => Part.fromJson(partJson))
+      // .toList(),
     );
   }
 }
@@ -53,15 +56,16 @@ class Part {
   final int id;
   final String name;
   final String? image;
-  final int subjectId;
-  final List<Unit> units;
+  final int subject_id;
+
+  // final List<Unit> units;
 
   Part({
     required this.id,
     required this.name,
     this.image,
-    required this.subjectId,
-    required this.units,
+    required this.subject_id,
+    // required this.units,
   });
 
   factory Part.fromJson(Map<String, dynamic> json) {
@@ -69,10 +73,10 @@ class Part {
       id: json['id'],
       name: json['name'],
       image: json['image'],
-      subjectId: json['subject_id'],
-      units: (json['units'] as List)
-          .map((unitJson) => Unit.fromJson(unitJson))
-          .toList(),
+      subject_id: json['subject_id'],
+      // units: (json['units'] as List)
+      //     .map((unitJson) => Unit.fromJson(unitJson))
+      //     .toList(),
     );
   }
 }
@@ -81,22 +85,23 @@ class Unit {
   final int id;
   final String name;
   final String? image;
-  final int subjectId;
+  final int? subject_id;
+  final int? part_id;
 
-  Unit({
-    required this.id,
-    required this.name,
-    this.image,
-    required this.subjectId,
-  });
+  Unit(
+      {required this.id,
+      required this.name,
+      this.image,
+      this.subject_id,
+      this.part_id});
 
   factory Unit.fromJson(Map<String, dynamic> json) {
     return Unit(
-      id: json['id'],
-      name: json['name'],
-      image: json['image'],
-      subjectId: json['subject_id'],
-    );
+        id: json['id'],
+        name: json['name'],
+        image: json['image'],
+        subject_id: json['subject_id'],
+        part_id: json['part_id']);
   }
 }
 
@@ -104,13 +109,13 @@ class Lesson {
   final int id;
   final String name;
   final String? image;
-  final int unitId;
+  final int unit_id;
 
   Lesson({
     required this.id,
     required this.name,
     this.image,
-    required this.unitId,
+    required this.unit_id,
   });
 
   factory Lesson.fromJson(Map<String, dynamic> json) {
@@ -118,7 +123,7 @@ class Lesson {
       id: json['id'],
       name: json['name'],
       image: json['image'],
-      unitId: json['unit_id'],
+      unit_id: json['unit_id'],
     );
   }
 }
@@ -126,32 +131,33 @@ class Lesson {
 class Course {
   final int id;
   final String name;
-  final int isPublic;
-  final int subjectId;
-  final List<Lesson> lessons;
-  final List<Question> questions;
+  final int is_public;
+  final int subject_id;
+
+  // final List<Lesson> lessons;
+  // final List<Question> questions;
 
   Course({
     required this.id,
     required this.name,
-    required this.isPublic,
-    required this.subjectId,
-    required this.lessons,
-    required this.questions,
+    required this.is_public,
+    required this.subject_id,
+    // required this.lessons,
+    // required this.questions,
   });
 
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
       id: json['id'],
       name: json['name'],
-      isPublic: json['is_public'],
-      subjectId: json['subject_id'],
-      lessons: (json['lessons'] as List)
-          .map((lessonsjson) => Lesson.fromJson(lessonsjson))
-          .toList(),
-      questions: (json['questions'] as List)
-          .map((questionJson) => Question.fromJson(questionJson))
-          .toList(),
+      is_public: json['is_public'],
+      subject_id: json['subject_id'],
+      // lessons: (json['lessons'] as List)
+      //     .map((lessonsjson) => Lesson.fromJson(lessonsjson))
+      //     .toList(),
+      // questions: (json['questions'] as List)
+      //     .map((questionJson) => Question.fromJson(questionJson))
+      //     .toList(),
     );
   }
 }
@@ -159,21 +165,31 @@ class Course {
 class Question {
   final int id;
   final String text;
-  final List<Answer> answers;
+  final int? part_id;
+  final int? lesson_id;
+
+  final int? unit_id;
+  // final List<Answer?>? answers;
 
   Question({
     required this.id,
     required this.text,
-    required this.answers,
+    this.part_id,
+    this.lesson_id,
+    this.unit_id,
+    // required this.answers,
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       id: json['id'],
+      lesson_id: json['lesson_id'] ,
+      part_id:json['part_id'] ,
+      unit_id:json['unit_id'] ,
       text: json['text'],
-      answers: (json['answers'] as List)
-          .map((answerJson) => Answer.fromJson(answerJson))
-          .toList(),
+      // answers: (json['answers'] as List)
+      //     .map((answerJson) => Answer.fromJson(answerJson))
+      //     .toList(),
     );
   }
 }
@@ -203,14 +219,14 @@ class Bank {
   final String name;
   final int isPublic;
   final int subjectId;
-  final List<Question> questions;
+  // final List<Question> questions;
 
   Bank({
     required this.id,
     required this.name,
     required this.isPublic,
     required this.subjectId,
-    required this.questions,
+    // required this.questions,
   });
 
   factory Bank.fromJson(Map<String, dynamic> json) {
@@ -219,9 +235,9 @@ class Bank {
       name: json['name'],
       isPublic: json['is_public'],
       subjectId: json['subject_id'],
-      questions: (json['questions'] as List)
-          .map((questionJson) => Question.fromJson(questionJson))
-          .toList(),
+      // questions: (json['questions'] as List)
+      //     .map((questionJson) => Question.fromJson(questionJson))
+      //     .toList(),
     );
   }
 }

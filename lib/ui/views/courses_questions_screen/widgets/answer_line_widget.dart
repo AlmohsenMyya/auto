@@ -31,7 +31,7 @@ class _AnswerLineState extends State<AnswerLine> {
                     color: context.exOnBackground),
                 children: [
                   TextSpan(
-                      text: controller.open.value
+                      text: controller.openExpand.value
                           ? "هذا النص فقط للاختبار "
                           : '  هذا النص فقط للاختبار',
                       style: context.exTextTheme.subtitle2!

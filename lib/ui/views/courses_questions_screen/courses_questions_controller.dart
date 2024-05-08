@@ -11,32 +11,38 @@ import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
+import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/state_manager.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:get/get.dart';
 
 import '../../../core/services/base_controller.dart';
 
 class CoursesQuestionsController extends BaseController {
-  late int endTime = 1;
+  late RxInt endTime = 1.obs;
   ExpansionTileController expController = ExpansionTileController();
-  late int outSideEndTime = 1;
+  late RxInt outSideEndTime = 1.obs;
   late CountdownTimerController timeController =
-  CountdownTimerController(endTime: endTime);
-  int secondsDuration = 4;
-  int outSideSecondsDuration = 4;
+  CountdownTimerController(endTime: endTime.value);
+  RxInt secondsDuration = 4.obs;
+  RxInt outSideSecondsDuration = 4.obs;
   ValueNotifier<bool> timerStatus = ValueNotifier(false);
   ValueNotifier<bool> isTimerCounterCountDownActive = ValueNotifier(false);
   ValueNotifier<bool> animatedOpacityCounterValue = ValueNotifier(false);
   ValueNotifier<bool> outSideCounter = ValueNotifier(false);
   ValueNotifier<bool> expansionTile = ValueNotifier(false);
-  RxBool open = true.obs;
+  RxBool openExpand = true.obs;
+  RxBool answerTheQuestion = false.obs;
   Timer? timer;
   final GlobalKey floatingButtonKey = GlobalKey();
   final GlobalKey editButtonKey = GlobalKey();
   final GlobalKey settingsButtonKey = GlobalKey();
-
+  RxBool isTimerActive = true.obs;
+  Timer? mohsen_timer;
+  RxInt countdown = 3.obs;
   late CountdownTimerController timeControllerOutSide =
-  CountdownTimerController(endTime: endTime, onEnd: onEnd);
+  CountdownTimerController(endTime: endTime.value, onEnd: onEnd);
 
   void onEnd() {
     log("the timer end ", name: 'timer');
@@ -58,9 +64,27 @@ class CoursesQuestionsController extends BaseController {
     secureWindow();
     _createTutorial();
   }
+  void startTimer() {
+    mohsen_timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (countdown > 0) {
 
+          countdown--;
+
+      } else {
+        mohsen_timer?.cancel();
+
+          isTimerActive = false.obs;
+          countdown = 3.obs;
+
+      }
+    });
+  }
   @override
   void onClose() {
+
+      mohsen_timer?.cancel();
+      super.dispose();
+
     timeControllerOutSide.dispose();
     timeController.dispose();
     super.onClose();

@@ -38,7 +38,7 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
             expansionCallback: (panelIndex, isExpanded) {},
             animationDuration: Duration(milliseconds: 500),
             children: [
-              controller.open.value
+              controller.openExpand.value
                   ? ExpansionPanel(
                       backgroundColor: context.exOnPrimaryContainer,
                       canTapOnHeader: true,

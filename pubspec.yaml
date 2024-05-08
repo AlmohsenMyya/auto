@@ -100,7 +100,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/icons/
-    - assets/data.json
+    - assets/data1.json
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
