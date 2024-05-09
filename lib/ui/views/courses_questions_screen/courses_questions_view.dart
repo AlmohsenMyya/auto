@@ -7,13 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
+import '../../shared/colors.dart';
 import '../../shared/flutter_switch.dart';
 import 'courses_questions_controller.dart';
 
 class CoursesQuestionsView extends StatefulWidget {
-  const CoursesQuestionsView({super.key});
+  int course_id;
+
+  CoursesQuestionsView({super.key, required this.course_id});
 
   @override
   State<CoursesQuestionsView> createState() => _CoursesQuestionsViewState();
@@ -25,6 +29,8 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
   @override
   void initState() {
     controller = Get.put(CoursesQuestionsController());
+    controller.readfile(widget.course_id);
+    controller.initializeExpandedQuestions();
     super.initState();
   }
 
@@ -35,7 +41,6 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
         onTap: () => Get.back(),
         titleText: 'الاسئلة',
       ),
-
       body: GetBuilder<CoursesQuestionsController>(
         builder: (controller) {
           return Column(
@@ -82,9 +87,9 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                   Checkbox(
                     value: controller.openExpand.value,
                     onChanged: (value) {
-                      print("${controller.openExpand.value}");
-                      controller.openExpand.value =
-                          !controller.openExpand.value;
+                      !controller.openExpand.value
+                          ? controller.startExpandAll()
+                          : controller.stopExpandAll();
                     },
                   ),
                   Text(
@@ -115,15 +120,25 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                   TimerListener()
                 ]),
               ),
-              Expanded(
-                child: ListView.builder(
-                  key: controller.settingsButtonKey,
-                  itemBuilder: (context, index) {
-                    return QuestionTileWidget( );
-                  },
-                  itemCount: 21,
-                ),
-              ),
+              Obx(
+                () => controller.isLoading.value
+                    ? SpinKitThreeBounce(
+                        color: AppColors.blueB4,
+                        size: 50.0,
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          // key: controller.settingsButtonKey,
+                          itemBuilder: (context, question_index) {
+                            return QuestionTileWidget(
+                              question_index: question_index,
+                            );
+                          },
+                          itemCount: controller.questions.length,
+                        ),
+                      ),
+              )
             ],
           ).paddingHorizontal(10.w);
         },

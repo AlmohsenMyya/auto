@@ -12,16 +12,16 @@ import 'package:get/get.dart';
 import '../courses_questions_controller.dart';
 
 class QuestionTileWidget extends StatefulWidget {
-  const QuestionTileWidget({super.key});
+  final int question_index;
+
+  QuestionTileWidget({Key? key, required this.question_index})
+      : super(key: key);
 
   @override
   State<QuestionTileWidget> createState() => _QuestionTileWidgetState();
 }
 
 class _QuestionTileWidgetState extends State<QuestionTileWidget> {
-  TextEditingController questionExplain =
-      TextEditingController(text: 'شرح السؤال');
-  var fo = FocusNode();
   late CoursesQuestionsController controller;
 
   @override
@@ -32,59 +32,40 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CoursesQuestionsController>(builder: (controller) {
-      return Obx(() => ExpansionPanelList(
-            dividerColor: Colors.black,
-            expansionCallback: (panelIndex, isExpanded) {},
-            animationDuration: Duration(milliseconds: 500),
-            children: [
-              controller.openExpand.value
-                  ? ExpansionPanel(
-                      backgroundColor: context.exOnPrimaryContainer,
-                      canTapOnHeader: true,
-                      isExpanded: true,
-                      headerBuilder: (BuildContext context, bool isExpanded) {
-                        return TitleOfQuestions() ;
-
-                      },
-                      body: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                    AnswerLine(),
-                            10.h.verticalSpace,
-                            AnswerLine(),
-                            10.h.verticalSpace,
-                            AnswerLine(),
-                            10.h.verticalSpace,
-                            AnswerLine(),
-                          ],
-                        ),
-                      ))
-                  : ExpansionPanel(
-                      backgroundColor: context.exOnPrimaryContainer,
-                      canTapOnHeader: true,
-                      isExpanded: false,
-                      headerBuilder: (BuildContext context, bool isExpanded) {
-                        return TitleOfQuestions ();
-                      },
-                      body: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AnswerLine(),
-                                  10.h.verticalSpace,
-                                  AnswerLine(),
-                                  10.h.verticalSpace,
-                                  AnswerLine(),
-                                  10.h.verticalSpace,
-                                  AnswerLine(),
-                                ],
-                              ),
-                            )
-                          )
-            ],
-          ));
-    });
+    return Obx(
+      () => ExpansionPanelList(
+        dividerColor: Colors.black,
+        expansionCallback: (panelIndex, isExpanded) {
+          controller.toggleExpand(widget.question_index);
+        },
+        animationDuration: Duration(milliseconds: 500),
+        children: [
+          ExpansionPanel(
+            backgroundColor: context.exOnPrimaryContainer,
+            canTapOnHeader: true,
+            isExpanded: controller.isExpanded(widget.question_index),
+            headerBuilder: (BuildContext context, bool isExpanded) {
+              return TitleOfQuestions(
+                question_index: widget.question_index,
+              );
+            },
+            body: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount:
+                  controller.questions[widget.question_index].answers!.length,
+              itemBuilder: (context, index) {
+                final answer = controller
+                    .questions[widget.question_index].answers![index]!;
+                return AnswerLine(
+                  questionId: widget.question_index,
+                  answer: answer,
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

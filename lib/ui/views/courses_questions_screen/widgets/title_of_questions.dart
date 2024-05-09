@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 import '../courses_questions_controller.dart';
 
 class TitleOfQuestions extends StatefulWidget {
-  const TitleOfQuestions({super.key});
+  int question_index;
+
+  TitleOfQuestions({super.key, required this.question_index});
 
   @override
   State<TitleOfQuestions> createState() => _TitleOfQuestionsState();
@@ -23,34 +25,28 @@ class _TitleOfQuestionsState extends State<TitleOfQuestions> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-          () =>  Container(
-            width: 1.sw,
-            height: 40.h,
-            color: context.exOnPrimaryContainer,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.more_vert,
+    return Container(
+      width: 1.sw,
+      height: 40.h,
+      color: context.exOnPrimaryContainer,
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.more_vert,
+            ),
+            10.w.horizontalSpace,
+            Expanded(
+              child: RichText(
+                text: TextSpan(
+                  text: controller.questions[widget.question_index].text,
+                  style: context.exTextTheme.subtitle1!.copyWith(
+                    color: context.exOnBackground,
                   ),
-                  10.w.horizontalSpace,
-                  RichText(
-                      text: TextSpan(
-                          text: controller.openExpand.value ?'السؤال الاول :': 'السؤال الاول :',
-                          style: context.exTextTheme.subtitle1!
-                              .copyWith(
-                              color: context.exOnBackground),
-                          children: [
-                            TextSpan(
-                                text: 'هذا النص فقط للاختبار',
-                                style: context.exTextTheme.subtitle2!
-                                    .copyWith(
-                                    color:
-                                    context.exPrimaryColor))
-                          ])),
-                ]),
-          ),
+                ),
+              ),
+            ),
+          ]),
     );
   }
 }

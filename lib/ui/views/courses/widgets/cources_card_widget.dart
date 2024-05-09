@@ -63,9 +63,12 @@ class _CoursesCardWidgetState extends State<CoursesCardWidget> {
             )
           ],
         ),
-      ).onTap(() => Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => CoursesQuestionsView(),
-          ))),
+      ).onTap(() {
+        print("kdkkd ${controller.courses[widget.index].id}");
+        return Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => CoursesQuestionsView(course_id: controller.courses[widget.index].id,),
+          ));
+      }),
     );
   }
 }

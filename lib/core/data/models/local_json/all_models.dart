@@ -169,7 +169,7 @@ class Question {
   final int? lesson_id;
 
   final int? unit_id;
-  // final List<Answer?>? answers;
+  final List<Answer?>? answers;
 
   Question({
     required this.id,
@@ -177,19 +177,19 @@ class Question {
     this.part_id,
     this.lesson_id,
     this.unit_id,
-    // required this.answers,
+    required this.answers,
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       id: json['id'],
-      lesson_id: json['lesson_id'] ,
-      part_id:json['part_id'] ,
-      unit_id:json['unit_id'] ,
+      lesson_id: json['lesson_id'],
+      part_id: json['part_id'],
+      unit_id: json['unit_id'],
       text: json['text'],
-      // answers: (json['answers'] as List)
-      //     .map((answerJson) => Answer.fromJson(answerJson))
-      //     .toList(),
+      answers: (json['answers'] as List)
+          .map((answerJson) => Answer.fromJson(answerJson))
+          .toList(),
     );
   }
 }
@@ -219,6 +219,7 @@ class Bank {
   final String name;
   final int isPublic;
   final int subjectId;
+
   // final List<Question> questions;
 
   Bank({

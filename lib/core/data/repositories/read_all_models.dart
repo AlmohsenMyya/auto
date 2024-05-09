@@ -65,9 +65,29 @@ print("+++ ${jsonData['subjects'] != null }${jsonData['subjects'][branchId.toStr
           .map((courseJson) => Course.fromJson(courseJson))
           .toList();
     }
-print("jjjjjjjjjjjj ${courses.length}");
+print("courses JsonReader ${courses.length}");
     return courses;
   }
+  static List<Question> extractQuestionsByCourseId(Map<String, dynamic> jsonData, int courseId) {
+    // Initialize an empty list to store questions
+    List<Question> questions = [];
+
+    // Check if the questions_course map contains data for the provided course ID
+    if (jsonData['questions_course'] != null && jsonData['questions_course'][courseId.toString()] != null) {
+      // Extract course data for the provided course ID
+      var courseData = jsonData['questions_course'][courseId.toString()];
+      // Check if questions are available for the course
+      if (courseData['questions'] != null) {
+        // Extract questions for the course
+        questions = (courseData['questions'] as List)
+            .map((questionJson) => Question.fromJson(questionJson))
+            .toList();
+      }
+    }
+
+    return questions;
+  }
+
   // Repeat the same for other data extraction methods...
 
   static List extractSliders(Map<String, dynamic> jsonData) {
