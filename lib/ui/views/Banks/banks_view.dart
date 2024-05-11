@@ -3,8 +3,7 @@ import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/core/utils/extension/widget_extensions.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
 import 'package:auto/ui/shared/main_app_bar.dart';
-import 'package:auto/ui/views/courses/widgets/cources_card_widget.dart';
-import 'package:auto/ui/views/courses_according_to_unit_and_lessons_screen/widgets/cources_according_to_unit_and_lessons_card.dart';
+import 'package:auto/ui/views/Banks/widgets/banks_card_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -13,28 +12,28 @@ import 'package:get/get.dart';
 
 import '../../../core/data/models/local_json/all_models.dart';
 import '../../shared/colors.dart';
-import 'courses_controller.dart';
+import 'banks_controller.dart';
 
-class Courses extends StatefulWidget {
+class Banks extends StatefulWidget {
   Subject subject;
 
-  Courses({super.key, required this.subject});
+  Banks({super.key, required this.subject});
 
   @override
-  State<Courses> createState() => _CoursesState();
+  State<Banks> createState() => _BanksState();
 }
 
-class _CoursesState extends State<Courses> {
+class _BanksState extends State<Banks> {
   FocusNode focusNode = FocusNode();
 
   ValueNotifier<bool> openTextField = ValueNotifier(false);
 
   TextEditingController searchController = TextEditingController();
-  late CoursesController controller;
+  late BanksController controller;
 
   @override
   void initState() {
-    controller = Get.put(CoursesController());
+    controller = Get.put(BanksController());
     controller.readfile(widget.subject.subject_id!);
     super.initState();
   }
@@ -45,7 +44,7 @@ class _CoursesState extends State<Courses> {
       appBar: MainAppBar(
           backGroundColor: context.exOnPrimaryContainer,
           onTap: () => Navigator.of(context).pop(),
-          titleText: ' دورات مادة ${widget.subject.name}',
+          titleText: ' بنوك مادة ${widget.subject.name}',
           titleTextStyle: context.exTextTheme.bodyText1!.copyWith(
               color: context.exOnBackground, fontFamily: 'Alexandria')),
       body: Column(children: [
@@ -99,10 +98,10 @@ class _CoursesState extends State<Courses> {
               )
             : Expanded(
                 child: ListView.builder(
-                    itemBuilder: (context, index) => CoursesCardWidget(
+                    itemBuilder: (context, index) => BanksCardWidget(
                           index: index,
                         ),
-                    itemCount: controller.courses.length)))
+                    itemCount: controller.banks.length)))
       ]),
     );
   }

@@ -52,10 +52,11 @@ class CoursesQuestionsController extends BaseController {
   final _expandedQuestions = <int, bool>{}.obs;
 
   void initializeExpandedQuestions() {
-    for (int i = 0 ; i>150 ; i++) {
+    for (int i = 0; i > 150; i++) {
       _expandedQuestions[i] = false;
     }
   }
+
   bool isExpanded(int questionIndex) {
     return _expandedQuestions[questionIndex] ?? false;
   }
@@ -78,6 +79,7 @@ class CoursesQuestionsController extends BaseController {
       _expandedQuestions[index] = false;
     });
   }
+
   void startExpandAll() {
     openExpand.value = true;
     final allExpanded = _expandedQuestions.values.every((value) => value);
@@ -85,6 +87,7 @@ class CoursesQuestionsController extends BaseController {
       _expandedQuestions[index] = true;
     });
   }
+
   late List<Question> questions;
   Map<int, RxInt> selectedAnswers = {}; // Holds the selected answer ID
 
@@ -104,11 +107,19 @@ class CoursesQuestionsController extends BaseController {
     return -1;
   }
 
-  void readfile(int course_id) async {
+  void readfile(int course_id, String type) async {
+    print("bankkssks88888 ${type == "بنك"} ");
     isLoading.value = true;
     // TODO: implement onInit
     jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
-    questions = JsonReader.extractQuestionsByCourseId(jsonfile, course_id);
+    if (type == "دورة") {
+      questions = JsonReader.extractQuestionsByCourseId(jsonfile, course_id);
+    }
+    if (type == "بنك") {
+      print("bankkssks ");
+      questions = JsonReader.extractQuestionsByBankId(jsonfile, course_id);
+      print(questions.length);
+    }
     print("nlkmlnkl $course_id ${questions.length}");
     isLoading.value = false;
   }

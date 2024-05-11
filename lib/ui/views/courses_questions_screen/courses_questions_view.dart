@@ -15,9 +15,9 @@ import '../../shared/flutter_switch.dart';
 import 'courses_questions_controller.dart';
 
 class CoursesQuestionsView extends StatefulWidget {
-  int course_id;
-
-  CoursesQuestionsView({super.key, required this.course_id});
+  int id_course_bank_lesson_unite;
+String type ;
+  CoursesQuestionsView({super.key, required this.id_course_bank_lesson_unite,required this.type});
 
   @override
   State<CoursesQuestionsView> createState() => _CoursesQuestionsViewState();
@@ -29,7 +29,7 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
   @override
   void initState() {
     controller = Get.put(CoursesQuestionsController());
-    controller.readfile(widget.course_id);
+    controller.readfile(widget.id_course_bank_lesson_unite , widget.type);
     controller.initializeExpandedQuestions();
     super.initState();
   }

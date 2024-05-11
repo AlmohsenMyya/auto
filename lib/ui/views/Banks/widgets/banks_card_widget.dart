@@ -7,23 +7,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../courses_controller.dart';
+import '../banks_controller.dart';
 
-class CoursesCardWidget extends StatefulWidget {
+class BanksCardWidget extends StatefulWidget {
   int index;
 
-  CoursesCardWidget({super.key, required this.index});
+  BanksCardWidget({super.key, required this.index});
 
   @override
-  State<CoursesCardWidget> createState() => _CoursesCardWidgetState();
+  State<BanksCardWidget> createState() => _BanksCardWidgetState();
 }
 
-class _CoursesCardWidgetState extends State<CoursesCardWidget> {
-  late CoursesController controller;
+class _BanksCardWidgetState extends State<BanksCardWidget> {
+  late BanksController controller;
 
   @override
   void initState() {
-    controller = Get.put(CoursesController());
+    controller = Get.put(BanksController());
 
     super.initState();
   }
@@ -44,7 +44,7 @@ class _CoursesCardWidgetState extends State<CoursesCardWidget> {
                   children: [
                     15.h.verticalSpace,
                     Text(
-                      controller.courses[widget.index].name,
+                      controller.banks[widget.index].name,
                       textDirection: TextDirection.ltr,
                       style: context.exTextTheme.titleMedium!
                           .copyWith(color: context.exPrimaryColor),
@@ -64,11 +64,11 @@ class _CoursesCardWidgetState extends State<CoursesCardWidget> {
           ],
         ),
       ).onTap(() {
-        print("kdkkd ${controller.courses[widget.index].id}");
+        print("kdkkd bank ${controller.banks[widget.index].id}");
         return Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => CoursesQuestionsView(
-            id_course_bank_lesson_unite: controller.courses[widget.index].id,
-            type: "دورة",
+            id_course_bank_lesson_unite: controller.banks[widget.index].id,
+            type: "بنك",
           ),
         ));
       }),

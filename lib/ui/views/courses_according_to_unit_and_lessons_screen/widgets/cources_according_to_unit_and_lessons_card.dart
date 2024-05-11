@@ -14,7 +14,8 @@ class CoursesAccordingToUnitAndLessonsCardWidget extends StatelessWidget {
       color: context.exOnPrimaryContainer,
       child: Column(
         children: [
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,29 +36,33 @@ class CoursesAccordingToUnitAndLessonsCardWidget extends StatelessWidget {
                         style: context.exTextTheme.subtitle1!
                             .copyWith(color: context.exPrimaryColor),
                       ),
-
-
                       10.w.horizontalSpace,
-
                       Text(
                         '23',
                         style: context.exTextTheme.subtitle1!
                             .copyWith(color: context.exPrimaryColor),
-                      ),0.4.sw.horizontalSpace,
-
+                      ),
+                      0.4.sw.horizontalSpace,
                     ],
                   ),
-
                 ],
               ),
-              Center(child: Icon(Icons.arrow_forward_ios_rounded),).exBox(height: 40,width: 20).paddingAll(10.w)
-
+              Center(
+                child: Icon(Icons.arrow_forward_ios_rounded),
+              ).exBox(height: 40, width: 20).paddingAll(10.w)
             ],
           ),
-          Divider(height: 10.h,color: context.exBackground,)
-
+          Divider(
+            height: 10.h,
+            color: context.exBackground,
+          )
         ],
       ),
-    ).onTap(() => Navigator.of(context).push(MaterialPageRoute(builder: (context) => CoursesQuestionsView(),)));
+    ).onTap(() => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => CoursesQuestionsView(
+            id_course_bank_lesson_unite: 1,
+            type: "تيست",
+          ),
+        )));
   }
 }
