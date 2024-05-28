@@ -13,7 +13,7 @@ import '../../../core/data/models/local_json/all_models.dart';
 import '../../shared/colors.dart';
 import '../courses/widgets/cources_card_widget.dart';
 import 'courses_according_to_unit_and_lessons_screen_controller.dart';
-import 'package:showcaseview/showcaseview.dart';
+
 
 class CoursesAccordingToUnitAndLessonsScreen extends StatefulWidget {
   Subject subject;
@@ -49,9 +49,7 @@ class _CoursesAccordingToUnitAndLessonsScreenState extends State<CoursesAccordin
 
   @override
   Widget build(BuildContext context) {
-    return ShowCaseWidget(
-      builder: Builder(
-        builder: (context) => Scaffold(
+    return Scaffold(
           appBar: MainAppBar(
               backGroundColor: context.exOnPrimaryContainer,
               onTap: () => Navigator.of(context).pop(),
@@ -92,15 +90,12 @@ class _CoursesAccordingToUnitAndLessonsScreenState extends State<CoursesAccordin
                           10.horizontalSpace,
                           SvgPicture.string(Asset.searchSvgIcon),
                           10.horizontalSpace,
-                          Showcase(
-                            key: _searchKey,
-                            description: 'يمكنك الوصول للدورة التي تريدها من خلال البحث عنها ',
-                            child: CustomText(
+                           CustomText(
                               textType: TextStyleType.body,
                               text: 'ابحث هنا',
                               textColor: context.exPrimaryContainer,
                             ),
-                          ),
+
                         ],
                       ),
                       border: InputBorder.none,
@@ -123,10 +118,8 @@ class _CoursesAccordingToUnitAndLessonsScreenState extends State<CoursesAccordin
                 itemCount: controller.courses.length,
               ),
             )),
-          ]),
-        ),
-      ),
-    );
+          ]));
+
   }
 }
 

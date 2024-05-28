@@ -4,7 +4,6 @@ import 'package:auto/core/utils/extension/widget_extensions.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
 import 'package:auto/ui/shared/main_app_bar.dart';
 import 'package:auto/ui/views/courses/widgets/cources_card_widget.dart';
-import 'package:auto/ui/views/courses_according_to_unit_and_lessons_screen/widgets/cources_according_to_unit_and_lessons_card.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
