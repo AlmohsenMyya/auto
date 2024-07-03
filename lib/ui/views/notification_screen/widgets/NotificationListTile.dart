@@ -40,12 +40,14 @@ class NotificationListTile extends StatelessWidget {
             child: Text(
               notification.title!,
               overflow: TextOverflow.ellipsis,
-              style: context.exTextTheme.titleLarge,
+
+              style: context.exTextTheme.titleLarge!.copyWith(color: context.exOnBackground ),
+
               ).paddingHorizontal(10.w),
           ),
           Text(
             '12:50م',
-            style: context.exTextTheme.titleSmall,
+            style: context.exTextTheme.titleSmall!.copyWith(color: context.exOnBackground),
           )
         ],
       ),

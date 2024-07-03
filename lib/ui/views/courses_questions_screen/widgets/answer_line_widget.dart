@@ -1,85 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../../core/data/models/local_json/all_models.dart';
 import '../courses_questions_controller.dart';
 
-class AnswerLine extends StatefulWidget {
+class AnswerLine extends StatelessWidget {
   final int questionId;
   final Answer answer;
+  final bool showResults;
 
-  AnswerLine({Key? key, required this.questionId, required this.answer})
-      : super(key: key);
-
-  @override
-  _AnswerLineState createState() => _AnswerLineState();
-}
-
-class _AnswerLineState extends State<AnswerLine> {
-  late final CoursesQuestionsController controller;
-
-  @override
-  void initState() {
-    controller = Get.put(CoursesQuestionsController());
-    super.initState();
-  }
+  AnswerLine({
+    Key? key,
+    required this.questionId,
+    required this.answer,
+    required this.showResults,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => controller.isChoosing.value
-          ? SizedBox()
-          : InkWell(
-              onTap: () {
-                controller.selectAnswer(widget.questionId, widget.answer.id);
-              },
-              child: Container(
-                margin: EdgeInsets.only(left: 8, right: 8),
-                decoration: BoxDecoration(
-                  color: controller.getSelectedAnswer(widget.questionId) ==
-                          widget.answer.id
-                      ? widget.answer.isCorrect == 1
-                          ? Colors.green.withOpacity(0.5)
-                          : Colors.red.withOpacity(0.5)
-                      : Colors.grey.shade100.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        text: '-1- ',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: widget.answer.text,
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 18,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
+    final controller = Get.find<CoursesQuestionsController>();
+
+    return GestureDetector(
+      onTap: showResults
+          ? null
+          : () {
+        controller.selectAnswer(questionId, answer.id);
+      },
+      child: GetBuilder<CoursesQuestionsController>(
+        builder: (controller) {
+          return Container(
+            margin: EdgeInsets.symmetric(vertical: 8),
+            decoration: BoxDecoration(
+              color: _getBackgroundColor(controller),
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+                    child: Text(
+                      answer.text,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
                       ),
                     ),
-                    Radio(
-                      value: widget.answer.id,
-                      groupValue:
-                          controller.getSelectedAnswer(widget.questionId),
-                      onChanged: (value) {
-                        controller.selectAnswer(
-                            widget.questionId, value as int);
-                      },
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Radio<int>(
+                  value: answer.id,
+                  groupValue: controller.getSelectedAnswer(questionId),
+                  onChanged: showResults
+                      ? null
+                      : (value) {
+                    controller.selectAnswer(questionId, value!);
+                  },
+                  activeColor: Colors.blue,
+                ),
+              ],
             ),
+          );
+        },
+      ),
     );
+  }
+
+  Color _getBackgroundColor(CoursesQuestionsController controller) {
+    if (showResults) {
+      if (answer.isCorrect == 1) {
+        return Colors.green.withOpacity(0.5); // لون الإجابة الصحيحة
+      } else if (controller.getSelectedAnswer(questionId) == answer.id) {
+        return Colors.blue.withOpacity(0.5); // لون الإجابة المختارة عند عرض النتائج
+      } else {
+        return Colors.grey.shade100.withOpacity(0.8); // اللون الافتراضي للخلفية
+      }
+    } else {
+      if (controller.getSelectedAnswer(questionId) == answer.id) {
+        return Colors.blue.withOpacity(0.5); // لون الإجابة المختارة قبل التقديم
+      } else {
+        return Colors.grey.shade100.withOpacity(0.8); // اللون الافتراضي للخلفية
+      }
+    }
   }
 }

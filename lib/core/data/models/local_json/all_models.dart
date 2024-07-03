@@ -56,6 +56,7 @@ class Part {
   final int id;
   final String name;
   final String? image;
+  final int? isPublic;
   final int subject_id;
 
   // final List<Unit> units;
@@ -64,6 +65,7 @@ class Part {
     required this.id,
     required this.name,
     this.image,
+    this.isPublic,
     required this.subject_id,
     // required this.units,
   });
@@ -73,6 +75,7 @@ class Part {
       id: json['id'],
       name: json['name'],
       image: json['image'],
+      isPublic: json['isPublic'],
       subject_id: json['subject_id'],
       // units: (json['units'] as List)
       //     .map((unitJson) => Unit.fromJson(unitJson))
@@ -110,11 +113,13 @@ class Lesson {
   final String name;
   final String? image;
   final int unit_id;
+  final int? isPublic;
 
   Lesson({
     required this.id,
     required this.name,
     this.image,
+    this.isPublic,
     required this.unit_id,
   });
 
@@ -122,6 +127,7 @@ class Lesson {
     return Lesson(
       id: json['id'],
       name: json['name'],
+      isPublic: json['isPublic'],
       image: json['image'],
       unit_id: json['unit_id'],
     );
@@ -167,16 +173,23 @@ class Question {
   final String text;
   final int? part_id;
   final int? lesson_id;
+  final String? explain;
+  final String? image;
+  final int? isPublic;
+
 
   final int? unit_id;
   final List<Answer?>? answers;
 
-  Question({
+  Question( {
     required this.id,
     required this.text,
     this.part_id,
     this.lesson_id,
+    this.explain,
+    this.image,
     this.unit_id,
+    this.isPublic,
     required this.answers,
   });
 
@@ -184,8 +197,11 @@ class Question {
     return Question(
       id: json['id'],
       lesson_id: json['lesson_id'],
+      isPublic: json['isPublic'],
       part_id: json['part_id'],
       unit_id: json['unit_id'],
+      explain: json['explain'],
+      image: json['image'],
       text: json['text'],
       answers: (json['answers'] as List)
           .map((answerJson) => Answer.fromJson(answerJson))
@@ -250,3 +266,34 @@ class Slider {
 // Define properties for Slider class if needed
 // (It's not clear from the provided JSON)
 }
+
+class City {
+  final int id;
+  final String name;
+
+  City({required this.id, required this.name});
+
+  factory City.fromJson(Map<String, dynamic> json) {
+    return City(
+      id: json['id'],
+      name: json['name'],
+    );
+  }
+}
+
+class Library {
+  final int id;
+  final String name;
+  final int cityId;
+
+  Library({required this.id, required this.name, required this.cityId});
+
+  factory Library.fromJson(Map<String, dynamic> json) {
+    return Library(
+      id: json['id'],
+      name: json['name'],
+      cityId: json['city_id'],
+    );
+  }
+}
+

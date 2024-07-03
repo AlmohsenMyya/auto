@@ -1,12 +1,14 @@
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/core/utils/extension/widget_extensions.dart';
+
+import 'package:auto/ui/views/UnitsByPart/units_screen_view.dart';
 import 'package:auto/ui/views/courses_questions_screen/courses_questions_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
+import '../../parts_questions_screen/parts_questions_view.dart';
 import '../courses_according_to_unit_and_lessons_screen_controller.dart';
 
 class CoursesAccordingToUnitAndLessonsScreenCardWidget extends StatefulWidget {
@@ -44,17 +46,50 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<Cours
                   children: [
                     15.h.verticalSpace,
                     Text(
-                      controller.courses[widget.index].name,
+                      controller.parts[widget.index].name,
                       textDirection: TextDirection.ltr,
                       style: context.exTextTheme.titleMedium!
-                          .copyWith(color: context.exPrimaryColor),
+                          .copyWith(color:  context.exInversePrimaryColor),
                     ),
                     15.h.verticalSpace,
                   ],
                 ),
-                Center(
-                  child: Icon(Icons.arrow_forward_ios_rounded),
-                ).exBox(height: 40, width: 20)
+                Spacer(),
+                InkWell(
+                  child: Text(
+                    "عرض الوحدات ",
+                    textDirection: TextDirection.ltr,
+                    style: context.exTextTheme.titleMedium!
+                        .copyWith(color:  context.exInversePrimaryColor,fontSize: 15.sp),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => UnitsScreen(
+                          part: controller.parts[widget.index]
+                      ),
+                    ));
+                  },
+                ),
+                SizedBox(width: 15,),
+
+
+                InkWell(
+                  child: Text(
+                    "عرض الأسئلة ",
+                    textDirection: TextDirection.ltr,
+                    style: context.exTextTheme.titleMedium!
+                        .copyWith(color:  context.exInversePrimaryColor, fontSize: 15.sp),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => PartsQuestionsView( idPart: controller.parts[widget.index].id,type: 'test',)
+                    ));
+                 },
+                ),
+                15.h.verticalSpace,
+                // Center(
+                //   child: Icon(Icons.arrow_forward_ios_rounded),
+                // ).exBox(height: 40, width: 20)
               ],
             ),
             Divider(
@@ -63,15 +98,24 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<Cours
             )
           ],
         ),
-      ).onTap(() {
-        print("kdkkd ${controller.courses[widget.index].id}");
-        return Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => CoursesQuestionsView(
-            id_course_bank_lesson_unite: controller.courses[widget.index].id,
-            type: "دورة",
-          ),
-        ));
-      }),
+      // ).onTap(() { if(controller.ifFoundPart == true){
+      //   print("kdkkd ${controller.parts[widget.index].id}");
+      //   Navigator.of(context).push(MaterialPageRoute(
+      //     builder: (context) =>  UnitsScreen(
+      //       part: controller.parts[widget.index]
+      //     ),
+      //   ));
+      // }else{
+      //
+      // }
+      //   print("kdkkd ${controller.parts[widget.index].id}");
+      //   return Navigator.of(context).push(MaterialPageRoute(
+      //     builder: (context) =>  UnitsScreen(
+      //       part: controller.parts[widget.index]
+      //     ),
+      //   ));
+    //  }
+      ),
     );
   }
 }

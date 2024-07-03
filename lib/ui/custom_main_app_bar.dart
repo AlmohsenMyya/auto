@@ -52,7 +52,7 @@ class CustomMainAppBar extends StatelessWidget {
       titleTextStyle: titleTextStyle??TextStyle(
 //
 //
-          color: Theme.of(context).colorScheme.primary,fontSize: 25,fontWeight: FontWeight.bold,fontFamily: 'Alexandria') ,
+          color: Theme.of(context).colorScheme.primary,fontSize: 25,fontWeight: FontWeight.bold) ,
       elevation: 0,
       shape: shape1 ??
           RoundedRectangleBorder(

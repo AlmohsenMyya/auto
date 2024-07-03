@@ -18,14 +18,15 @@ class SubjectCardDetails extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
               color: Theme.of(context).colorScheme.onBackground, width: 2)),
-      width: 175,
-      height: 100,
+      width: 150,
+      height: 150,
       child: Align(
           alignment: Alignment.center,
           child: Padding(
             padding: EdgeInsets.all(8),
             child: Text(
                 style: TextStyle(
+                  fontSize: 20,
                     color: Theme.of(context).colorScheme.onBackground),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

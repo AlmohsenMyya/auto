@@ -5,12 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../courses_controller.dart';
 
 class CoursesCardWidget extends StatefulWidget {
-  int index;
+  final int index;
 
   CoursesCardWidget({super.key, required this.index});
 
@@ -24,7 +23,6 @@ class _CoursesCardWidgetState extends State<CoursesCardWidget> {
   @override
   void initState() {
     controller = Get.put(CoursesController());
-
     super.initState();
   }
 
@@ -47,8 +45,9 @@ class _CoursesCardWidgetState extends State<CoursesCardWidget> {
                       controller.courses[widget.index].name,
                       textDirection: TextDirection.ltr,
                       style: context.exTextTheme.titleMedium!
-                          .copyWith(color: context.exPrimaryColor),
+                          .copyWith(color: context.exInversePrimaryColor),
                     ),
+
                     15.h.verticalSpace,
                   ],
                 ),
@@ -64,13 +63,59 @@ class _CoursesCardWidgetState extends State<CoursesCardWidget> {
           ],
         ),
       ).onTap(() {
-        print("kdkkd ${controller.courses[widget.index].id}");
-        return Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => CoursesQuestionsView(
-            id_course_bank_lesson_unite: controller.courses[widget.index].id,
-            type: "دورة",
-          ),
-        ));
+        if (controller.courses[widget.index].is_public == 0) {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              TextEditingController codeController = TextEditingController();
+              return AlertDialog(
+                title: Text('ادخل الكود : ',
+                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                ),
+                content: TextField(
+                  controller: codeController,
+                  decoration: InputDecoration(
+                    label: Text("عذراً لايمكنك فتح هذا المحتوى حتى إدخال الكود"),
+                    hintText: "أدخل الكود هنا",
+                  ),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('إرسال'),
+                    onPressed: () {
+                      if (codeController.text == "your_code") {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CoursesQuestionsView(
+                            id_course_bank_lesson_unite: controller.courses[widget.index].id,
+                            type: "دورة",
+                          ),
+                        ));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('الكود غير صحيح.')),
+                        );
+                      }
+                    },
+                  ),
+                  TextButton(
+                    child: Text('إغلاق'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        } else {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => CoursesQuestionsView(
+              id_course_bank_lesson_unite: controller.courses[widget.index].id,
+              type: "دورة",
+            ),
+          ));
+        }
       }),
     );
   }

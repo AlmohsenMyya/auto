@@ -3,6 +3,7 @@ import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/core/utils/extension/widget_extensions.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
 import 'package:auto/ui/shared/main_app_bar.dart';
+import 'package:auto/ui/views/courses_according_to_unit_and_lessons_screen/widgets/courses_according_to_unit_and_lessons_screen_card_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -25,7 +26,7 @@ class CoursesAccordingToUnitAndLessonsScreen extends StatefulWidget {
 }
 
 class _CoursesAccordingToUnitAndLessonsScreenState extends State<CoursesAccordingToUnitAndLessonsScreen> {
-  final GlobalKey _searchKey = GlobalKey();
+
   FocusNode focusNode = FocusNode();
   ValueNotifier<bool> openTextField = ValueNotifier(false);
   TextEditingController searchController = TextEditingController();
@@ -34,10 +35,7 @@ class _CoursesAccordingToUnitAndLessonsScreenState extends State<CoursesAccordin
   @override
   void initState() {
     controller = Get.put(CoursesAccordingToUnitAndLessonsScreenController());
-    print("111");
     controller.readfile(widget.subject.subject_id!);
-    print("111");
-    controller.testfile(widget.subject.subject_id!);
     print("111");
     super.initState();
 
@@ -112,10 +110,11 @@ class _CoursesAccordingToUnitAndLessonsScreenState extends State<CoursesAccordin
             )
                 : Expanded(
               child: ListView.builder(
-                itemBuilder: (context, index) => CoursesCardWidget(
+                itemBuilder: (context, index) => CoursesAccordingToUnitAndLessonsScreenCardWidget(
                   index: index,
+
                 ),
-                itemCount: controller.courses.length,
+                itemCount: controller.parts.length,
               ),
             )),
           ]));

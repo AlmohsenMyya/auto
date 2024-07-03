@@ -55,6 +55,7 @@ extension ContextExtensions on BuildContext {
   Color get exOnBackground => theme.colorScheme.onBackground;
   Color get exBackground => theme.colorScheme.background;
   Color get exPrimaryColor => theme.colorScheme.primary;
+  Color get exInversePrimaryColor => theme.colorScheme.inversePrimary;
   Color get exOnPrimaryContainer => theme.colorScheme.onPrimaryContainer;
   Color get exSurface => theme.colorScheme.surface;
   Color get exOutLine => theme.colorScheme.outline;

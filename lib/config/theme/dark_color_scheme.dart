@@ -3,12 +3,13 @@ part of 'app_theme.dart';
 
 
 const _darkColorScheme = ColorScheme.dark(
+  inversePrimary: Color(0xffffffff) ,
 
   primary : Color(0xFF000000),
   onPrimary : Color(0xffffffff),
 
   primaryContainer: Color(0xffF7F7F7),
-  onPrimaryContainer: Color(0xff636363),
+  onPrimaryContainer: Color(0xFF000000),
 
 
   secondary :Color(0xFF48b4e0),
@@ -23,19 +24,21 @@ const _darkColorScheme = ColorScheme.dark(
   onError : Color(0xFFFFFFFF),
   onErrorContainer : Color(0xFF410E0B),
 
-  background : Color(0xFF000000),
+  background :Color(0xFFFFFFFF),
   onBackground :  Color(0xFFFFFFFF),
 
   surface : Color(0xFFFBFDFD),
-  onSurface : Color(0xFF191C1D),
+  onSurface : Color(0xffffffff),
 
   surfaceVariant : Color(0xffF4F4F4),
-  onSurfaceVariant : Color(0xFF49454F),
+  onSurfaceVariant :Color(0xFFFFFFFF) ,
 
   outline : Color(0xFF79747E),
 
-  onInverseSurface : Color(0xFFEFF1F1),
-  inverseSurface : Color(0xFF2D3132),
+  // onInverseSurface : Color(0xFFEFF1F1),
+  // inverseSurface : Color(0xFF2D3132),
+  onInverseSurface : Color(0xFF121212),
+  inverseSurface : Color(0xFFE0E0E0),
 
   shadow :Colors.white,
 );

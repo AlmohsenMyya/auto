@@ -10,7 +10,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     fontSize: _FontSize.huge,
 
     ///77
-    fontFamily: _sFAlexandriaFamily,
+   // fontFamily: _sFAlexandriaFamily,
     fontWeight: _semiBold,
     letterSpacing: 0,
   ),
@@ -60,7 +60,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     /// 22
     fontWeight: _medium,
     letterSpacing: 0,
-    fontFamily: _sFAlexandriaFamily,
+   // fontFamily: _sFAlexandriaFamily,
   ),
   subtitle1: base.subtitle1?.copyWith(
 
@@ -69,7 +69,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     /// 18
     fontWeight: _bold,
     letterSpacing: 0,
-    fontFamily: _sFAlexandriaFamily,
+   // fontFamily: _sFAlexandriaFamily,
   ),
   subtitle2: base.subtitle2?.copyWith(
 
@@ -78,7 +78,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     /// 16
     fontWeight: _bold,
     letterSpacing: 0,
-    fontFamily: _sFAlexandriaFamily,
+  //  fontFamily: _sFAlexandriaFamily,
   ),
   bodyText1: base.bodyText1?.copyWith(
 
@@ -87,7 +87,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     /// 16
     fontWeight: _regular,
     letterSpacing: 0,
-    fontFamily: _sFAlexandriaFamily,
+    //fontFamily: _sFAlexandriaFamily,
   ),
   bodyText2: base.bodyText2?.copyWith(
     fontSize: _FontSize.body_02,
@@ -95,7 +95,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     /// 14
     fontWeight: _regular,
     letterSpacing: 0,
-    fontFamily: _sFAlexandriaFamily,
+  //  fontFamily: _sFAlexandriaFamily,
   ),
   button: base.button?.copyWith(
     fontSize: _FontSize.button,

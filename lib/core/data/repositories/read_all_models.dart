@@ -13,6 +13,7 @@ class JsonReader {
     String jsonString = await rootBundle.loadString(filePath);
     return jsonDecode(jsonString);
   }
+
   // static Map<String, dynamic> readDataFromJson(String filePath) {
   //   // Print current working directory
   //   print('Current working directory: ${Directory.current.path}');
@@ -127,7 +128,7 @@ class JsonReader {
         return false;
       }
     }
-    return false ;
+    return false;
   }
 
   static List<Part> extractParts(Map<String, dynamic> jsonData, int subjectId) {
@@ -142,6 +143,7 @@ class JsonReader {
     return [];
   }
 
+
   static List<Unit> extractUnitsByPartId(
       Map<String, dynamic> jsonData, int partId) {
     List<Unit> units = [];
@@ -152,6 +154,118 @@ class JsonReader {
     }
     print("Units count for PartI : ${units.length}");
     return units;
+  }
+
+  static List<City> extractCities(Map<String, dynamic> jsonData) {
+    List<City> cities = [];
+    if (jsonData['cities'] != null) {
+      cities = (jsonData['cities'] as List)
+          .map((cityJson) => City.fromJson(cityJson))
+          .toList();
+    }
+    return cities;
+  }
+
+  static List<Library> extractLibraries(
+      Map<String, dynamic> jsonData, int cityId) {
+    List<Library> libraries = [];
+    if (jsonData['libraries'] != null) {
+      libraries = (jsonData['libraries'] as List)
+          .map((libraryJson) => Library.fromJson(libraryJson))
+          .where((library) => library.cityId == cityId)
+          .toList();
+    }
+    return libraries;
+  }
+
+  static List<Question> extractQuestions(
+      Map<String, dynamic> jsonData, int key, String type) {
+    List<Question> questions = [];
+
+    if (jsonData['questions'] != null) {
+      var questionList = jsonData['questions'] as List<dynamic>;
+
+      if (type == 'unit') {
+        questions = questionList
+            .where((question) => question['unit_id'] == key)
+            .map((questionJson) => Question.fromJson(questionJson))
+            .toList();
+      } else if (type == 'lesson') {
+        questions = questionList
+            .where((question) => question['lesson_id'] == key)
+            .map((questionJson) => Question.fromJson(questionJson))
+            .toList();
+      } else if (type == 'part') {
+        questions = questionList
+            .where((question) => question['part_id'] == key)
+            .map((questionJson) => Question.fromJson(questionJson))
+            .toList();
+      } else {
+        print("Invalid type: $type");
+      }
+    } else {
+      print("No questions found in the JSON data");
+    }
+
+    print("Number of questions extracted: ${questions.length}");
+    return questions;
+  }
+
+  static List<Question> extractQuestionsByIdList(
+      List<String> idList, Map<String, dynamic> jsonData) {
+    List<Question> questions = [];
+    print("loadFavorites --- count ${idList.length}");
+    if (jsonData['questions'] != null) {
+      var questionList = jsonData['questions'] as List<dynamic>;
+
+      for (var id in idList) {
+        var foundQuestion = questionList.firstWhere(
+          (question) => question['id'].toString() == id,
+          orElse: () => null,
+        );
+        print("loadFavorites --- found $foundQuestion");
+        if (foundQuestion != null) {
+          questions.add(Question.fromJson(foundQuestion));
+        }
+      }
+    } else {
+      print("No questions found in the JSON data");
+    }
+
+    print("Number of questions extracted by ID list: ${questions.length}");
+    return questions;
+  }
+
+  static List<Question> extractQuestionsByUnitId(
+      Map<String, dynamic> jsonData, int unitId) {
+    print("Question By Unit Id $unitId");
+    return extractQuestions(jsonData, unitId, 'unit');
+  }
+
+  static List<Question> extractQuestionsByLessonId(
+      Map<String, dynamic> jsonData, int lessonId) {
+    print("Question By Lesson Id $lessonId");
+    return extractQuestions(jsonData, lessonId, 'lesson');
+  }
+
+  static List<Question> extractQuestionsByPartId(
+      Map<String, dynamic> jsonData, int partId) {
+    print("Question By Part Id $partId");
+    return extractQuestions(jsonData, partId, 'part');
+  }
+
+  static List<Lesson> extractLessonByUnitId(
+      Map<String, dynamic> jsonData, int unitId) {
+    List<Lesson> lessons = [];
+    if (jsonData['lessons'] != null &&
+        jsonData['lessons'][unitId.toString()] != null) {
+      var lessonJsonList = jsonData['lessons'][unitId.toString()] as List;
+      lessons = lessonJsonList
+          .map((lessonJson) => Lesson.fromJson(lessonJson))
+          .toList();
+    }
+    print("lesson JsonReader ${lessons.length}");
+    return lessons;
   }
 
   static List<Unit> extractUnitsBySubjectId(

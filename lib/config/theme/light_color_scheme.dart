@@ -2,7 +2,7 @@ part of 'app_theme.dart';
 
 
 const _lightColorScheme = ColorScheme.light(
-
+  inversePrimary: Color(0xFF48b4e0),
   primary :  Color(0xFF48b4e0),
   onPrimary : Color(0xffffffff),
   // onPrimary : Color(0xffF5F5F5),

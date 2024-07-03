@@ -1,21 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/core/utils/extension/widget_extensions.dart';
-import 'package:auto/ui/shared/flutter_switch.dart';
-import 'package:auto/ui/shared/main_app_bar.dart';
-import 'package:auto/ui/views/courses_questions_screen/widgets/quesion_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/state_manager.dart';
-import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 import '../../../core/data/models/local_json/all_models.dart';
 import '../../../core/data/repositories/read_all_models.dart';
@@ -26,33 +17,57 @@ class CoursesQuestionsController extends BaseController {
   ExpansionTileController expController = ExpansionTileController();
   late RxInt outSideEndTime = 1.obs;
   late CountdownTimerController timeController =
-      CountdownTimerController(endTime: endTime.value);
+  CountdownTimerController(endTime: endTime.value);
   RxInt secondsDuration = 4.obs;
   RxInt outSideSecondsDuration = 4.obs;
-  ValueNotifier<bool> timerStatus = ValueNotifier(false);
+  ValueNotifier<bool> timerStatus = ValueNotifier(true);
   ValueNotifier<bool> isTimerCounterCountDownActive = ValueNotifier(false);
   ValueNotifier<bool> animatedOpacityCounterValue = ValueNotifier(false);
   ValueNotifier<bool> outSideCounter = ValueNotifier(false);
   ValueNotifier<bool> expansionTile = ValueNotifier(false);
-  RxBool openExpand = true.obs;
+  RxBool openExpand = false.obs;
   RxBool answerTheQuestion = false.obs;
   Timer? timer;
   final GlobalKey floatingButtonKey = GlobalKey();
   final GlobalKey editButtonKey = GlobalKey();
   final GlobalKey settingsButtonKey = GlobalKey();
-  RxBool isTimerActive = true.obs;
-  Timer? mohsen_timer;
-  RxInt countdown = 3.obs;
+  RxBool isTimerActive = false.obs;
+
+  RxInt countdown = 10.obs;
   late CountdownTimerController timeControllerOutSide =
-      CountdownTimerController(endTime: endTime.value, onEnd: onEnd);
+  CountdownTimerController(endTime: endTime.value, onEnd: onEnd);
   late Map<String, dynamic> jsonfile;
   RxBool isLoading = true.obs;
   RxBool isChoosing = false.obs;
+  RxInt correctAnswers = 0.obs;
+  RxInt wrongAnswers = 0.obs;
+  var showResults = false.obs;
+  bool showcaseCompleted = false;
+  final GlobalKey timerKey = GlobalKey();
+  final GlobalKey submitKey = GlobalKey();
+  final GlobalKey starKey = GlobalKey();
+  final GlobalKey correctKey = GlobalKey();
+  final GlobalKey wrongKey = GlobalKey();
+  final GlobalKey resetKey = GlobalKey();
+  final GlobalKey solution = GlobalKey();
+  final GlobalKey favQuestion = GlobalKey();
+  RxBool showFavorites = false.obs;
+  RxBool showSolutions = false.obs;
+  RxList<Question> filteredQuestionsSearch = <Question>[].obs;
+  RxBool isSearchActive = false.obs;
+
+  late TextEditingController searchController;
+
+  late CountdownTimerController countdownTimerController;
+  Map<int, RxInt> selectedAnswers = {};
+  late List<Question> questions = <Question>[].obs;
 
   final _expandedQuestions = <int, bool>{}.obs;
 
+  RxList<int> favoriteQuestions = RxList<int>();
+
   void initializeExpandedQuestions() {
-    for (int i = 0; i > 150; i++) {
+    for (int i = 0; i < 150; i++) {
       _expandedQuestions[i] = false;
     }
   }
@@ -63,64 +78,245 @@ class CoursesQuestionsController extends BaseController {
 
   void toggleExpand(int questionIndex) {
     _expandedQuestions[questionIndex] =
-        !(_expandedQuestions[questionIndex] ?? false);
+    !(_expandedQuestions[questionIndex] ?? false);
   }
 
-  // void toggleExpandAll() {
-  //   final allExpanded = _expandedQuestions.values.every((value) => value);
-  //   _expandedQuestions.forEach((index, value) {
-  //     _expandedQuestions[index] = !allExpanded;
-  //   });
-  // }
+  void toggleAnswerVisibility() {
+    answerTheQuestion.value = !answerTheQuestion.value;
+  }
+
+  // تحقق من ما إذا كان السؤال مفضل
+  bool isFavorite(int questionId) {
+    return favoriteQuestions.contains(questionId);
+  }
+
+  void showcaseController(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool? showcaseCompleted = prefs.getBool('showcaseCompleted1');
+      print("$showcaseCompleted sggg");
+      if (showcaseCompleted == null) {
+        ShowCaseWidget.of(context).startShowCase([
+          timerKey,
+          submitKey,
+          correctKey,
+          wrongKey,
+          resetKey,
+          solution,
+          favQuestion
+        ]);
+
+        await prefs.setBool('showcaseCompleted1', true);
+      }
+    });
+  }
+
+  // تغيير حالة التفضيل للسؤال
+  void toggleFavorite(int questionId) {
+    if (favoriteQuestions.contains(questionId)) {
+      favoriteQuestions.remove(questionId);
+    } else {
+      favoriteQuestions.add(questionId);
+    }
+    saveFavorites();
+    update();
+  }
+
+  // حفظ قائمة الأسئلة المفضلة في التخزين المحلي
+  Future<void> saveFavorites() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('favoriteQuestions',
+        favoriteQuestions.map((id) => id.toString()).toList());
+  }
+
+  // تحميل قائمة الأسئلة المفضلة من التخزين المحلي
+  Future<void> loadFavorites() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? favoriteList = prefs.getStringList('favoriteQuestions');
+    if (favoriteList != null) {
+      favoriteQuestions.value =
+          favoriteList.map((id) => int.parse(id)).toList();
+    }
+    update();
+  }
+
+  // تحقق مما إذا كانت الأسئلة تحتوي على كلمة البحث
+  bool containsSearchWord(Question question, String searchWord) {
+    return question.text.toLowerCase().contains(searchWord.toLowerCase());
+  }
+
+  List<Question> get filteredQuestions {
+    if (isSearchActive.value && searchController.text.isNotEmpty) {
+      return questions
+          .where((q) => containsSearchWord(q, searchController.text))
+          .toList();
+    } else if (showFavorites.value) {
+      return questions.where((q) => favoriteQuestions.contains(q.id)).toList();
+    } else {
+      return questions;
+    }
+  }
+
+  void toggleShowFavorites() {
+    showFavorites.value = !showFavorites.value;
+    update();
+  }
+
+  void highlightCorrectAnswers() {
+    showSolutions.value = true;
+    update();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    // قراءة الأسئلة عندما يتم دخول الصفحة لأول مرة
+    readfile(0, '');
+    // تهيئة وإعدادات أخرى عندما يتم دخول الصفحة لأول مرة
+    secureWindow();
+    searchController = TextEditingController();
+    countdownTimerController = CountdownTimerController(
+      endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 60, // 1 minute
+    );
+    // Initialize controllers
+    timeController = CountdownTimerController(endTime: endTime.value);
+    timeControllerOutSide =
+        CountdownTimerController(endTime: endTime.value, onEnd: onEnd);
+
+    // تحميل الأسئلة المفضلة عندما يتم دخول الصفحة
+    loadFavorites();
+    print("consoooooooool reseeeeeeeet");
+    resetAllStates();
+  }
+
+  void resetQuestionState() {
+    // إعادة تهيئة حالة التحكم بالأسئلة والجواب المحدد
+    correctAnswers.value = 0;
+    wrongAnswers.value = 0;
+    selectedAnswers.clear();
+    showResults.value = false;
+  }
+
+  void resetTimerState() {
+    isTimerActive.value = false;
+    countdown.value = 30;
+  }
+
+  void resetAllStates() {
+    print("reseeeeeeeetAlllllll");
+    resetQuestionState();
+    resetTimerState();
+  }
+
   void stopExpandAll() {
     openExpand.value = false;
-    final allExpanded = _expandedQuestions.values.every((value) => value);
     _expandedQuestions.forEach((index, value) {
       _expandedQuestions[index] = false;
     });
   }
 
+  Future<void> stopExpandAllGradually() async {
+    openExpand.value = false;
+    for (int i = 0; i < _expandedQuestions.length; i++) {
+      _expandedQuestions[i] = false;
+      await Future.delayed(Duration(milliseconds: 50)); // Adjust the duration as needed
+    }
+  }
+
   void startExpandAll() {
     openExpand.value = true;
-    final allExpanded = _expandedQuestions.values.every((value) => value);
     _expandedQuestions.forEach((index, value) {
       _expandedQuestions[index] = true;
     });
   }
 
-  late List<Question> questions;
-  Map<int, RxInt> selectedAnswers = {}; // Holds the selected answer ID
+  void calculateResults() {
+    correctAnswers.value = 0;
+    wrongAnswers.value = 0;
+
+    for (var question in questions) {
+      for (var answer in question.answers!) {
+        if (answer!.isCorrect == 1) {
+          if (answer.id == getSelectedAnswer(question.id)) {
+            correctAnswers.value++;
+          } else {
+            wrongAnswers.value++;
+          }
+        }
+      }
+    }
+    showResults.value = true; // تحديث قيمة showResults هنا
+  }
 
   void selectAnswer(int questionId, int answerId) {
     isChoosing.value = true;
+
+    // التحقق من صحة الفهرس
+    if (questionId < 0 || questionId >= questions.length) {
+      print('Invalid question index: $questionId');
+      isChoosing.value = false;
+      return;
+    }
+
+    if (questions[questionId].answers == null ||
+        answerId < 0 ||
+        answerId >= questions[questionId].answers!.length) {
+      print('Invalid answer index: $answerId');
+      isChoosing.value = false;
+      return;
+    }
+
+    // إذا كانت هناك إجابة سابقة، قم بتعديل العدادات بناءً على صحة الإجابة
     if (!selectedAnswers.containsKey(questionId)) {
       selectedAnswers[questionId] = RxInt(-1);
     }
+
+    if (selectedAnswers[questionId]!.value != -1) {
+      bool wasCorrect = questions[questionId].answers!.any((answer) =>
+      answer?.id == selectedAnswers[questionId]!.value &&
+          answer!.isCorrect == 1);
+      if (wasCorrect) {
+        correctAnswers.value--;
+      } else {
+        wrongAnswers.value--;
+      }
+    }
+
+    // تعيين الإجابة الجديدة
     selectedAnswers[questionId]!.value = answerId;
+
+    // تحقق من صحة الإجابة الجديدة
+    bool isCorrect = questions[questionId].answers!.any((answer) =>
+    answer?.id == answerId && answer!.isCorrect == 1);
+    if (isCorrect) {
+      correctAnswers.value++;
+    } else {
+      wrongAnswers.value++;
+    }
+
     isChoosing.value = false;
   }
 
-  int getSelectedAnswer(int questionId) {
+  int? getSelectedAnswer(int questionId) {
     if (selectedAnswers.containsKey(questionId)) {
       return selectedAnswers[questionId]!.value;
     }
-    return -1;
+    return null;
   }
 
   void readfile(int course_id, String type) async {
-    print("bankkssks88888 ${type == "بنك"} ");
     isLoading.value = true;
-    // TODO: implement onInit
+    // تحميل ملف JSON من الأصول
     jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
+    // استخراج الأسئلة بناءً على النوع
     if (type == "دورة") {
       questions = JsonReader.extractQuestionsByCourseId(jsonfile, course_id);
-    }
-    if (type == "بنك") {
-      print("bankkssks ");
+    } else if (type == "بنك") {
       questions = JsonReader.extractQuestionsByBankId(jsonfile, course_id);
-      print(questions.length);
     }
-    print("nlkmlnkl $course_id ${questions.length}");
+    // ترتيب الأسئلة حسب المعرف
+    questions.sort((a, b) => a.id.compareTo(b.id));
+    // تحديث حالة التحميل
     isLoading.value = false;
   }
 
@@ -131,114 +327,72 @@ class CoursesQuestionsController extends BaseController {
     timeController.dispose();
     isTimerCounterCountDownActive.value = false;
     outSideCounter.value = true;
+    // تحديث showResults.value لعرض النتائج عند انتهاء التوقيت
+    showResults.value = true;
     Get.back();
   }
 
-  void secureWindow() async {
-    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    secureWindow();
-    // _createTutorial();
-  }
-
   void startTimer() {
-    mohsen_timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    if (timer != null) timer!.cancel(); // إلغاء المؤقت السابق إذا كان موجودًا
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (countdown > 0) {
         countdown--;
       } else {
-        mohsen_timer?.cancel();
-
-        isTimerActive = false.obs;
-        countdown = 3.obs;
+        timer.cancel();
+        isTimerActive.value = false;
       }
     });
   }
 
-  @override
-  void onClose() {
-    mohsen_timer?.cancel();
-    super.dispose();
-
-    timeControllerOutSide.dispose();
-    timeController.dispose();
-    super.onClose();
+  void searchQuestions(String query) {
+    if (query.isEmpty) {
+      // If search query is empty, show all questions
+      filteredQuestions.assignAll(filteredQuestions);
+    } else {
+      // Filter questions based on search query
+      filteredQuestions.assignAll(filteredQuestions
+          .where((question) => containsSearchWord(question, query))
+          .toList());
+    }
+    update(); // Ensure to call the update method to update the view.
   }
+
+  // bool containsSearchWord(Question question, String searchWord) {
+  //   return question.text.toLowerCase().contains(searchWord.toLowerCase());
+  // }
+  void clearSearch() {
+    searchController.clear();
+    filteredQuestions.assignAll(questions);
+    update(); // Ensure to call the update method to update the view.
+  }
+
+  Stream<int> get timerStream =>
+      Stream.periodic(Duration(seconds: 1), (count) => countdown.value);
 
   void onEndTimeOutSide() {
     outSideCounter.value = false;
     if (timerStatus.value) {
       Get.back();
     }
+    // تحديث showResults.value لعدم عرض النتائج عند انتهاء التوقيت الخارجي
+    showResults.value = false;
+  }
+
+  String getQuestionTextWithAnswersById(int questionId) {
+    final question =
+    questions.firstWhere((q) => q.id == questionId);
+    if (question != null) {
+      String questionText = question.text;
+      String? answersText =
+      question.answers?.map((answer) => answer?.text).join('\n');
+      return '$questionText\n\n$answersText';
+    } else {
+      return 'Question not found';
+    }
+  }
+
+  void secureWindow() async {
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   }
 }
-//
-// Future<void> _createTutorial() async {
-//   final targets = [
-//     TargetFocus(
-//       identify: 'floatingButton',
-//       keyTarget: floatingButtonKey,
-//       alignSkip: Alignment.topCenter,
-//       contents: [
-//         TargetContent(
-//           align: ContentAlign.top,
-//           builder: (context, controller) => Text(
-//             'Use this button to add new elements to the list',
-//             style: Theme.of(context)
-//                 .textTheme
-//                 .titleLarge
-//                 ?.copyWith(color: Colors.white),
-//           ),
-//         ),
-//       ],
-//     ),
-//     TargetFocus(
-//       identify: 'editButton',
-//       keyTarget: editButtonKey,
-//       alignSkip: Alignment.bottomCenter,
-//       contents: [
-//         TargetContent(
-//           align: ContentAlign.bottom,
-//           builder: (context, controller) => Padding(
-//             padding: const EdgeInsets.only(top: 100.0),
-//             child: Text(
-//               'You can edit----- the entries by pressing on the edit button',
-//               style: Theme.of(context)
-//                   .textTheme
-//                   .titleLarge
-//                   ?.copyWith(color: Colors.white),
-//             ),
-//           ),
-//         ),
-//       ],
-//     ),
-//     TargetFocus(
-//       identify: 'settingsButton',
-//       keyTarget: settingsButtonKey,
-//       alignSkip: Alignment.bottomCenter,
-//       contents: [
-//         TargetContent(
-//           align: ContentAlign.bottom,
-//           builder: (context, controller) => Text(
-//             'Configure the app in the settings screen',
-//             style: Theme.of(context)
-//                 .textTheme
-//                 .titleLarge
-//                 ?.copyWith(color: Colors.white),
-//           ),
-//         ),
-//       ],
-//     ),
-//   ];
-//
-//   final tutorial = TutorialCoachMark(
-//     targets: targets,
-//   );
-//
-//   Future.delayed(const Duration(milliseconds: 500), () {
-//     tutorial.show(context: Get.context!);
-//   });
-// }
+

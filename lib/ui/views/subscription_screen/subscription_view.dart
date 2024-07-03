@@ -8,10 +8,13 @@ import 'package:auto/ui/shared/utils.dart';
 import 'package:auto/ui/views/notification_screen/notification_screen.dart';
 import 'package:auto/ui/views/subjects_screen/subject_view.dart';
 import 'package:auto/ui/views/subscription_screen/subscription_controller.dart';
+import 'package:auto/ui/views/wellcom_screen/centers/centers_view.dart';
+import 'package:auto/ui/views/wellcom_screen/contact_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 
+import '../favorite_screen/favoriteQuestionsView.dart';
 import '../wellcom_screen/about_view.dart';
 import '../wellcom_screen/developers_view.dart';
 
@@ -125,16 +128,87 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                         const SizedBox(
                           width: 20,
                         ),
+                        // CustomText(
+                        //   textType: TextStyleType.custom,
+                        //   text: "مراكز البيع",
+                        // ),
+                        InkWell(
+                          borderRadius: BorderRadius.circular(screenWidth(10)),
+                          splashColor: AppColors.blueB4,
+                          onTap: () {
+                            Get.to(CentersScreen());
+                          },
+                          child: Row(
+                            children: [
+                              // Image.asset(
+                              //   "assets/images/icon_app.png",
+                              //   height: 27,
+                              // ),
+
+                              CustomText(
+                                textType: TextStyleType.custom,
+                                text: " مراكز البيع ",
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                    borderRadius: BorderRadius.circular(screenWidth(10)),
+                    splashColor: AppColors.blueB4,
+                    onTap: () {
+                    Get.to(ContactScreen()); // توجيه إلى صفحة الأسئلة المفضلة
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.contact_phone_rounded,
+                          color: AppColors.mainWhiteColor,
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
                         CustomText(
                           textType: TextStyleType.custom,
-                          text: "مراكز البيع",
+                          text: "تواصل معنا ",
                         ),
                       ],
                     ),
                   ),
+
                   const SizedBox(
                     height: 20,
                   ),
+                  InkWell(
+                    borderRadius: BorderRadius.circular(screenWidth(10)),
+                    splashColor: AppColors.blueB4,
+                    onTap: () {
+                      Get.to(FavoriteQuestionsView()); // توجيه إلى صفحة الأسئلة المفضلة
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.favorite,
+                          color: AppColors.mainWhiteColor,
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        CustomText(
+                          textType: TextStyleType.custom,
+                          text: "الأسئلة المفضلة",
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20,),
                   InkWell(
                     borderRadius: BorderRadius.circular(screenWidth(10)),
                     splashColor: AppColors.blueB4,

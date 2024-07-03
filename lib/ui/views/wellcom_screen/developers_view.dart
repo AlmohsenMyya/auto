@@ -1,3 +1,4 @@
+import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,6 +42,7 @@ class DevelopersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.exOnPrimaryContainer,
       body: SafeArea(
         child: ListView(
           children: [
@@ -51,7 +53,7 @@ class DevelopersPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                   "من قام بتطوير هذا التطبيق هم مجموعة من المهندسين السوريين , سعيا منهم لتقديم تجربة مستخدم مميزة ومفيدة من خلال هذا التطبيق "
-                  "مع التمنيات بالتوفيق الدائم لجميع الطلاب ",style: TextStyle(wordSpacing: 7,),),
+                  "مع التمنيات بالتوفيق الدائم لجميع الطلاب ",style : context.exTextTheme.subtitle1!.copyWith(color: context.exOnBackground)),
             ),
             SizedBox(
               height: 20,
@@ -60,7 +62,7 @@ class DevelopersPage extends StatelessWidget {
             DeveloperListItem(developer: developers[1]),
             DeveloperListItem(developer: developers[2]),
             Image.asset(
-              "assets/images/icon_app.png",
+              "assets/images/logo.png",
               height: 500,
             ),
           ],

@@ -9,6 +9,10 @@ class CoursesController extends BaseController {
   RxBool isLoading = true.obs;
 
   late List<Course> courses;
+  late List<Question> questions = <Question>[].obs;
+
+
+
 
   void readfile(int subject_id) async {
     isLoading.value = true;
@@ -17,6 +21,8 @@ class CoursesController extends BaseController {
     courses = JsonReader.extractCourses(jsonfile, subject_id);
     isLoading.value = false;
   }
+
+
 
   @override
   void onInit() {

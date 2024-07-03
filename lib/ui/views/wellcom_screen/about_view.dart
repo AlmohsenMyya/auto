@@ -1,21 +1,29 @@
+import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:flutter/material.dart';
 
 class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.exOnPrimaryContainer,
       appBar: AppBar(
+        backgroundColor: context.exOnPrimaryContainer,
         leading: Image.asset(
-          "assets/images/icon_app.png",
-          height: 50,
+          "assets/images/logo.png",
+          height: 100,
         ),
         actions: [
           Image.asset(
-            "assets/images/icon_app.png",
-            height: 50,
+            "assets/images/logo.png",
+            height: 100,
           ),
         ],
-        title: Center(child: Text('حول التطبيق')),
+        title: Center(
+            child: Text(
+          'حول التطبيق',
+          style: context.exTextTheme.subtitle1!
+              .copyWith(color: context.exOnBackground),
+        )),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -23,7 +31,7 @@ class AboutScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                "assets/images/icon_app.png",
+                "assets/images/logo.png",
                 height: 200,
               ),
 
@@ -35,7 +43,8 @@ class AboutScreen extends StatelessWidget {
 هنا، في هذا المساحة الرقمية، يمكن للطلاب الاستفادة من موارد التعلم المتاحة بسهولة وفعالية، مما يساعدهم في فهم المواد وتحضيرها بشكل شامل ومتقدم. سواء كنت تبحث عن أسئلة ممارسة أو مراجعات شاملة، فإن التطبيق يلبي جميع احتياجاتك التعليمية بكفاءة واحترافية.
 
 لا تضيع وقتك في البحث عن المصادر الموثوقة، بل اجعل التطبيق وجهتك الأولى والوحيدة لتحضير امتحانات البكالوريا بثقة وسهولة.''',
-                  style: TextStyle(fontSize: 18),
+                  style: context.exTextTheme.subtitle1!
+                      .copyWith(color: context.exOnBackground),
                 ),
               ),
 

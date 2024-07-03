@@ -43,7 +43,7 @@ String get _sFAdobeCleanBoldFamily => 'AdobeCleanBold';
 String get _sFCairoBoldFamily => 'Cairo';
 String get _sFCairoRegularFamily => 'CairoRegular';
 String get _sFCairoSemiBoldFamily => 'CairoSemiBold';
-String get _sFAlexandriaFamily => 'Alexandria';
+//String get _sFAlexandriaFamily => 'Alexandria';
 
 extension FamilyUtils on TextStyle {
   TextStyle get cairoBold =>

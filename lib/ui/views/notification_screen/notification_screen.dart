@@ -1,4 +1,5 @@
 import 'package:auto/core/data/models/notification_model.dart';
+import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/core/utils/extension/widget_extension.dart';
 import 'package:auto/ui/shared/main_app_bar.dart';
 import 'package:auto/ui/views/notification_screen/widgets/NotificationListTile.dart';
@@ -26,7 +27,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.exOnPrimaryContainer,
       appBar: MainAppBar(
+        backGroundColor: context.exOnPrimaryContainer,
+
           onTap: () => Navigator.of(context).pop(), titleText: 'الإشعارات'),
       body: ListView.builder(
         itemCount: indexNotificationModel.length,

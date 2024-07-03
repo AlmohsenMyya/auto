@@ -11,9 +11,9 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 ThemeData lightTheme = ThemeData(
-  appBarTheme:  AppBarTheme(titleTextStyle:TextStyle(  fontFamily: 'Alexandria',  color:const ColorScheme.light().primary) ),
+  appBarTheme:  AppBarTheme(titleTextStyle:TextStyle(  color:const ColorScheme.light().primary) ),
   useMaterial3: true,
-  fontFamily: 'Alexandria',
+  // fontFamily: 'Alexandria',
 primaryIconTheme: const IconThemeData( color: Colors.black),
   iconTheme: const  IconThemeData(color: Colors.black),
   brightness: Brightness.light,
@@ -35,12 +35,13 @@ primaryIconTheme: const IconThemeData( color: Colors.black),
   ),
 );
 ThemeData darkTheme = ThemeData(
-  appBarTheme:   AppBarTheme(titleTextStyle:TextStyle(  fontFamily: 'Alexandria',  color:const ColorScheme.dark().primary) ),
+  appBarTheme:   AppBarTheme(titleTextStyle:TextStyle( // fontFamily: 'Alexandria',
+ color:const ColorScheme.dark().primary) ),
   useMaterial3: true,
   primaryColor: AppColors.mainGrey2Color,
   primaryColorDark: AppColors.mainGrey2Color,
   brightness: Brightness.dark,
-  fontFamily: 'Alexandria',
+  // fontFamily: 'Alexandria',
   colorScheme: const ColorScheme(
     brightness: Brightness.dark,
     primary:  Colors.white,
