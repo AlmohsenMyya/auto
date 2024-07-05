@@ -26,7 +26,7 @@ class SubjectCardDetails extends StatelessWidget {
             padding: EdgeInsets.all(8),
             child: Text(
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 30,
                     color: Theme.of(context).colorScheme.onBackground),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

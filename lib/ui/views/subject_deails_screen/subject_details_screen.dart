@@ -46,7 +46,7 @@ class SubjectDetailsScreen extends StatelessWidget {
             crossAxisCount: 1, // Single column
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,
-            childAspectRatio: 2, // Adjust the aspect ratio as needed
+            childAspectRatio: 2.4, // Adjust the aspect ratio as needed
           ),
           itemBuilder: (BuildContext context, int index) {
             return SubjectCardDetails(
