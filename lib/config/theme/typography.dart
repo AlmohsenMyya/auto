@@ -14,13 +14,13 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     fontWeight: _semiBold,
     letterSpacing: 0,
   ),
-  headline1: base.headline1?.copyWith(
+  displayLarge: base.displayLarge?.copyWith(
     fontSize: _FontSize.heading_01,
     fontWeight: _semiBold,
     letterSpacing: 0,
     fontFamily: _sFDisplayBoldFamily,
   ),
-  headline2: base.headline2?.copyWith(
+  displayMedium: base.displayMedium?.copyWith(
 
     fontSize: _FontSize.heading_02,
 
@@ -29,13 +29,13 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     letterSpacing: 0,
     fontFamily: _sFDisplayLightFamily,
   ),
-  headline3: base.headline3?.copyWith(
+  displaySmall: base.displaySmall?.copyWith(
     fontSize: _FontSize.heading_03,
     fontWeight: _bold,
     letterSpacing: 0,
     fontFamily: _sFDisplayLightFamily,
   ),
-  headline4: base.headline4?.copyWith(
+  headlineMedium: base.headlineMedium?.copyWith(
 
     fontSize: _FontSize.heading_04,
 
@@ -44,7 +44,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     letterSpacing: 0,
     fontFamily: _sFDisplayLightFamily,
   ),
-  headline5: base.headline5?.copyWith(
+  headlineSmall: base.headlineSmall?.copyWith(
 
     fontSize: _FontSize.heading_05,
 
@@ -53,7 +53,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     letterSpacing: 0,
     fontFamily: _sFDisplayLightFamily,
   ),
-  headline6: base.headline6?.copyWith(
+  titleLarge: base.titleLarge?.copyWith(
 
     fontSize: _FontSize.heading_06,
 
@@ -62,7 +62,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     letterSpacing: 0,
    // fontFamily: _sFAlexandriaFamily,
   ),
-  subtitle1: base.subtitle1?.copyWith(
+  titleMedium: base.titleMedium?.copyWith(
 
     fontSize: _FontSize.subtitle_01,
 
@@ -71,7 +71,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     letterSpacing: 0,
    // fontFamily: _sFAlexandriaFamily,
   ),
-  subtitle2: base.subtitle2?.copyWith(
+  titleSmall: base.titleSmall?.copyWith(
 
     fontSize: _FontSize.subtitle_02,
 
@@ -80,16 +80,16 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     letterSpacing: 0,
   //  fontFamily: _sFAlexandriaFamily,
   ),
-  bodyText1: base.bodyText1?.copyWith(
-
-    fontSize: _FontSize.body_01,
-
-    /// 16
-    fontWeight: _regular,
-    letterSpacing: 0,
-    //fontFamily: _sFAlexandriaFamily,
-  ),
-  bodyText2: base.bodyText2?.copyWith(
+  // titleMedium: base.titleMedium?.copyWith(
+  //
+  //   fontSize: _FontSize.body_01,
+  //
+  //   /// 16
+  //   fontWeight: _regular,
+  //   letterSpacing: 0,
+  //   //fontFamily: _sFAlexandriaFamily,
+  // ),
+  bodyMedium: base.bodyMedium?.copyWith(
     fontSize: _FontSize.body_02,
 
     /// 14
@@ -97,7 +97,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     letterSpacing: 0,
   //  fontFamily: _sFAlexandriaFamily,
   ),
-  button: base.button?.copyWith(
+  labelLarge: base.labelLarge?.copyWith(
     fontSize: _FontSize.button,
 
     /// 18
@@ -105,7 +105,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     letterSpacing: 0,
     fontFamily: _sFDisplayLightFamily,
   ),
-  caption: base.caption?.copyWith(
+  bodySmall: base.bodySmall?.copyWith(
     fontSize: _FontSize.caption,
 
     /// 12
@@ -113,7 +113,7 @@ TextTheme appTextTheme(TextTheme base, Color textColor) => base.copyWith(
     letterSpacing: 0,
     fontFamily: _sFDisplayLightFamily,
   ),
-  overline: base.overline?.copyWith(
+  labelSmall: base.labelSmall?.copyWith(
     fontSize: _FontSize.overline,
 
     /// 10

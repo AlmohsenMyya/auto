@@ -92,12 +92,12 @@ class _ImageViewScreenState extends State<ImageViewScreen> {
                           Text(
                             widget.arg.topRightCornerText ?? "",
                             textAlign: TextAlign.center,
-                            style: context.exTextTheme.subtitle1,
+                            style: context.exTextTheme.titleMedium,
                           ),
                           Text(
                             widget.arg.topLeftCornerText ?? "",
                             textAlign: TextAlign.center,
-                            style: context.exTextTheme.subtitle1,
+                            style: context.exTextTheme.titleMedium,
                           ),
                         ],
                       ),
@@ -153,7 +153,7 @@ class _ImageViewScreenState extends State<ImageViewScreen> {
                           // ),
                           Text(
                               widget.arg.bottomLeftCornerText ?? "",
-                              style: context.exTextTheme.subtitle1
+                              style: context.exTextTheme.titleMedium
                           ),
                         ],
                       ),

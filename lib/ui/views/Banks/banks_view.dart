@@ -45,8 +45,8 @@ class _BanksState extends State<Banks> {
           backGroundColor: context.exOnPrimaryContainer,
           onTap: () => Navigator.of(context).pop(),
           titleText: ' بنوك مادة ${widget.subject.name}',
-          titleTextStyle: context.exTextTheme.bodyText1!.copyWith(
-              color: context.exOnBackground, fontFamily: 'Alexandria')),
+          titleTextStyle: context.exTextTheme.titleLarge!.copyWith(
+              color: context.exOnBackground)),
       body: Column(children: [
         //todo search
 

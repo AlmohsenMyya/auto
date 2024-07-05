@@ -133,7 +133,7 @@ class FavoriteController extends BaseController {
     timeController = CountdownTimerController(endTime: endTime.value);
     timeControllerOutSide =
         CountdownTimerController(endTime: endTime.value, onEnd: onEnd);
-    print("consoooooooool reseeeeeeeet");
+    print("consoooooooool reseeeeeeeet 2");
     resetAllStates();
   }
 

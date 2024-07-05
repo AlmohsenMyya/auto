@@ -40,7 +40,7 @@ class _TitleOfLessonQuestionsState extends State<TitleOfLessonQuestions> {
               child: RichText(
                 text: TextSpan(
                   text: controller.questions[widget.question_index].text,
-                  style: context.exTextTheme.subtitle1!.copyWith(
+                  style: context.exTextTheme.titleMedium!.copyWith(
                     color: context.exOnBackground,
                   ),
                 ),

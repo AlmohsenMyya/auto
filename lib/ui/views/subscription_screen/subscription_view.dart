@@ -47,7 +47,8 @@ class _SubscriptionViewState extends State<SubscriptionView> {
               color: Theme.of(context).colorScheme.onBackground,
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Alexandria'),
+             // fontFamily: 'Alexandria'
+     ),
           titleText: 'اتمتة',
           backGroundColor: context.exOnPrimaryContainer,
           // textStyle: const TextStyle(color: Colors.black)
@@ -300,7 +301,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: CustomText(
-                                textType: TextStyleType.custom,
+                                textType: TextStyleType.bodyBig,
                                 text: controller.branchs[index2].name,
                               ),
                             ),

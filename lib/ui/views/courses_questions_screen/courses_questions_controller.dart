@@ -185,7 +185,7 @@ class CoursesQuestionsController extends BaseController {
 
     // تحميل الأسئلة المفضلة عندما يتم دخول الصفحة
     loadFavorites();
-    print("consoooooooool reseeeeeeeet");
+    print("consoooooooool reseeeeeeeet 1");
     resetAllStates();
   }
 
@@ -347,24 +347,23 @@ class CoursesQuestionsController extends BaseController {
   void searchQuestions(String query) {
     if (query.isEmpty) {
       // If search query is empty, show all questions
-      filteredQuestions.assignAll(filteredQuestions);
+      filteredQuestions.assignAll(questions);
     } else {
       // Filter questions based on search query
-      filteredQuestions.assignAll(filteredQuestions
+      filteredQuestions.assignAll(questions
           .where((question) => containsSearchWord(question, query))
           .toList());
     }
     update(); // Ensure to call the update method to update the view.
   }
 
-  // bool containsSearchWord(Question question, String searchWord) {
-  //   return question.text.toLowerCase().contains(searchWord.toLowerCase());
-  // }
   void clearSearch() {
     searchController.clear();
     filteredQuestions.assignAll(questions);
     update(); // Ensure to call the update method to update the view.
   }
+
+
 
   Stream<int> get timerStream =>
       Stream.periodic(Duration(seconds: 1), (count) => countdown.value);

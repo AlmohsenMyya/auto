@@ -27,7 +27,7 @@ class AppTheme {
           disabledInactiveTickMarkColor: Colors.teal,
           disabledInactiveTrackColor: Colors.teal,
           valueIndicatorTextStyle:
-              textTheme.subtitle1!.copyWith(color: Colors.teal)),
+              textTheme.titleMedium!.copyWith(color: Colors.teal)),
       colorScheme: _lightColorScheme,
       textTheme: textTheme,
       useMaterial3: true,

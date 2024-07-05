@@ -53,6 +53,10 @@ class LessonsQuestionsController extends BaseController {
   final GlobalKey favQuestion= GlobalKey();
   RxBool showSolutions = false.obs;
 
+  RxBool isSearchActive = false.obs;
+
+  late TextEditingController searchController;
+
 
 
   late CountdownTimerController countdownTimerController;
@@ -103,13 +107,23 @@ class LessonsQuestionsController extends BaseController {
 
     });
   }
+  // تحقق مما إذا كانت الأسئلة تحتوي على كلمة البحث
+  bool containsSearchWord(Question question, String searchWord) {
+    return question.text.toLowerCase().contains(searchWord.toLowerCase());
+  }
+
   List<Question> get filteredQuestions {
-    if (showFavorites.value) {
+    if (isSearchActive.value && searchController.text.isNotEmpty) {
+      return questions
+          .where((q) => containsSearchWord(q, searchController.text))
+          .toList();
+    } else if (showFavorites.value) {
       return questions.where((q) => favoriteQuestions.contains(q.id)).toList();
     } else {
       return questions;
     }
   }
+
   void toggleShowFavorites() {
     showFavorites.value = !showFavorites.value;
     update();
@@ -157,10 +171,11 @@ class LessonsQuestionsController extends BaseController {
     timeController = CountdownTimerController(endTime: endTime.value);
     timeControllerOutSide =
         CountdownTimerController(endTime: endTime.value, onEnd: onEnd);
+    searchController = TextEditingController();
 
     // تحميل الأسئلة المفضلة عندما يتم دخول الصفحة
     loadFavorites();
-    print("consoooooooool reseeeeeeeet");
+    print("consoooooooool reseeeeeeeet 3");
     resetAllStates();
   }
 
@@ -321,6 +336,25 @@ class LessonsQuestionsController extends BaseController {
     } else {
       return 'Question not found';
     }
+  }
+  void searchQuestions(String query) {
+    if (query.isEmpty) {
+      // If search query is empty, show all questions
+      filteredQuestions.assignAll(filteredQuestions);
+    } else {
+      // Filter questions based on search query
+      filteredQuestions.assignAll(filteredQuestions
+          .where((question) => containsSearchWord(question, query))
+          .toList());
+    }
+    update(); // Ensure to call the update method to update the view.
+  }
+
+
+  void clearSearch() {
+    searchController.clear();
+    filteredQuestions.assignAll(questions);
+    update(); // Ensure to call the update method to update the view.
   }
 
 

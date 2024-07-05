@@ -74,7 +74,7 @@ class _UnitsQuestionsViewState extends State<UnitsQuestionsView> {
               icon: Icon(Icons.arrow_back),
               onPressed: () => Get.back(),
             ),
-            title: Center(child: Text('الأسئلة', style: context.exTextTheme.subtitle1!.copyWith(color: context.exOnBackground),)),
+            title: Center(child: Text('الأسئلة', style: context.exTextTheme.titleMedium!.copyWith(color: context.exOnBackground),)),
             actions: [
               Showcase(
                 key: controller.favQuestion,
@@ -107,22 +107,22 @@ class _UnitsQuestionsViewState extends State<UnitsQuestionsView> {
                           2.horizontalSpace,
                           Text(
                             'علوم',
-                            style: context.exTextTheme.subtitle1!.copyWith(color: context.exInversePrimaryColor),
+                            style: context.exTextTheme.titleMedium!.copyWith(color: context.exInversePrimaryColor),
                           ),
                           Text(
                             'دورة 2018',
                             key: controller.floatingButtonKey,
-                            style: context.exTextTheme.subtitle1!.copyWith(color: context.exInversePrimaryColor),
+                            style: context.exTextTheme.titleMedium!.copyWith(color: context.exInversePrimaryColor),
                           ),
                           RichText(
                             key: controller.editButtonKey,
                             text: TextSpan(
                               text: 'عدد الأسئلة : ',
-                              style: context.exTextTheme.subtitle1!.copyWith(color: context.exInversePrimaryColor),
+                              style: context.exTextTheme.titleMedium!.copyWith(color: context.exInversePrimaryColor),
                               children: [
                                 TextSpan(
                                   text: controller.questions.length.toString(),
-                                  style: context.exTextTheme.subtitle1!.copyWith(color: context.exInversePrimaryColor),
+                                  style: context.exTextTheme.titleMedium!.copyWith(color: context.exInversePrimaryColor),
                                 ),
                               ],
                             ),

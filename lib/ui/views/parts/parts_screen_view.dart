@@ -52,7 +52,7 @@ class _PartsScreenState extends State<PartsScreen> {
               backGroundColor: context.exOnPrimaryContainer,
               onTap: () => Navigator.of(context).pop(),
               titleText: ' دورات مادة ${widget.subject.name}',
-              titleTextStyle: context.exTextTheme.bodyText1!.copyWith(
+              titleTextStyle: context.exTextTheme.titleMedium!.copyWith(
                   color: context.exOnBackground, fontFamily: 'Alexandria')),
           body: Column(children: [
             //todo search

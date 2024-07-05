@@ -102,7 +102,7 @@ class ContactItem extends StatelessWidget {
             Expanded(
               child: Text(
                 text,
-                style: context.exTextTheme.subtitle1!.copyWith(color: context.exOnBackground),
+                style: context.exTextTheme.titleMedium!.copyWith(color: context.exOnBackground),
               ),
             ),
           ],

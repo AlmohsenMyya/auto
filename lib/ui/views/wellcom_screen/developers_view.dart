@@ -53,7 +53,7 @@ class DevelopersPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                   "من قام بتطوير هذا التطبيق هم مجموعة من المهندسين السوريين , سعيا منهم لتقديم تجربة مستخدم مميزة ومفيدة من خلال هذا التطبيق "
-                  "مع التمنيات بالتوفيق الدائم لجميع الطلاب ",style : context.exTextTheme.subtitle1!.copyWith(color: context.exOnBackground)),
+                  "مع التمنيات بالتوفيق الدائم لجميع الطلاب ",style : context.exTextTheme.titleMedium!.copyWith(color: context.exOnBackground)),
             ),
             SizedBox(
               height: 20,

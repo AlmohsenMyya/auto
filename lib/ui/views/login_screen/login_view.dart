@@ -9,6 +9,9 @@ import 'package:auto/ui/views/subscription_screen/subscription_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -19,6 +22,41 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   late LoginController controller;
+  final String baseUrl = "https://auto-sy.com/api";
+
+  Future<void> login(String muid) async {
+    final url = Uri.parse('$baseUrl/login?muid=$muid');
+
+    try {
+      final response = await http.post(url);
+print("response.statusCode ${response.body}");
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+
+        String accessToken = data['access_token'];
+        String tokenType = data['token_type'];
+        int branchId = data['branch_id'];
+
+        // Save to SharedPreferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('access_token', accessToken);
+        await prefs.setString('token_type', tokenType);
+        await prefs.setInt('branch_id', branchId);
+        Get.to(() => const SubscriptionView());
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('تم الاشتراك بنجاح')),
+        );
+        print('Login successful');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${response.body}')),
+        );
+        print('Failed to login: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
   @override
   void initState() {
     controller = Get.put(LoginController());
@@ -78,7 +116,9 @@ class _LoginViewState extends State<LoginView> {
                   CustomButton(
                     text: "تأكيد",
                     onPressed: () {
-                      if (controller.formKey.currentState!.validate()) {}
+                      if (controller.formKey.currentState!.validate()) {
+                        login(controller.codeController.text);
+                      }
                     },
                     widthButton: 3,
                     circularBorder: screenWidth(10),

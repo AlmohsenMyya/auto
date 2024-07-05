@@ -28,18 +28,21 @@ class PartsQuestionsView extends StatefulWidget {
 
 class _PartsQuestionsViewState extends State<PartsQuestionsView> {
   late UnitsQuestionsController controller;
+  late TextEditingController searchController;
 
   @override
   void initState() {
     super.initState();
     controller = Get.put(UnitsQuestionsController());
     controller.readfile(widget.idPart, widget.type);
+    searchController = TextEditingController();
     controller.initializeExpandedQuestions();
   }
 
   @override
   void dispose() {
     Get.delete<UnitsQuestionsController>();
+    searchController.dispose();
     super.dispose();
   }
 
@@ -59,6 +62,18 @@ class _PartsQuestionsViewState extends State<PartsQuestionsView> {
   void _toggleFavoriteQuestions() {
     controller.showFavorites.value = !controller.showFavorites.value;
   }
+  void _toggleSearchBar() {
+    controller.isSearchActive.value = !controller.isSearchActive.value;
+    if (!controller.isSearchActive.value) {
+      // Clear search text and reset to show all questions
+      searchController.clear(); // Clear search text field
+      controller.clearSearch();
+      controller.readfile(widget.idPart, widget.type);
+      // Clear filtered search results
+      // Call readfile again to reset to show all questions
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +87,13 @@ class _PartsQuestionsViewState extends State<PartsQuestionsView> {
               icon: Icon(Icons.arrow_back),
               onPressed: () => Get.back(),
             ),
-            title: Center(child: Text('الأسئلة', style: context.exTextTheme.subtitle1!.copyWith(color: context.exInversePrimaryColor),),),
+            title: Center(child: Text('الأسئلة', style: context.exTextTheme.titleMedium!.copyWith(color: context.exInversePrimaryColor),),),
             actions: [
+              IconButton(
+                icon: Icon(Icons.search),
+
+                onPressed: _toggleSearchBar,
+              ),
               Showcase(
                 key: controller.favQuestion,
                 description: "عرض الاسئلة المفضلة فقط ",
@@ -105,22 +125,22 @@ class _PartsQuestionsViewState extends State<PartsQuestionsView> {
                           2.horizontalSpace,
                           Text(
                             'علوم',
-                            style: context.exTextTheme.subtitle1!.copyWith(color: context.exInversePrimaryColor),
+                            style: context.exTextTheme.titleMedium!.copyWith(color: context.exInversePrimaryColor),
                           ),
                           Text(
                             'دورة 2018',
                             key: controller.floatingButtonKey,
-                            style: context.exTextTheme.subtitle1!.copyWith(color: context.exInversePrimaryColor),
+                            style: context.exTextTheme.titleMedium!.copyWith(color: context.exInversePrimaryColor),
                           ),
                           RichText(
                             key: controller.editButtonKey,
                             text: TextSpan(
                               text: 'عدد الأسئلة : ',
-                              style: context.exTextTheme.subtitle1!.copyWith(color: context.exInversePrimaryColor),
+                              style: context.exTextTheme.titleMedium!.copyWith(color: context.exInversePrimaryColor),
                               children: [
                                 TextSpan(
                                   text: controller.questions.length.toString(),
-                                  style: context.exTextTheme.subtitle1!.copyWith(color: context.exInversePrimaryColor),
+                                  style: context.exTextTheme.titleMedium!.copyWith(color: context.exInversePrimaryColor),
                                 ),
                               ],
                             ),

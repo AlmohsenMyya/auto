@@ -33,9 +33,9 @@ class SubjectDetailsScreen extends StatelessWidget {
         titleText: ' مادة ${subject.name}',
         titleTextStyle: TextStyle(
           color: Theme.of(context).colorScheme.onBackground,
-          fontSize: 20,
+          fontSize: 30,
           fontWeight: FontWeight.bold,
-          fontFamily: 'Alexandria',
+          //fontFamily: 'Alexandria',
         ),
       ),
       body: Padding(

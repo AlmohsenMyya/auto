@@ -51,7 +51,7 @@ class _LessonScreenState extends State<LessonScreen> {
         backGroundColor: context.exOnPrimaryContainer,
         onTap: () => Navigator.of(context).pop(),
         titleText: 'دروس  ${widget.unit.name}',
-        titleTextStyle: context.exTextTheme.bodyText1!.copyWith(
+        titleTextStyle: context.exTextTheme.titleMedium!.copyWith(
             color: context.exOnBackground,
             fontFamily: 'Alexandria'
         ),

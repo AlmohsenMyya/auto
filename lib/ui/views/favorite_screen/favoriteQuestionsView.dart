@@ -22,14 +22,14 @@ class _FavoriteQuestionsViewState extends State<FavoriteQuestionsView> {
       appBar: AppBar(
         backgroundColor: context.exOnPrimaryContainer,
         title: Text('الأسئلة المفضلة',
-            style: context.exTextTheme.subtitle1!.copyWith(color: context.exOnBackground)),
+            style: context.exTextTheme.titleMedium!.copyWith(color: context.exOnBackground)),
       ),
       body: Obx(
             () {
           if (controller.favoriteQuestions.isEmpty) {
             return Center(
               child: Text('لا توجد أسئلة مفضلة حتى الآن',
-                  style: context.exTextTheme.subtitle1!.copyWith(color: context.exOnBackground)),
+                  style: context.exTextTheme.titleMedium!.copyWith(color: context.exOnBackground)),
             );
           }
           return ListView.builder(

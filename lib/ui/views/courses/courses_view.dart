@@ -45,8 +45,9 @@ class _CoursesState extends State<Courses> {
           backGroundColor: context.exOnPrimaryContainer,
           onTap: () => Navigator.of(context).pop(),
           titleText: ' دورات مادة ${widget.subject.name}',
-          titleTextStyle: context.exTextTheme.bodyText1!.copyWith(
-              color: context.exInversePrimaryColor, fontFamily: 'Alexandria')),
+          titleTextStyle: context.exTextTheme.titleLarge!.copyWith(
+              color: context.exInversePrimaryColor,// fontFamily: 'Alexandria'
+          )),
       body: Column(children: [
         //todo search
 

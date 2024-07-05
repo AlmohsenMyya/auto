@@ -21,7 +21,7 @@ class AboutScreen extends StatelessWidget {
         title: Center(
             child: Text(
           'حول التطبيق',
-          style: context.exTextTheme.subtitle1!
+          style: context.exTextTheme.titleMedium!
               .copyWith(color: context.exOnBackground),
         )),
       ),
@@ -43,7 +43,7 @@ class AboutScreen extends StatelessWidget {
 هنا، في هذا المساحة الرقمية، يمكن للطلاب الاستفادة من موارد التعلم المتاحة بسهولة وفعالية، مما يساعدهم في فهم المواد وتحضيرها بشكل شامل ومتقدم. سواء كنت تبحث عن أسئلة ممارسة أو مراجعات شاملة، فإن التطبيق يلبي جميع احتياجاتك التعليمية بكفاءة واحترافية.
 
 لا تضيع وقتك في البحث عن المصادر الموثوقة، بل اجعل التطبيق وجهتك الأولى والوحيدة لتحضير امتحانات البكالوريا بثقة وسهولة.''',
-                  style: context.exTextTheme.subtitle1!
+                  style: context.exTextTheme.titleMedium!
                       .copyWith(color: context.exOnBackground),
                 ),
               ),

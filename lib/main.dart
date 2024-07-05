@@ -2,14 +2,16 @@ import 'package:auto/app/my_app.dart';
 import 'package:auto/app/my_app_controller.dart';
 import 'package:auto/core/data/repositories/shared_preference_repository.dart';
 import 'package:auto/core/services/connectivity_service.dart';
+import 'package:auto/core/utils/helpers/NotificationFirebase.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+  // await NotificationSetUp.init();
   await Get.putAsync(
     () async {
       var sharedPref = await SharedPreferences.getInstance();
@@ -28,4 +30,11 @@ Future<void> main() async {
   // Get.put(NotificationService());
 
   runApp(const MyApp());
+}
+Future <void> init_notifcations ()async {
+  final FlutterLocalNotificationsPlugin localNot =
+  FlutterLocalNotificationsPlugin();
+  final NotificationAppLaunchDetails? noti =
+  await localNot.getNotificationAppLaunchDetails();
+  print(" pppppgghjj ${noti?.notificationResponse?.payload}");
 }

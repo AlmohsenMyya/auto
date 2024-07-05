@@ -52,8 +52,8 @@ class _CoursesAccordingToUnitAndLessonsScreenState extends State<CoursesAccordin
               backGroundColor: context.exOnPrimaryContainer,
               onTap: () => Navigator.of(context).pop(),
               titleText: ' دورات مادة ${widget.subject.name}',
-              titleTextStyle: context.exTextTheme.bodyText1!.copyWith(
-                  color: context.exOnBackground, fontFamily: 'Alexandria')),
+              titleTextStyle: context.exTextTheme.titleLarge!.copyWith(
+                  color: context.exOnBackground, )),
           body: Column(children: [
             //todo search
 

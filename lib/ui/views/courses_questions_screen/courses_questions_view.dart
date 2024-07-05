@@ -28,15 +28,19 @@ class CoursesQuestionsView extends StatefulWidget {
 class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
   late CoursesQuestionsController controller;
   late TextEditingController searchController;
-  bool isisSearchActive =false;
+  bool isisSearchActive = false;
 
   @override
   void initState() {
     super.initState();
     controller = Get.put(CoursesQuestionsController());
     searchController = TextEditingController();
+    print("cid_course_bank_lesson_unite ${widget.id_course_bank_lesson_unite}");
     controller.readfile(widget.id_course_bank_lesson_unite, widget.type);
     controller.initializeExpandedQuestions();
+
+    // Listen to changes in search text field
+    searchController.addListener(onSearchTextChanged);
   }
 
   @override
@@ -44,6 +48,10 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
     Get.delete<CoursesQuestionsController>();
     searchController.dispose();
     super.dispose();
+  }
+
+  void onSearchTextChanged() {
+    controller.searchQuestions(searchController.text);
   }
 
   void _showResults() {
@@ -63,8 +71,6 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
     controller.showFavorites.value = !controller.showFavorites.value;
   }
 
-
-
   void _toggleSearchBar() {
     controller.isSearchActive.value = !controller.isSearchActive.value;
     if (!controller.isSearchActive.value) {
@@ -75,8 +81,6 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
       controller.readfile(widget.id_course_bank_lesson_unite, widget.type);
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -90,23 +94,29 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
               icon: Icon(Icons.arrow_back),
               onPressed: () => Get.back(),
             ),
-            title: Center(child: Text('الأسئلة', style: context.exTextTheme.subtitle1!.copyWith(color: context.exOnBackground),)),
+            title: Center(
+              child: Text(
+                'الأسئلة',
+                style: context.exTextTheme.titleMedium!.copyWith(color: context.exOnBackground),
+              ),
+            ),
             actions: [
               IconButton(
                 icon: Icon(Icons.search),
-
-               onPressed: _toggleSearchBar,
+                onPressed: _toggleSearchBar,
               ),
               Showcase(
                 key: controller.favQuestion,
                 description: "عرض الاسئلة المفضلة فقط ",
-                child: Obx(() => IconButton(
-                  icon: Icon(
-                    controller.showFavorites.value ? Icons.star : Icons.star_border,
-                    color: controller.showFavorites.value ?  Colors.yellow[800] : Colors.yellow[800],
+                child: Obx(
+                      () => IconButton(
+                    icon: Icon(
+                      controller.showFavorites.value ? Icons.star : Icons.star_border,
+                      color: controller.showFavorites.value ? Colors.yellow[800] : Colors.yellow[800],
+                    ),
+                    onPressed: _toggleFavoriteQuestions,
                   ),
-                  onPressed: _toggleFavoriteQuestions,
-                ),),
+                ),
               ),
             ],
           ),
@@ -138,7 +148,8 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                                 icon: Icon(Icons.clear),
                                 onPressed: () {
                                   searchController.clear();
-                                  controller.clearSearch(); // Optionally clear search results
+                                  controller.clearSearch();
+                                  controller.readfile(widget.id_course_bank_lesson_unite, widget.type); // Optionally clear search results
                                 },
                               ),
                             ),
@@ -146,7 +157,6 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                         )
                             : Container();
                       }),
-
                       30.h.verticalSpace,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -154,22 +164,22 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                           2.horizontalSpace,
                           Text(
                             'علوم',
-                            style: context.exTextTheme.subtitle1!.copyWith(color: context.exOnBackground),
+                            style: context.exTextTheme.titleMedium!.copyWith(color: context.exOnBackground),
                           ),
                           Text(
                             'دورة 2018',
                             key: controller.floatingButtonKey,
-                            style: context.exTextTheme.subtitle1!.copyWith(color: context.exOnBackground),
+                            style: context.exTextTheme.titleMedium!.copyWith(color: context.exOnBackground),
                           ),
                           RichText(
                             key: controller.editButtonKey,
                             text: TextSpan(
                               text: 'عدد الأسئلة : ',
-                              style: context.exTextTheme.subtitle1!.copyWith(color: context.exOnBackground),
+                              style: context.exTextTheme.titleMedium!.copyWith(color: context.exOnBackground),
                               children: [
                                 TextSpan(
                                   text: controller.questions.length.toString(),
-                                  style: context.exTextTheme.subtitle1!.copyWith(color: context.exOnBackground),
+                                  style: context.exTextTheme.titleMedium!.copyWith(color: context.exOnBackground),
                                 ),
                               ],
                             ),
@@ -179,7 +189,6 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                       ),
                       20.h.verticalSpace,
                       Row(
-
                         children: [
                           Showcase(
                             key: controller.timerKey,

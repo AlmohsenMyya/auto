@@ -51,7 +51,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
         backGroundColor: context.exOnPrimaryContainer,
         onTap: () => Navigator.of(context).pop(),
         titleText: 'وحدات ${widget.part.name}',
-        titleTextStyle: context.exTextTheme.bodyText1!.copyWith(
+        titleTextStyle: context.exTextTheme.titleMedium!.copyWith(
             color: context.exInversePrimaryColor,
             fontFamily: 'Alexandria'
         ),

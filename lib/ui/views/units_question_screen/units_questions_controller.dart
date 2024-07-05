@@ -163,7 +163,7 @@ class UnitsQuestionsController extends BaseController {
 
     // تحميل الأسئلة المفضلة عندما يتم دخول الصفحة
     loadFavorites();
-    print("consoooooooool reseeeeeeeet");
+    print("consoooooooool reseeeeeeeet 5");
     resetAllStates();
   }
 

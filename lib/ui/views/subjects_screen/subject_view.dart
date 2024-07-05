@@ -41,7 +41,8 @@ class _SubjectViewState extends State<SubjectView> {
               color: Theme.of(context).colorScheme.onBackground,
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Alexandria'))
+            //  fontFamily: 'Alexandria'
+             ))
       // textStyle: const TextStyle(color: Colors.black)
 
       ,

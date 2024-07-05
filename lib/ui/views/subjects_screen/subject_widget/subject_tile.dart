@@ -39,14 +39,16 @@ class SubjectTile extends StatelessWidget {
                     text: 'اسم المادة :  ',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.onBackground,
-                        fontFamily: 'Alexandria',
+                      //  fontFamily: 'Alexandria',
+                        fontSize: 20,
                         fontWeight: FontWeight.bold),
                     children: [
                   TextSpan(
                       text: subject.name,
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onBackground,
-                          fontFamily: 'Alexandria',
+                         fontSize: 20,
+                         // fontFamily: 'Alexandria',
                           fontWeight: FontWeight.w500))
                 ])),
           Spacer(),

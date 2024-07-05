@@ -54,6 +54,10 @@ class UnitsQuestionsController extends BaseController {
   RxBool showFavorites = false.obs;
   RxBool showSolutions = false.obs;
 
+  RxBool isSearchActive = false.obs;
+
+  late TextEditingController searchController;
+
 
 
   late CountdownTimerController countdownTimerController;
@@ -133,24 +137,41 @@ class UnitsQuestionsController extends BaseController {
     }
     update();
   }
+  bool containsSearchWord(Question question, String searchWord) {
+    return question.text.toLowerCase().contains(searchWord.toLowerCase());
+  }
 
   List<Question> get filteredQuestions {
-    if (showFavorites.value) {
+    if (isSearchActive.value && searchController.text.isNotEmpty) {
+      return questions
+          .where((q) => containsSearchWord(q, searchController.text))
+          .toList();
+    } else if (showFavorites.value) {
       return questions.where((q) => favoriteQuestions.contains(q.id)).toList();
     } else {
       return questions;
     }
   }
-  void toggleShowFavorites() {
-    showFavorites.value = !showFavorites.value;
-    update();
-  }
+
+  //
+  // List<Question> get filteredQuestions {
+  //   if (showFavorites.value) {
+  //     return questions.where((q) => favoriteQuestions.contains(q.id)).toList();
+  //   } else {
+  //     return questions;
+  //   }
+  // }
+  // void toggleShowFavorites() {
+  //   showFavorites.value = !showFavorites.value;
+  //   update();
+  // }
 
   @override
   void onInit() {
     super.onInit();
     // قراءة الأسئلة عندما يتم دخول الصفحة لأول مرة
     readfile(0, '');
+    searchController = TextEditingController();
     // تهيئة وإعدادات أخرى عندما يتم دخول الصفحة لأول مرة
     secureWindow();
     countdownTimerController = CountdownTimerController(
@@ -163,7 +184,7 @@ class UnitsQuestionsController extends BaseController {
 
     // تحميل الأسئلة المفضلة عندما يتم دخول الصفحة
     loadFavorites();
-    print("consoooooooool reseeeeeeeet");
+    print("consoooooooool reseeeeeeeet 4");
     resetAllStates();
   }
 
@@ -380,6 +401,25 @@ class UnitsQuestionsController extends BaseController {
     } else {
       return 'Question not found';
     }
+  }
+  void searchQuestions(String query) {
+    if (query.isEmpty) {
+      // If search query is empty, show all questions
+      filteredQuestions.assignAll(filteredQuestions);
+    } else {
+      // Filter questions based on search query
+      filteredQuestions.assignAll(filteredQuestions
+          .where((question) => containsSearchWord(question, query))
+          .toList());
+    }
+    update(); // Ensure to call the update method to update the view.
+  }
+
+
+  void clearSearch() {
+    searchController.clear();
+    filteredQuestions.assignAll(questions);
+    update(); // Ensure to call the update method to update the view.
   }
 
 
