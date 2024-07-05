@@ -120,6 +120,12 @@ class CoursesQuestionsController extends BaseController {
       questions = JsonReader.extractQuestionsByBankId(jsonfile, course_id);
       print(questions.length);
     }
+    if (type == "قسم") {
+      print("bankkssks ");
+      questions = JsonReader.extractQuestionsByPartId(jsonfile, course_id);
+      print(questions.length);
+
+    }
     print("nlkmlnkl $course_id ${questions.length}");
     isLoading.value = false;
   }
