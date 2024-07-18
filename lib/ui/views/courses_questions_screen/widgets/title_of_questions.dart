@@ -34,9 +34,10 @@ class _TitleOfQuestionsState extends State<TitleOfQuestions> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           PopupMenuButton(
+            color: context.exOnPrimaryContainer,
             itemBuilder: (BuildContext context) => <PopupMenuEntry>[
               PopupMenuItem(
-                child: Text('ابلاغ'),
+                child: Text('ابلاغ' , style: TextStyle(color: context.exPrimaryContainer)),
                 value: 'report',
               ),
             ],
@@ -46,10 +47,12 @@ class _TitleOfQuestionsState extends State<TitleOfQuestions> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('ابلاغ'),
+                      title: Text('ابلاغ' , style: TextStyle(color: context.exPrimaryContainer)),
                       content: TextFormField(
+                        style: TextStyle(color: context.exPrimaryContainer),
                         decoration: InputDecoration(
                           labelText: 'ادخل ابلاغك',
+                          labelStyle:  TextStyle(color: context.exPrimaryContainer)
                         ),
                       ),
                       actions: [
@@ -58,7 +61,7 @@ class _TitleOfQuestionsState extends State<TitleOfQuestions> {
                             // Send report logic here
                             Navigator.of(context).pop();
                           },
-                          child: Text('ارسال للمراجعة'),
+                          child: Text('ارسال للمراجعة' , style: TextStyle(color: context.exPrimaryContainer)),
                         ),
                       ],
                     );

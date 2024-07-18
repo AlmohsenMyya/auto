@@ -12,6 +12,7 @@ import 'package:auto/ui/views/subscription_screen/subscription_controller.dart';
 import 'package:auto/ui/views/wellcom_screen/centers/centers_view.dart';
 import 'package:auto/ui/views/wellcom_screen/contact_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -29,18 +30,40 @@ class SubscriptionView extends StatefulWidget {
 
 class _SubscriptionViewState extends State<SubscriptionView> {
   late SubscriptionController controller;
-
   @override
   void initState() {
     controller = Get.put(SubscriptionController());
     JsonReader.fetchDataAndStore();
     super.initState();
   }
+  Future<bool> _showExitConfirmationDialog() async {
+    return await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('هل أنت متأكد أنك تريد الخروج من التطبيق؟' , style: TextStyle(color: context.exPrimaryContainer)),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text('إلغاء' , style: TextStyle(color: context.exPrimaryContainer)),
+          ),
+          TextButton(
+            onPressed: () {
+              SystemNavigator.pop();  // Close the app
+            },
+            child: Text('موافق',style: TextStyle(color: context.exPrimaryContainer)),
+          ),
+        ],
+      ),
+    ) ?? false;
+  }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
+      onPopInvoked: (canPop) async {
+        await _showExitConfirmationDialog();
+      },
       child: Scaffold(
           backgroundColor: context.exOnPrimaryContainer,
           appBar: MainAppBar(
