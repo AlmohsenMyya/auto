@@ -306,7 +306,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                       borderRadius: BorderRadius.circular(screenWidth(10)),
                       splashColor: AppColors.blueB4,
                       onTap: () {
-
+                        Get.offAll(() => const LoginView());
                       },
                       child: Row(
                         children: [
@@ -319,7 +319,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                           ),
                           CustomText(
                             textType: TextStyleType.custom,
-                            text: "تم الاشتراك ",
+                            text: "الاشتراك بفرع جديد",
                           ),
                         ],
                       ),
@@ -328,7 +328,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                       borderRadius: BorderRadius.circular(screenWidth(10)),
                       splashColor: AppColors.blueB4,
                       onTap: () {
-                        Get.to(() => const LoginView());
+                        Get.offAll(() => const LoginView());
                       },
                       child: Row(
                         children: [

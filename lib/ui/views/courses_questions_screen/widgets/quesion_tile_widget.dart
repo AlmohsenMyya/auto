@@ -154,33 +154,36 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                       controller.toggleFavorite(questionId);
                     },
                   ),
-                  IconButton(
-                    icon: Icon(Icons.help, color: Colors.grey),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(
-                              'شرح السؤال',
-                              style: TextStyle(fontSize: 24),
-                            ),
-                            content: Text(controller
-                                    .questions[widget.questionIndex].explain ??
-                                'لا يوجد شرح لهذا السؤال.'),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('إغلاق'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
+                  if (controller.questions[widget.questionIndex].explain !=
+                      null)
+                    IconButton(
+                      icon: Icon(Icons.help, color: Colors.grey),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(
+                                'شرح السؤال',
+                                style: TextStyle(fontSize: 24),
                               ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  ),
+                              content: Text(controller
+                                      .questions[widget.questionIndex]
+                                      .explain ??
+                                  'لا يوجد شرح لهذا السؤال.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('إغلاق'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
                   IconButton(
                     icon: Icon(Icons.folder, color: Colors.grey),
                     onPressed: () {

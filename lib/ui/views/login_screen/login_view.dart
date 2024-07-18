@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../../../core/data/repositories/read_all_models.dart';
 
@@ -26,13 +27,25 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late LoginController controller;
   final String baseUrl = "https://auto-sy.com/api";
-
+  bool _isLoading = false;
+  bool isLoggedIn = SharedPreferenceRepository().getIsLoggedIn();
   Future<void> login(String muid) async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.none) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('لا يوجد اتصال بالإنترنت')),
+      );
+      return;
+    }
+
     final url = Uri.parse('$baseUrl/login?muid=$muid');
+    setState(() {
+      _isLoading = true;
+    });
 
     try {
       final response = await http.post(url);
-print("response.statusCode ${response.body}");
+      print("response.statusCode ${response.body}");
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
 
@@ -44,7 +57,9 @@ print("response.statusCode ${response.body}");
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('access_token', accessToken);
         await prefs.setString('token_type', tokenType);
-        await prefs.setInt('branch_id', branchId);
+        List<String> mybranchIds = await prefs.getStringList('my_branchs_id') ?? [];
+        mybranchIds.add(branchId.toString());
+        await prefs.setStringList('my_branchs_id', mybranchIds);
         SharedPreferenceRepository().setIsLoggedIN(true);
         Get.to(() => const SubscriptionView());
         ScaffoldMessenger.of(context).showSnackBar(
@@ -53,18 +68,35 @@ print("response.statusCode ${response.body}");
         print('Login successful');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${response.body}')),
+          SnackBar(content: Text('فشل في تسجيل الدخول: ${response.statusCode}')),
         );
         print('Failed to login: ${response.statusCode}');
       }
     } catch (e) {
       print('Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('حدث خطأ أثناء تسجيل الدخول')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
+
   @override
   void initState() {
     controller = Get.put(LoginController());
     super.initState();
+  }
+
+  String? _validateCode(String? value) {
+    if (value!.isEmpty) {
+      return "هذا الحقل مطلوب";
+    } else if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
+      return "يرجى إدخال كود صالح (أرقام وحروف إنجليزية فقط)";
+    }
+    return null;
   }
 
   @override
@@ -107,17 +139,17 @@ print("response.statusCode ${response.body}");
                   ),
                   Padding(
                     padding:
-                        const EdgeInsetsDirectional.only(top: 20, start: 10, end: 10, bottom: 20),
+                    const EdgeInsetsDirectional.only(top: 20, start: 10, end: 10, bottom: 20),
                     child: CustomTextField(
                       hintText: "الكود الخاص بك",
                       controller: controller.codeController,
                       contentPaddingLeft: screenWidth(10),
-                      validator: (value) {
-                        return value!.isEmpty ? "هذا الحقل مطلوب" : null;
-                      },
+                      validator: _validateCode,
                     ),
                   ),
-                  CustomButton(
+                  _isLoading
+                      ? CircularProgressIndicator()
+                      : CustomButton(
                     text: "تأكيد",
                     onPressed: () {
                       if (controller.formKey.currentState!.validate()) {
@@ -130,14 +162,16 @@ print("response.statusCode ${response.body}");
                   const SizedBox(
                     height: 50,
                   ),
+                  isLoggedIn? SizedBox():
                   const Padding(
                     padding: EdgeInsetsDirectional.symmetric(horizontal: 10),
                     child: CustomText(
                       textType: TextStyleType.custom,
-                      text:"أو يمكنك المتابعة كزائر",
+                      text: "أو يمكنك المتابعة كزائر",
                       textColor: AppColors.mainBlackColor,
                     ),
                   ),
+                  isLoggedIn? SizedBox():
                   TextButton(
                     onPressed: () async {
                       Get.to(() => const SubscriptionView());
