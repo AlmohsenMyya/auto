@@ -14,19 +14,18 @@ import '../../../core/data/models/local_json/all_models.dart';
 import '../../shared/colors.dart';
 import 'bank_according_to_unit_and_lessons_screen_controller.dart';
 
-
-
 class BankAccordingToUnitAndLessonsScreen extends StatefulWidget {
   Subject subject;
 
   BankAccordingToUnitAndLessonsScreen({super.key, required this.subject});
 
   @override
-  State<BankAccordingToUnitAndLessonsScreen> createState() => _BankAccordingToUnitAndLessonsScreenState();
+  State<BankAccordingToUnitAndLessonsScreen> createState() =>
+      _BankAccordingToUnitAndLessonsScreenState();
 }
 
-class _BankAccordingToUnitAndLessonsScreenState extends State<BankAccordingToUnitAndLessonsScreen> {
-
+class _BankAccordingToUnitAndLessonsScreenState
+    extends State<BankAccordingToUnitAndLessonsScreen> {
   FocusNode focusNode = FocusNode();
   ValueNotifier<bool> openTextField = ValueNotifier(false);
   TextEditingController searchController = TextEditingController();
@@ -53,7 +52,8 @@ class _BankAccordingToUnitAndLessonsScreenState extends State<BankAccordingToUni
             onTap: () => Navigator.of(context).pop(),
             titleText: ' بنوك مادة ${widget.subject.name}',
             titleTextStyle: context.exTextTheme.titleLarge!.copyWith(
-                color: context.exOnBackground, )),
+              color: context.exOnBackground,
+            )),
         body: Column(children: [
           //todo search
 
@@ -82,20 +82,19 @@ class _BankAccordingToUnitAndLessonsScreenState extends State<BankAccordingToUni
                     label: value
                         ? const SizedBox.shrink()
                         : Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        10.horizontalSpace,
-                        SvgPicture.string(Asset.searchSvgIcon),
-                        10.horizontalSpace,
-                        CustomText(
-                          textType: TextStyleType.body,
-                          text: 'ابحث هنا',
-                          textColor: context.exPrimaryContainer,
-                        ),
-
-                      ],
-                    ),
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              10.horizontalSpace,
+                              SvgPicture.string(Asset.searchSvgIcon),
+                              10.horizontalSpace,
+                              CustomText(
+                                textType: TextStyleType.body,
+                                text: 'ابحث هنا',
+                                textColor: context.exPrimaryContainer,
+                              ),
+                            ],
+                          ),
                     border: InputBorder.none,
                   ),
                 ),
@@ -105,20 +104,19 @@ class _BankAccordingToUnitAndLessonsScreenState extends State<BankAccordingToUni
           20.h.verticalSpace,
           Obx(() => controller.isLoading.value
               ? SpinKitThreeBounce(
-            color: AppColors.blueB4,
-            size: 50.0,
-          )
+                  color: AppColors.blueB4,
+                  size: 50.0,
+                )
               : Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) => BankAccordingToUnitAndLessonsScreenCardWidget(
-                index: index,
-
-              ),
-              itemCount: controller.parts.length,
-            ),
-          )),
+                  child: ListView.builder(
+                    itemBuilder: (context, index) =>
+                        BankAccordingToUnitAndLessonsScreenCardWidget(
+                          subjectName: widget.subject.name,
+                      index: index,
+                    ),
+                    itemCount: controller.parts.length,
+                  ),
+                )),
         ]));
-
   }
 }
-

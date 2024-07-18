@@ -49,7 +49,7 @@ class ContactScreen extends StatelessWidget {
               ),
               ContactItem(
                 iconPath: 'assets/images/whats.png',
-                text: '0939480033',
+                text: '0939480039',
                 url: 'https://wa.me/0939480033',
               ),
               ContactItem(

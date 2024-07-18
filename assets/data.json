@@ -1,15 +1,17 @@
+
 {
   "branches": [
     {
       "id": 1,
-      "name": "الفرع العلمي",
+      "name": "الفرع العلمي test",
       "image": null
     },
     {
       "id": 2,
-      "name": "الفرع الأدبي",
+      "name": "الفرع الأدبي test",
       "image": null
     }
+
   ],
   "subjects": {
     "1": [
@@ -66,65 +68,27 @@
         "name": "التربية الدينية ",
         "image": null,
         "branch_id": 1
-      }
-    ],
-    "2": [
+      },
       {
         "id": 10,
-        "name": "الجغرافيا ",
+        "name": "روسي",
         "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 11,
-        "name": "التاريح ",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 12,
-        "name": "العلوم السياسية ",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 13,
-        "name": "التاريخ الحديث ",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 14,
-        "name": "اللغة العربية",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 15,
-        "name": "اللغة الإنكليزية",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 16,
-        "name": "اللغة الفرنسية",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 17,
-        "name": "التربية الوطنية",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 18,
-        "name": "التربية الدينية ",
-        "image": null,
-        "branch_id": 2
+        "branch_id": 1
       }
     ],
-    "3": []
+    "2": [],
+    "3": [
+      {
+        "id": 11,
+        "name": "وطنية",
+        "image": null,
+        "branch_id": 3
+      }
+    ],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": []
   },
   "parts": {
     "1": [
@@ -132,15 +96,13 @@
         "id": 1,
         "name": "الجزء الأول",
         "image": null,
-        "subject_id": 1,
-        "isPublic": 0
+        "subject_id": 1
       },
       {
         "id": 2,
         "name": "الجزء الثاني",
         "image": null,
-        "subject_id": 1,
-        "isPublic": 1
+        "subject_id": 1
       }
     ],
     "2": [],
@@ -150,7 +112,9 @@
     "6": [],
     "7": [],
     "8": [],
-    "9": []
+    "9": [],
+    "10": [],
+    "11": []
   },
   "units_subject": {
     "1": [],
@@ -221,7 +185,7 @@
       },
       {
         "id": 3,
-        "name": "حركية التفاعلات الكيميائية  والتوازن الكيميائي",
+        "name": "حركية التفاعلات الكيميائية والتوازن الكيميائي",
         "image": null,
         "subject_id": 4
       },
@@ -264,7 +228,14 @@
         "subject_id": 5
       }
     ],
-    "6": [],
+    "6": [
+      {
+        "id": 37,
+        "name": "test",
+        "image": null,
+        "subject_id": 6
+      }
+    ],
     "7": [],
     "8": [
       {
@@ -298,7 +269,9 @@
         "subject_id": 8
       }
     ],
-    "9": []
+    "9": [],
+    "10": [],
+    "11": []
   },
   "units_part": {
     "1": [
@@ -432,7 +405,7 @@
       {
         "id": 2,
         "name": "2024 تكميلية",
-        "is_public": 1,
+        "is_public": 0,
         "subject_id": 1
       }
     ],
@@ -449,224 +422,56 @@
         "is_public": 0,
         "subject_id": 2
       }
-    ]
+    ],
+    "3": [],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": []
   },
   "questions_course": {
     "1": {
       "id": 1,
       "name": "2024 دورة أولى",
       "subject_id": 1,
-      "questions":[
+      "questions": [
         {
-        "id": 1,
-        "text": "سؤال دورة ..",
-        "explain": "شرح السؤال الاول ",
-        "part_id": null,
-        "unit_id": 1,
-        "lesson_id": null,
-        "image": null,
-        "answers": [
-          {
-            "id": 1,
-            "text": "Monako",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 2,
-            "text": "Paris",
-            "image": null,
-            "is_correct": 1
-          },
-          {
-            "id": 3,
-            "text": "Lille",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 4,
-            "text": "Nice",
-            "image": null,
-            "is_correct": 0
-          }
-        ]
-      },
-        {
-        "id": 2,
-        "text": "سؤال دورة ..",
-        "explain": "شرح السؤال الثاني",
-        "part_id": null,
-        "unit_id": 1,
-        "lesson_id": null,
-        "image": null,
-        "answers": [
-          {
-            "id": 1,
-            "text": "Monako",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 2,
-            "text": "Paris",
-            "image": null,
-            "is_correct": 1
-          },
-          {
-            "id": 3,
-            "text": "Lille",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 4,
-            "text": "Nice",
-            "image": null,
-            "is_correct": 0
-          }
-        ]
-      },
-        {
-        "id": 3,
-        "text": "سؤال دورة ..",
-        "explain": null,
-        "part_id": null,
-        "unit_id": 1,
-        "lesson_id": null,
-        "image": null,
-        "answers": [
-          {
-            "id": 1,
-            "text": "Monako",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 2,
-            "text": "Paris",
-            "image": null,
-            "is_correct": 1
-          },
-          {
-            "id": 3,
-            "text": "Lille",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 4,
-            "text": "Nice",
-            "image": null,
-            "is_correct": 0
-          }
-        ]
-      },
-        {
-        "id": 4,
-        "text": "سؤال دورة ..",
-        "explain": null,
-        "part_id": null,
-        "unit_id": 1,
-        "lesson_id": null,
-        "image": null,
-        "answers": [
-          {
-            "id": 1,
-            "text": "Monako",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 2,
-            "text": "Paris",
-            "image": null,
-            "is_correct": 1
-          },
-          {
-            "id": 3,
-            "text": "Lille",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 4,
-            "text": "Nice",
-            "image": null,
-            "is_correct": 0
-          }
-        ]
-      },
-        {
-        "id": 5,
-        "text": "سؤال دورة ..",
-        "explain": "شرح السؤال 204",
-        "part_id": null,
-        "unit_id": 1,
-        "lesson_id": null,
-        "image": "assets/images/icon_app.png",
-        "answers": [
-          {
-            "id": 1,
-            "text": "Monako",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 2,
-            "text": "Paris",
-            "image": null,
-            "is_correct": 1
-          },
-          {
-            "id": 3,
-            "text": "Lille",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 4,
-            "text": "Nice",
-            "image": null,
-            "is_correct": 0
-          }
-        ]
-      },
-        {
-        "id": 6,
-        "text": "سؤال دورة ..",
-        "explain": "شرح السؤال 205",
-        "part_id": null,
-        "unit_id": 1,
-        "lesson_id": null,
-        "image": null,
-        "answers": [
-          {
-            "id": 1,
-            "text": "Monako",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 2,
-            "text": "Paris",
-            "image": null,
-            "is_correct": 1
-          },
-          {
-            "id": 3,
-            "text": "Lille",
-            "image": null,
-            "is_correct": 0
-          },
-          {
-            "id": 4,
-            "text": "Nice",
-            "image": null,
-            "is_correct": 0
-          }
-        ]
-      }
+          "id": 1,
+          "status": "course",
+          "text": "What is the capital of France?",
+          "explain": "5555555",
+          "order_changing": 1,
+          "part_id": null,
+          "unit_id": 1,
+          "lesson_id": null,
+          "image": "https://images.pexels.com/photos/6095825/pexels-photo-6095825.jpeg",
+          "answers": [
+            {
+              "id": 1,
+              "text": "Monako",
+              "image": null,
+              "is_correct": 0
+            },
+            {
+              "id": 2,
+              "text": "Paris",
+              "image": null,
+              "is_correct": 1
+            },
+            {
+              "id": 3,
+              "text": "Lille",
+              "image": null,
+              "is_correct": 0
+            },
+            {
+              "id": 4,
+              "text": "Nice",
+              "image": null,
+              "is_correct": 0
+            }
+          ]
+        }
       ]
     },
     "2": {
@@ -676,8 +481,10 @@
       "questions": [
         {
           "id": 2,
+          "status": "course",
           "text": "What is the largest ocean?",
           "explain": null,
+          "order_changing": 1,
           "part_id": null,
           "unit_id": 2,
           "lesson_id": null,
@@ -711,8 +518,10 @@
         },
         {
           "id": 3,
+          "status": "course",
           "text": "What is the biggest governorate in syria?",
           "explain": null,
+          "order_changing": 1,
           "part_id": null,
           "unit_id": 5,
           "lesson_id": null,
@@ -770,7 +579,7 @@
       {
         "id": 2,
         "name": "الإختبار الثاني",
-        "is_public": 1,
+        "is_public": 0,
         "subject_id": 1
       }
     ],
@@ -787,7 +596,12 @@
         "is_public": 0,
         "subject_id": 2
       }
-    ]
+    ],
+    "3": [],
+    "4": [],
+    "5": [],
+    "6": [],
+    "7": []
   },
   "questions_bank": {
     "1": {
@@ -797,8 +611,10 @@
       "questions": [
         {
           "id": 5,
-          "text": "سؤال بنك",
+          "status": "bank",
+          "text": "where is Al-Hadara street in syria?",
           "explain": null,
+          "order_changing": 1,
           "part_id": null,
           "unit_id": 5,
           "lesson_id": null,
@@ -839,8 +655,10 @@
       "questions": [
         {
           "id": 4,
+          "status": "bank",
           "text": "What is the capital city in syria?",
           "explain": null,
+          "order_changing": 1,
           "part_id": null,
           "unit_id": 7,
           "lesson_id": null,
@@ -874,8 +692,10 @@
         },
         {
           "id": 6,
+          "status": "bank",
           "text": "where is Al-Shahbaa hotel in syria?",
           "explain": null,
+          "order_changing": 1,
           "part_id": null,
           "unit_id": 6,
           "lesson_id": null,
@@ -925,14 +745,14 @@
   "questions": [
     {
       "id": 1,
-      "isPublic": 1,
-      "iscourse": 1,
-      "text": "سؤال بارت ",
-      "explain": null,
+      "status": "course",
+      "text": "What is the capital of France?",
+      "explain": "51661d",
+      "order_changing": 1,
       "part_id": 1,
-      "unit_id": null,
-      "lesson_id": null,
-      "image": null,
+      "unit_id": 1,
+      "lesson_id": 20,
+      "image": "https://images.pexels.com/photos/6095825/pexels-photo-6095825.jpeg",
       "answers": [
         {
           "id": 1,
@@ -962,13 +782,13 @@
     },
     {
       "id": 2,
-      "iscourse": 1,
-      "isPublic": 0,
-      "text": "سؤال يونت من البارت",
+      "status": "course",
+      "text": "What is the largest ocean?",
       "explain": null,
-      "part_id": 1,
-      "unit_id": 20,
-      "lesson_id": 20,
+      "order_changing": 1,
+      "part_id": null,
+      "unit_id": 2,
+      "lesson_id": null,
       "image": null,
       "answers": [
         {
@@ -999,9 +819,10 @@
     },
     {
       "id": 3,
+      "status": "course",
       "text": "What is the biggest governorate in syria?",
-      "isPublic": 1,
       "explain": null,
+      "order_changing": 1,
       "part_id": null,
       "unit_id": 5,
       "lesson_id": null,
@@ -1035,12 +856,13 @@
     },
     {
       "id": 4,
-      "text": "سؤال ليسون من يونت",
-      "isPublic": 1,
+      "status": "bank",
+      "text": "What is the capital city in syria?",
       "explain": null,
+      "order_changing": 1,
       "part_id": null,
       "unit_id": 7,
-      "lesson_id": 20,
+      "lesson_id": null,
       "image": null,
       "answers": [
         {
@@ -1071,12 +893,13 @@
     },
     {
       "id": 5,
+      "status": "bank",
       "text": "where is Al-Hadara street in syria?",
-      "isPublic": 1,
       "explain": null,
+      "order_changing": 1,
       "part_id": null,
       "unit_id": 5,
-      "lesson_id": 20,
+      "lesson_id": null,
       "image": null,
       "answers": [
         {
@@ -1107,9 +930,10 @@
     },
     {
       "id": 6,
+      "status": "bank",
       "text": "where is Al-Shahbaa hotel in syria?",
-      "isPublic": 1,
       "explain": null,
+      "order_changing": 1,
       "part_id": null,
       "unit_id": 6,
       "lesson_id": null,
@@ -1142,199 +966,61 @@
       ]
     },
     {
-      "id": 201,
-      "text": "سؤال دورة ..",
-      "isPublic": 1,
+      "id": 7,
+      "status": "",
+      "text": "ما اسمك",
       "explain": null,
+      "order_changing": 1,
       "part_id": null,
       "unit_id": 1,
       "lesson_id": null,
       "image": null,
       "answers": [
         {
-          "id": 1,
-          "text": "Monako",
+          "id": 25,
+          "text": "جاسم",
           "image": null,
           "is_correct": 0
         },
         {
-          "id": 2,
-          "text": "Paris",
+          "id": 26,
+          "text": "مجعص",
+          "image": null,
+          "is_correct": 0
+        },
+        {
+          "id": 27,
+          "text": "تامر",
+          "image": null,
+          "is_correct": 0
+        },
+        {
+          "id": 28,
+          "text": "وئام",
+          "image": null,
+          "is_correct": 0
+        },
+        {
+          "id": 29,
+          "text": "بدر",
+          "image": null,
+          "is_correct": 0
+        },
+        {
+          "id": 30,
+          "text": "طالب بكالوريا 🤣",
           "image": null,
           "is_correct": 1
-        },
-        {
-          "id": 3,
-          "text": "Lille",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 4,
-          "text": "Nice",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 202,
-      "text": "سؤال دورة ..",
-      "isPublic": 1,
-      "explain": null,
-      "part_id": null,
-      "unit_id": 1,
-      "lesson_id": null,
-      "image": null,
-      "answers": [
-        {
-          "id": 1,
-          "text": "Monako",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 2,
-          "text": "Paris",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 3,
-          "text": "Lille",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 4,
-          "text": "Nice",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 203,
-      "text": "سؤال دورة ..",
-      "isPublic": 1,
-      "explain": null,
-      "part_id": null,
-      "unit_id": 1,
-      "lesson_id": null,
-      "image": null,
-      "answers": [
-        {
-          "id": 1,
-          "text": "Monako",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 2,
-          "text": "Paris",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 3,
-          "text": "Lille",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 4,
-          "text": "Nice",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 204,
-      "text": "سؤال دورة ..",
-      "isPublic": 1,
-      "explain": null,
-      "part_id": null,
-      "unit_id": 1,
-      "lesson_id": null,
-      "image": null,
-      "answers": [
-        {
-          "id": 1,
-          "text": "Monako",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 2,
-          "text": "Paris",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 3,
-          "text": "Lille",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 4,
-          "text": "Nice",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 205,
-      "text": "سؤال دورة ..",
-      "isPublic": 1,
-      "explain": null,
-      "part_id": null,
-      "unit_id": 1,
-      "lesson_id": null,
-      "image": null,
-      "answers": [
-        {
-          "id": 1,
-          "text": "Monako",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 2,
-          "text": "Paris",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 3,
-          "text": "Lille",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 4,
-          "text": "Nice",
-          "image": null,
-          "is_correct": 0
         }
       ]
     }
   ],
-  "notes": [
+  "notes": [],
+  "sliders": [
     {
-      "text": "test",
-      "user_id": 2,
-      "question_id": 4
-    },
-    {
-      "text": "test 2",
-      "user_id": 1,
-      "question_id": 2
+      "image": "1720311519.jpg"
     }
   ],
-  "sliders": [],
   "cities": [
     {
       "id": 1,

@@ -4,18 +4,27 @@ import 'package:auto/ui/views/login_screen/login_view.dart';
 import 'package:auto/ui/views/wellcom_screen/wellcom_screen.dart';
 import 'package:get/get.dart';
 
+import '../../../core/data/repositories/read_all_models.dart';
+import '../subscription_screen/subscription_view.dart';
+
 class SplashController extends BaseController {
   @override
   void onInit() {
 
-    Future.delayed(const Duration(seconds: 3)).then((value) {
-      if (!SharedPreferenceRepository().getFirstLanuch()){
+    Future.delayed(const Duration(seconds: 3)).then((value) async {
+
+      print("SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository().getFirstLanuch()}");
+      if (SharedPreferenceRepository().getFirstLanuch()){
         print("SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository().getFirstLanuch()}");
-        SharedPreferenceRepository().setFirstLanuch(true);
+        await JsonReader.fetchDataAndStore();
+        SharedPreferenceRepository().setFirstLanuch(false);
         Get.to(() => const WelcomeScreen());
       }else{
         print("SharedPreferenceRepository().getFirstLanuch() --/ ${SharedPreferenceRepository().getFirstLanuch()}");
-        Get.to(() => const LoginView());
+        if (SharedPreferenceRepository().getIsLoggedIn()){
+          Get.to(() => const SubscriptionView());
+        }else{
+        Get.to(() => const LoginView());}
       }
     });
     // if (storage.getOrderPlaced()) {

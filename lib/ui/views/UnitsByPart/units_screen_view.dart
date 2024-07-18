@@ -19,8 +19,9 @@ import 'units_screen_controller.dart';
 
 class UnitsScreen extends StatefulWidget {
   final Part part;
-
-  UnitsScreen({super.key, required this.part});
+  final String subjectName;
+  final String type_isCourse;
+  UnitsScreen({super.key, required this.part , required this.subjectName , required this.type_isCourse});
 
   @override
   State<UnitsScreen> createState() => _UnitsScreenState();
@@ -53,7 +54,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
         titleText: 'وحدات ${widget.part.name}',
         titleTextStyle: context.exTextTheme.titleMedium!.copyWith(
             color: context.exInversePrimaryColor,
-            fontFamily: 'Alexandria'
+            //fontFamily: 'Alexandria'
         ),
       ),
       body: Column(children: [
@@ -111,7 +112,9 @@ class _UnitsScreenState extends State<UnitsScreen> {
             : Expanded(
           child: ListView.builder(
             itemBuilder: (context, index) => UnitsScreenCardWidget(
+              type_isCourse: widget.type_isCourse,
               index: index,
+              subjectName: widget.subjectName,
             ),
             itemCount: controller.units.length,
           ),

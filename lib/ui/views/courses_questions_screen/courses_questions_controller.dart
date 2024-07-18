@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
@@ -17,7 +16,7 @@ class CoursesQuestionsController extends BaseController {
   ExpansionTileController expController = ExpansionTileController();
   late RxInt outSideEndTime = 1.obs;
   late CountdownTimerController timeController =
-  CountdownTimerController(endTime: endTime.value);
+      CountdownTimerController(endTime: endTime.value);
   RxInt secondsDuration = 4.obs;
   RxInt outSideSecondsDuration = 4.obs;
   ValueNotifier<bool> timerStatus = ValueNotifier(true);
@@ -27,6 +26,11 @@ class CoursesQuestionsController extends BaseController {
   ValueNotifier<bool> expansionTile = ValueNotifier(false);
   RxBool openExpand = false.obs;
   RxBool answerTheQuestion = false.obs;
+  RxBool showResults = false.obs;
+  Map<int, Map<int, Color>> answers_color = {};
+  RxBool hideAllAnswers = false.obs;
+  RxBool showAllFavorite = false.obs ;
+
   Timer? timer;
   final GlobalKey floatingButtonKey = GlobalKey();
   final GlobalKey editButtonKey = GlobalKey();
@@ -35,13 +39,13 @@ class CoursesQuestionsController extends BaseController {
 
   RxInt countdown = 10.obs;
   late CountdownTimerController timeControllerOutSide =
-  CountdownTimerController(endTime: endTime.value, onEnd: onEnd);
+      CountdownTimerController(endTime: endTime.value, onEnd: onEnd);
   late Map<String, dynamic> jsonfile;
   RxBool isLoading = true.obs;
   RxBool isChoosing = false.obs;
   RxInt correctAnswers = 0.obs;
   RxInt wrongAnswers = 0.obs;
-  var showResults = false.obs;
+  RxInt countOfDidnotAnswers = 0.obs;
   bool showcaseCompleted = false;
   final GlobalKey timerKey = GlobalKey();
   final GlobalKey submitKey = GlobalKey();
@@ -49,9 +53,13 @@ class CoursesQuestionsController extends BaseController {
   final GlobalKey correctKey = GlobalKey();
   final GlobalKey wrongKey = GlobalKey();
   final GlobalKey resetKey = GlobalKey();
+  final GlobalKey hideAnswer = GlobalKey();
+  final GlobalKey answerWithoutSoution = GlobalKey();
   final GlobalKey solution = GlobalKey();
   final GlobalKey favQuestion = GlobalKey();
   RxBool showFavorites = false.obs;
+  RxBool showRowngs = false.obs;
+
   RxBool showSolutions = false.obs;
   RxList<Question> filteredQuestionsSearch = <Question>[].obs;
   RxBool isSearchActive = false.obs;
@@ -65,6 +73,7 @@ class CoursesQuestionsController extends BaseController {
   final _expandedQuestions = <int, bool>{}.obs;
 
   RxList<int> favoriteQuestions = RxList<int>();
+  RxList<int> rowngQuestions = RxList<int>();
 
   void initializeExpandedQuestions() {
     for (int i = 0; i < 150; i++) {
@@ -76,9 +85,14 @@ class CoursesQuestionsController extends BaseController {
     return _expandedQuestions[questionIndex] ?? false;
   }
 
+ void toggleHideQuestions() {
+    hideAllAnswers.value = !hideAllAnswers.value;
+    update();
+  }
+
   void toggleExpand(int questionIndex) {
     _expandedQuestions[questionIndex] =
-    !(_expandedQuestions[questionIndex] ?? false);
+        !(_expandedQuestions[questionIndex] ?? false);
   }
 
   void toggleAnswerVisibility() {
@@ -90,17 +104,19 @@ class CoursesQuestionsController extends BaseController {
     return favoriteQuestions.contains(questionId);
   }
 
-  void showcaseController(BuildContext context) {
+  void showcaseController(BuildContext context , bool reShowIt ) {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool? showcaseCompleted = prefs.getBool('showcaseCompleted1');
       print("$showcaseCompleted sggg");
-      if (showcaseCompleted == null) {
+      if (showcaseCompleted == null || reShowIt) {
         ShowCaseWidget.of(context).startShowCase([
           timerKey,
           submitKey,
+          hideAnswer,
           correctKey,
           wrongKey,
+          answerWithoutSoution,
           resetKey,
           solution,
           favQuestion
@@ -142,7 +158,15 @@ class CoursesQuestionsController extends BaseController {
 
   // تحقق مما إذا كانت الأسئلة تحتوي على كلمة البحث
   bool containsSearchWord(Question question, String searchWord) {
-    return question.text.toLowerCase().contains(searchWord.toLowerCase());
+    if (question.text.toLowerCase().contains(searchWord.toLowerCase())) {
+      return true;
+    }
+    for (final a in question.answers!) {
+      if (a!.text.toLowerCase().contains(searchWord.toLowerCase())) {
+        return true;
+      }
+    }
+    return false;
   }
 
   List<Question> get filteredQuestions {
@@ -152,6 +176,11 @@ class CoursesQuestionsController extends BaseController {
           .toList();
     } else if (showFavorites.value) {
       return questions.where((q) => favoriteQuestions.contains(q.id)).toList();
+    } else if (showRowngs.value) {
+      return questions.where((q) => rowngQuestions.contains(q.id)).toList();
+    } else if (showAllFavorite.value) {
+      loadFavorites();
+      return favoriteQuestions.value as List<Question> ;
     } else {
       return questions;
     }
@@ -162,16 +191,35 @@ class CoursesQuestionsController extends BaseController {
     update();
   }
 
+  void toggleshowRowngs() {
+    showRowngs.value = !showRowngs.value;
+    update();
+  }
+
   void highlightCorrectAnswers() {
     showSolutions.value = true;
+    update();
+  }
+
+  void initializeAnswerColors() {
+    for (var questionIndex = 0;
+        questionIndex < questions.length;
+        questionIndex++) {
+      answers_color[questionIndex] = {};
+      var question = questions[questionIndex];
+      for (var answerIndex = 0;
+          answerIndex < question.answers!.length;
+          answerIndex++) {
+        answers_color[questionIndex]![answerIndex] =
+            Colors.grey.shade100.withOpacity(0.8);
+      }
+    }
     update();
   }
 
   @override
   void onInit() {
     super.onInit();
-    // قراءة الأسئلة عندما يتم دخول الصفحة لأول مرة
-    readfile(0, '');
     // تهيئة وإعدادات أخرى عندما يتم دخول الصفحة لأول مرة
     secureWindow();
     searchController = TextEditingController();
@@ -193,13 +241,16 @@ class CoursesQuestionsController extends BaseController {
     // إعادة تهيئة حالة التحكم بالأسئلة والجواب المحدد
     correctAnswers.value = 0;
     wrongAnswers.value = 0;
+    countOfDidnotAnswers.value = questions.length;
+    rowngQuestions.value = [];
     selectedAnswers.clear();
+    initializeAnswerColors();
     showResults.value = false;
   }
 
   void resetTimerState() {
     isTimerActive.value = false;
-    countdown.value = 30;
+    countdown.value = 0;
   }
 
   void resetAllStates() {
@@ -219,7 +270,8 @@ class CoursesQuestionsController extends BaseController {
     openExpand.value = false;
     for (int i = 0; i < _expandedQuestions.length; i++) {
       _expandedQuestions[i] = false;
-      await Future.delayed(Duration(milliseconds: 50)); // Adjust the duration as needed
+      await Future.delayed(
+          Duration(milliseconds: 50)); // Adjust the duration as needed
     }
   }
 
@@ -234,67 +286,106 @@ class CoursesQuestionsController extends BaseController {
     correctAnswers.value = 0;
     wrongAnswers.value = 0;
 
-    for (var question in questions) {
-      for (var answer in question.answers!) {
+    for (var questionIndex = 0;
+        questionIndex < questions.length;
+        questionIndex++) {
+      var question = questions[questionIndex];
+      var selectedAnswerIndex = getSelectedAnswer(questionIndex);
+
+      for (var answerIndex = 0;
+          answerIndex < question.answers!.length;
+          answerIndex++) {
+        var answer = question.answers![answerIndex];
         if (answer!.isCorrect == 1) {
-          if (answer.id == getSelectedAnswer(question.id)) {
+          answers_color[questionIndex]![answerIndex] = Colors.green;
+          if (selectedAnswers[questionIndex] == answerIndex) {
             correctAnswers.value++;
-          } else {
+          }
+        } else {
+          if (selectedAnswers[questionIndex] == answerIndex) {
+            // Correct answer
+            answers_color[questionIndex]![answerIndex] = Colors.redAccent;
             wrongAnswers.value++;
           }
         }
       }
     }
-    showResults.value = true; // تحديث قيمة showResults هنا
+
+    showResults.value = true;
+    update();
   }
 
-  void selectAnswer(int questionId, int answerId) {
+  void selectAnswer(int questionIndex, int answerIndex) {
+    final questionAnswers = answers_color[questionIndex];
+    for (var index in questionAnswers!.keys) {
+      questionAnswers[index] = Colors.grey.shade100.withOpacity(0.8);
+    }
+
+    if (questions[questionIndex].answers![answerIndex]!.isCorrect == 0) {
+      answers_color[questionIndex]![answerIndex] = Colors.redAccent;
+      if (!rowngQuestions.contains(questions[questionIndex].id)) {
+        rowngQuestions.add(questions[questionIndex].id);
+      }
+    } else {
+      answers_color[questionIndex]![answerIndex] = Colors.green;
+      rowngQuestions.remove(questions[questionIndex].id);
+    }
+    print("rongqisdefjd $rowngQuestions");
+
+    print("answer color after $answers_color");
     isChoosing.value = true;
+    print(
+        "answers_color[questionIndex]![answerIndex] ${answers_color[questionIndex]![answerIndex]}");
 
-    // التحقق من صحة الفهرس
-    if (questionId < 0 || questionId >= questions.length) {
-      print('Invalid question index: $questionId');
+    // Check the validity of the question index
+    if (questionIndex < 0 || questionIndex >= questions.length) {
+      print('Invalid question index: $questionIndex');
       isChoosing.value = false;
       return;
     }
 
-    if (questions[questionId].answers == null ||
-        answerId < 0 ||
-        answerId >= questions[questionId].answers!.length) {
-      print('Invalid answer index: $answerId');
+    var question = questions[questionIndex];
+
+    // Check the validity of the answer index
+    if (question.answers == null ||
+        answerIndex < 0 ||
+        answerIndex >= question.answers!.length) {
+      print('Invalid answer index: $answerIndex');
       isChoosing.value = false;
       return;
     }
 
-    // إذا كانت هناك إجابة سابقة، قم بتعديل العدادات بناءً على صحة الإجابة
-    if (!selectedAnswers.containsKey(questionId)) {
-      selectedAnswers[questionId] = RxInt(-1);
-    }
-
-    if (selectedAnswers[questionId]!.value != -1) {
-      bool wasCorrect = questions[questionId].answers!.any((answer) =>
-      answer?.id == selectedAnswers[questionId]!.value &&
-          answer!.isCorrect == 1);
-      if (wasCorrect) {
-        correctAnswers.value--;
-      } else {
-        wrongAnswers.value--;
+    // If there was a previous answer, update the counters based on its correctness
+    if (selectedAnswers.containsKey(questionIndex)) {
+      var previousAnswerIndex = selectedAnswers[questionIndex]!.value;
+      if (previousAnswerIndex != -1) {
+        bool wasCorrect =
+            question.answers![previousAnswerIndex]?.isCorrect == 1;
+        if (wasCorrect) {
+          correctAnswers.value--;
+        } else {
+          wrongAnswers.value--;
+        }
       }
     }
 
-    // تعيين الإجابة الجديدة
-    selectedAnswers[questionId]!.value = answerId;
+    // Set the new selected answer
+    if (!selectedAnswers.containsKey(questionIndex)) {
+      selectedAnswers[questionIndex] = RxInt(-1);
+    }
+    selectedAnswers[questionIndex]!.value = answerIndex;
 
-    // تحقق من صحة الإجابة الجديدة
-    bool isCorrect = questions[questionId].answers!.any((answer) =>
-    answer?.id == answerId && answer!.isCorrect == 1);
+    // Check the correctness of the new answer
+    bool isCorrect = question.answers![answerIndex]?.isCorrect == 1;
     if (isCorrect) {
       correctAnswers.value++;
     } else {
       wrongAnswers.value++;
     }
-
+    countOfDidnotAnswers.value =
+        questions.length - (wrongAnswers.value + correctAnswers.value);
     isChoosing.value = false;
+    update();
   }
 
   int? getSelectedAnswer(int questionId) {
@@ -303,11 +394,124 @@ class CoursesQuestionsController extends BaseController {
     }
     return null;
   }
+  void readfileForUnit(int unitId , String type) async {
+    print("readfileForLesson  partId $unitId  type $type ");
+    isLoading.value = true;
+    // TODO: implement onInit
+    jsonfile = await JsonReader.loadJsonData();
+    // استخراج الأسئلة بناءً على النوع
+    if (type == "دورة") {
+      questions = JsonReader.extractQuestionsByUnitId(jsonfile, unitId , true);
+    } else if (type == "بنك") {
+      questions = JsonReader.extractQuestionsByUnitId(jsonfile, unitId,false);
+    }
+    // ترتيب الأسئلة حسب المعرف
+    questions.sort((a, b) => a.id.compareTo(b.id));
 
-  void readfile(int course_id, String type) async {
+    // تغيير ترتيب الإجابات بشكل عشوائي إذا كان الشرط question.order_changing يساوي 1
+    if (questions.isNotEmpty && questions[0].order_changing == 1) {
+      questions.forEach((question) {
+        question.answers?.shuffle();
+      });
+    }
+
+    initializeAnswerColors();
+    countOfDidnotAnswers.value = questions.length;
+    // تحديث حالة التحميل
+    isLoading.value = false;
+  }
+  void readfileForFavorite( ) async {
+    print("readfileForFavorite  ");
+    isLoading.value = true;
+    // TODO: implement onInit
+    jsonfile = await JsonReader.loadJsonData();
+    //
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? favoriteList = prefs.getStringList('favoriteQuestions');
+    if (favoriteList != null) {
+      questions =
+          JsonReader.extractQuestionsByIdList(favoriteList, jsonfile);
+      print("loadFavorites  favoriteQuestions: ${favoriteQuestions.length}");
+    }
+    isLoading.value = false;
+    update();
+    // ترتيب الأسئلة حسب المعرف
+    questions.sort((a, b) => a.id.compareTo(b.id));
+
+    // تغيير ترتيب الإجابات بشكل عشوائي إذا كان الشرط question.order_changing يساوي 1
+    if (questions.isNotEmpty && questions[0].order_changing == 1) {
+      questions.forEach((question) {
+        question.answers?.shuffle();
+      });
+    }
+
+    initializeAnswerColors();
+    countOfDidnotAnswers.value = questions.length;
+    // تحديث حالة التحميل
+    isLoading.value = false;
+  }
+  void readfileForPart(int partId , String type) async {
+    print("readfileForLesson  partId $partId  type $type ");
+    isLoading.value = true;
+    // TODO: implement onInit
+    jsonfile = await JsonReader.loadJsonData();
+    if (type == "دورة") {
+      questions = JsonReader.extractQuestionsByPartId(jsonfile, partId,true);
+    } else if (type == "بنك") {
+      questions = JsonReader.extractQuestionsByPartId(jsonfile, partId,false);
+    }
+    // ترتيب الأسئلة حسب المعرف
+    questions.sort((a, b) => a.id.compareTo(b.id));
+
+    // تغيير ترتيب الإجابات بشكل عشوائي إذا كان الشرط question.order_changing يساوي 1
+    if (questions.isNotEmpty && questions[0].order_changing == 1) {
+      questions.forEach((question) {
+        question.answers?.shuffle();
+      });
+    }
+
+    initializeAnswerColors();
+    countOfDidnotAnswers.value = questions.length;
+    // تحديث حالة التحميل
+    isLoading.value = false;
+  }
+  void readfileForLesson(int lessonId , String type) async {
+    print("readfileForLesson  lessonid $lessonId  type $type ");
+    isLoading.value = true;
+    // TODO: implement onInit
+    jsonfile = await JsonReader.loadJsonData();
+    if(type == "دورة"){
+      print("bankkssks ");
+      questions = JsonReader.extractQuestionsByLessonId(jsonfile, lessonId,true);
+      print(questions.length);
+    }
+
+
+    if (type == "بنك") {
+      print("bankkssks ");
+      questions = JsonReader.extractQuestionsByLessonId(jsonfile, lessonId,false);
+      print(questions.length);
+    }
+
+    // ترتيب الأسئلة حسب المعرف
+    questions.sort((a, b) => a.id.compareTo(b.id));
+
+    // تغيير ترتيب الإجابات بشكل عشوائي إذا كان الشرط question.order_changing يساوي 1
+    if (questions.isNotEmpty && questions[0].order_changing == 1) {
+      questions.forEach((question) {
+        question.answers?.shuffle();
+      });
+    }
+
+    initializeAnswerColors();
+    countOfDidnotAnswers.value = questions.length;
+    // تحديث حالة التحميل
+    isLoading.value = false;
+  }
+  void readfileForCoursOrBank(int course_id, String type) async {
     isLoading.value = true;
     // تحميل ملف JSON من الأصول
-    jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
+    jsonfile = await JsonReader.loadJsonData();
     // استخراج الأسئلة بناءً على النوع
     if (type == "دورة") {
       questions = JsonReader.extractQuestionsByCourseId(jsonfile, course_id);
@@ -316,6 +520,16 @@ class CoursesQuestionsController extends BaseController {
     }
     // ترتيب الأسئلة حسب المعرف
     questions.sort((a, b) => a.id.compareTo(b.id));
+
+    // تغيير ترتيب الإجابات بشكل عشوائي إذا كان الشرط question.order_changing يساوي 1
+    if (questions.isNotEmpty && questions[0].order_changing == 1) {
+      questions.forEach((question) {
+        question.answers?.shuffle();
+      });
+    }
+
+    initializeAnswerColors();
+    countOfDidnotAnswers.value = questions.length;
     // تحديث حالة التحميل
     isLoading.value = false;
   }
@@ -335,12 +549,7 @@ class CoursesQuestionsController extends BaseController {
   void startTimer() {
     if (timer != null) timer!.cancel(); // إلغاء المؤقت السابق إذا كان موجودًا
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (countdown > 0) {
-        countdown--;
-      } else {
-        timer.cancel();
-        isTimerActive.value = false;
-      }
+     countdown ++ ;
     });
   }
 
@@ -363,8 +572,6 @@ class CoursesQuestionsController extends BaseController {
     update(); // Ensure to call the update method to update the view.
   }
 
-
-
   Stream<int> get timerStream =>
       Stream.periodic(Duration(seconds: 1), (count) => countdown.value);
 
@@ -378,20 +585,20 @@ class CoursesQuestionsController extends BaseController {
   }
 
   String getQuestionTextWithAnswersById(int questionId) {
-    final question =
-    questions.firstWhere((q) => q.id == questionId);
+    final question = questions.firstWhere((q) => q.id == questionId);
     if (question != null) {
       String questionText = question.text;
       String? answersText =
-      question.answers?.map((answer) => answer?.text).join('\n');
+          question.answers?.map((answer) => answer?.text).join('\n');
       return '$questionText\n\n$answersText';
     } else {
       return 'Question not found';
     }
   }
 
+  //
+
   void secureWindow() async {
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   }
 }
-

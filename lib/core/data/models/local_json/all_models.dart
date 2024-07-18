@@ -174,8 +174,10 @@ class Question {
   final int? part_id;
   final int? lesson_id;
   final String? explain;
+  final int? order_changing ;
   final String? image;
   final int? isPublic;
+  final bool? isCourse ;
 
 
   final int? unit_id;
@@ -187,15 +189,18 @@ class Question {
     this.part_id,
     this.lesson_id,
     this.explain,
+    this.order_changing,
     this.image,
     this.unit_id,
     this.isPublic,
+    this.isCourse,
     required this.answers,
   });
 
   factory Question.fromJson(Map<String, dynamic> json) {
     return Question(
       id: json['id'],
+      isCourse : json['status'] == "course" ? true : false,
       lesson_id: json['lesson_id'],
       isPublic: json['isPublic'],
       part_id: json['part_id'],
@@ -203,6 +208,7 @@ class Question {
       explain: json['explain'],
       image: json['image'],
       text: json['text'],
+      order_changing:json['order_changing'],
       answers: (json['answers'] as List)
           .map((answerJson) => Answer.fromJson(answerJson))
           .toList(),

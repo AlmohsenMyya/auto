@@ -1,24 +1,25 @@
+import 'package:auto/core/data/repositories/read_all_models.dart';
 import 'package:auto/core/utils/extension/context_extensions.dart';
+import 'package:auto/ui/shared/custom_widgets/media_view/media_widget/cache_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:showcaseview/showcaseview.dart';
 
+import '../../../../core/data/models/local_json/all_models.dart';
+import '../../wellcom_screen/not_widget.dart';
 import '../courses_questions_controller.dart';
 import 'answer_line_widget.dart';
 import 'title_of_questions.dart';
 
 class QuestionTileWidget extends StatefulWidget {
   final int questionIndex;
-  final bool showResults;
   final bool showSolutions;
 
   const QuestionTileWidget({
     Key? key,
     required this.questionIndex,
-    required this.showResults,
     required this.showSolutions,
-
   }) : super(key: key);
 
   @override
@@ -27,6 +28,7 @@ class QuestionTileWidget extends StatefulWidget {
 
 class _QuestionTileWidgetState extends State<QuestionTileWidget> {
   late CoursesQuestionsController controller;
+  int answerIndexCount = -1;
 
   @override
   void initState() {
@@ -58,13 +60,13 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
       return ShowCaseWidget(
         builder: (context) => Card(
           color: context.exOnPrimaryContainer,
-          shadowColor:Colors.white,
+          shadowColor: Colors.white,
           elevation: 20.0,
           margin: EdgeInsets.all(8.0),
           child: Padding(
             padding: EdgeInsets.all(8.0),
             child:
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -73,35 +75,36 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                       question_index: widget.questionIndex,
                     ),
                   ),
-
                   IconButton(
                     icon: Icon(Icons.share, color: Colors.blue),
                     onPressed: () {
-                      final questionTextWithAnswers =
-                      controller.getQuestionTextWithAnswersById(questionId);
-                      if (questionTextWithAnswers != null) {
-                        Share.share(
-                            'Check out this question: \n$questionTextWithAnswers');
-                      } else {
-                        // Handle case where questionTextWithAnswers is null
-                        // Maybe show a snackbar or handle it in another way
-                      }
+                      JsonReader.shareQuestion(questionId.toString());
                     },
                   ),
                 ],
               ),
-              // Map answers with null check on each answer
-              ...(question.answers!.map((answer) {
-                if (answer == null)
-                  return Container(); // Handle null answers if any
-                return AnswerLine(
-                  key: Key(answer.id.toString()),
-                  // Ensure each AnswerLine has a unique key
-                  questionId: questionId,
-                  answer: answer,
-                  showResults: widget.showResults,
-                );
-              }).toList()),
+              controller.hideAllAnswers.value
+                  ? SizedBox()
+                  : SizedBox(
+                      height: 65 * question.answers!.length.toDouble(),
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: question.answers!.length,
+                        itemBuilder: (context, index) {
+                          final answer = question.answers![index];
+                          if (answer == null) {
+                            return Container(); // Handle null answers if any
+                          }
+                          return AnswerLine(
+                            key: Key(answer.id.toString()),
+                            answerIndex: index,
+                            // Ensure each AnswerLine has a unique key
+                            questionIndex: widget.questionIndex,
+                            answer: answer,
+                          );
+                        },
+                      ),
+                    ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -112,10 +115,21 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text('صورة للسؤال',style: TextStyle(fontSize: 24),),
-                            content: controller.questions[widget.questionIndex].image == null
+                            title: Text(
+                              'صورة للسؤال',
+                              style: TextStyle(fontSize: 24),
+                            ),
+                            content: controller.questions[widget.questionIndex]
+                                        .image ==
+                                    null
                                 ? Text('لا يوجد صورة لهذا السؤال.')
-                                : Image.asset(controller.questions[widget.questionIndex].image!),
+                                : CachedNetworkImage(
+                                    hash: '',
+                                    url: controller
+                                        .questions[widget.questionIndex].image!,
+                                    width: 200,
+                                    height: 200,
+                                  ),
                             actions: <Widget>[
                               TextButton(
                                 child: Text('إغلاق'),
@@ -147,9 +161,12 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text('شرح السؤال',style: TextStyle(fontSize: 24),),
+                            title: Text(
+                              'شرح السؤال',
+                              style: TextStyle(fontSize: 24),
+                            ),
                             content: Text(controller
-                                .questions[widget.questionIndex].explain ??
+                                    .questions[widget.questionIndex].explain ??
                                 'لا يوجد شرح لهذا السؤال.'),
                             actions: <Widget>[
                               TextButton(
@@ -167,33 +184,11 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                   IconButton(
                     icon: Icon(Icons.folder, color: Colors.grey),
                     onPressed: () {
-                      TextEditingController noteController = TextEditingController();
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text('إرسال ملاحظة',style: TextStyle(fontSize: 24),),
-                            content: TextField(
-                              controller: noteController,
-                              decoration: InputDecoration(hintText: "أدخل ملاحظتك هنا"),
-                              maxLines: 3,
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('إرسال'),
-                                onPressed: () {
-
-                                  print(noteController.text); // Replace with your logic
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                child: Text('إغلاق',),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
+                          return NoteDialogWidget(
+                            questionId: question.id,
                           );
                         },
                       );

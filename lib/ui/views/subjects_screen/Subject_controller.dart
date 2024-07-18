@@ -13,7 +13,7 @@ class SubjectController extends BaseController {
   void readfile(int branch_id) async {
     isLoading.value = true ;
     // TODO: implement onInit
-    jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
+    jsonfile = await JsonReader.loadJsonData();
     subjects = JsonReader.extractSubjects(jsonfile ,branch_id );
     isLoading.value = false;
   }

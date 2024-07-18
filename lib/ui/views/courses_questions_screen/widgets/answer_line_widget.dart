@@ -4,15 +4,15 @@ import '../../../../core/data/models/local_json/all_models.dart';
 import '../courses_questions_controller.dart';
 
 class AnswerLine extends StatelessWidget {
-  final int questionId;
+  final int questionIndex;
+  final int answerIndex;
   final Answer answer;
-  final bool showResults;
 
   AnswerLine({
     Key? key,
-    required this.questionId,
+    required this.questionIndex,
+    required this.answerIndex,
     required this.answer,
-    required this.showResults,
   }) : super(key: key);
 
   @override
@@ -20,17 +20,15 @@ class AnswerLine extends StatelessWidget {
     final controller = Get.find<CoursesQuestionsController>();
 
     return GestureDetector(
-      onTap: showResults
-          ? null
-          : () {
-        controller.selectAnswer(questionId, answer.id);
+      onTap:() {
+        controller.selectAnswer(questionIndex, answerIndex);
       },
       child: GetBuilder<CoursesQuestionsController>(
         builder: (controller) {
           return Container(
             margin: EdgeInsets.symmetric(vertical: 8),
             decoration: BoxDecoration(
-              color: _getBackgroundColor(controller),
+              color: controller.answers_color[questionIndex]?[answerIndex],
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Row(
@@ -48,16 +46,6 @@ class AnswerLine extends StatelessWidget {
                     ),
                   ),
                 ),
-                Radio<int>(
-                  value: answer.id,
-                  groupValue: controller.getSelectedAnswer(questionId),
-                  onChanged: showResults
-                      ? null
-                      : (value) {
-                    controller.selectAnswer(questionId, value!);
-                  },
-                  activeColor: Colors.blue,
-                ),
               ],
             ),
           );
@@ -66,21 +54,5 @@ class AnswerLine extends StatelessWidget {
     );
   }
 
-  Color _getBackgroundColor(CoursesQuestionsController controller) {
-    if (showResults) {
-      if (answer.isCorrect == 1) {
-        return Colors.green.withOpacity(0.5); // لون الإجابة الصحيحة
-      } else if (controller.getSelectedAnswer(questionId) == answer.id) {
-        return Colors.blue.withOpacity(0.5); // لون الإجابة المختارة عند عرض النتائج
-      } else {
-        return Colors.grey.shade100.withOpacity(0.8); // اللون الافتراضي للخلفية
-      }
-    } else {
-      if (controller.getSelectedAnswer(questionId) == answer.id) {
-        return Colors.blue.withOpacity(0.5); // لون الإجابة المختارة قبل التقديم
-      } else {
-        return Colors.grey.shade100.withOpacity(0.8); // اللون الافتراضي للخلفية
-      }
-    }
-  }
+
 }

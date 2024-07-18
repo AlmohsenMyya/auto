@@ -4,14 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../parts_questions_screen/parts_questions_view.dart';
+import '../../courses_questions_screen/courses_questions_view.dart';
+import '../../login_screen/login_view.dart';
 import '../bank_according_to_unit_and_lessons_screen_controller.dart';
 
 class BankAccordingToUnitAndLessonsScreenCardWidget extends StatefulWidget {
   final int index;
-
-  BankAccordingToUnitAndLessonsScreenCardWidget({super.key, required this.index});
+  final String subjectName;
+  BankAccordingToUnitAndLessonsScreenCardWidget({super.key, required this.subjectName,required this.index});
 
   @override
   State<BankAccordingToUnitAndLessonsScreenCardWidget> createState() => _CoursesAccordingToUnitAndLessonsScreenCardWidgetState();
@@ -61,6 +63,8 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<BankA
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => UnitsScreen(
+                        type_isCourse: "بنك",
+                        subjectName: widget.subjectName ,
                         part: controller.parts[widget.index],
                       ),
                     ));
@@ -74,47 +78,32 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<BankA
                     style: context.exTextTheme.titleMedium!
                         .copyWith(color: context.exInversePrimaryColor, fontSize: 15.sp),
                   ),
-                  onTap: () {
+                  onTap: () async {
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    final token = await prefs.getString('access_token');
+                    // تحقق من is_public قبل السماح بالدخول
+                    if (controller.questions[widget.index].isPublic == 0 && token == null)
                     // تحقق من is_public قبل السماح بالدخول
                     if (controller.questions[widget.index].isPublic == 0) {
-                      // عرض مربع الحوار
+                      // عرض رسالة بسيطة وزر الاشتراك
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          TextEditingController codeController = TextEditingController();
                           return AlertDialog(
-                            title: Text('ادخل الكود : ', style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold)),
-                            content: TextField(
-                              controller: codeController,
-                              decoration: InputDecoration(
-                                  labelText: "عذراً لايمكنك فتح هذا المحتوى حتى إدخال الكود",
-                                  hintText: "أدخل الكود هنا"),
+                            title: Text(
+                              'لا يمكن الدخول',
+                              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold , color: context.exPrimaryContainer),
                             ),
+                            content: Text('يتطلب الدخول الاشتراك. يرجى الاشتراك للاستمرار.' , style: TextStyle(color: context.exPrimaryContainer),),
                             actions: <Widget>[
                               TextButton(
-                                child: Text('إرسال'),
+                                child: Text('اشتراك' , style: TextStyle(color: context.exPrimaryContainer),),
                                 onPressed: () {
-                                  // التحقق من الكود المدخل
-                                  if (codeController.text == "your_code") {
-                                    Navigator.of(context).pop();
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => PartsQuestionsView(
-                                        idPart: controller.parts[widget.index].id,
-                                        type: '',
-                                      ),
-                                    ));
-                                  } else {
-                                    // عرض رسالة خطأ إذا كان الكود غير صحيح
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('الكود غير صحيح.')),
-                                    );
-                                  }
-                                },
-                              ),
-                              TextButton(
-                                child: Text('إغلاق'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
+                                  // توجيه المستخدم لصفحة تسجيل الدخول
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => LoginView()),
+                                  );
                                 },
                               ),
                             ],
@@ -124,9 +113,11 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<BankA
                     } else {
                       // السماح بالدخول مباشرةً إذا كان is_public ليس 0
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => PartsQuestionsView(
+                        builder: (context) => CoursesQuestionsView(
+                          subjectName: widget.subjectName,
+                          coursName: controller.parts[widget.index].name,
                           idPart: controller.parts[widget.index].id,
-                          type: '',
+                          type: 'بنك', id_course_bank_lesson_unite: -1,
                         ),
                       ));
                     }

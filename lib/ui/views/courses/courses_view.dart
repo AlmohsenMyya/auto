@@ -100,6 +100,7 @@ class _CoursesState extends State<Courses> {
             : Expanded(
                 child: ListView.builder(
                     itemBuilder: (context, index) => CoursesCardWidget(
+                      subjectName: widget.subject.name,
                           index: index,
                         ),
                     itemCount: controller.courses.length)))

@@ -70,6 +70,7 @@ dependencies:
   flutter_blurhash: ^0.8.2
   share_plus: ^9.0.0
   showcaseview: ^3.0.0
+  firebase_dynamic_links:
 
 dev_dependencies:
   flutter_test:

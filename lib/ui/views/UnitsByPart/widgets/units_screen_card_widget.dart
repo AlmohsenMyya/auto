@@ -8,13 +8,15 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../lessons/lesson_screen_view.dart';
-import '../../units_question_screen/units_questions_view.dart';
 import '../units_screen_controller.dart';
 
 class UnitsScreenCardWidget extends StatefulWidget {
   int index;
+  final String subjectName;
+  final String type_isCourse;
 
-  UnitsScreenCardWidget({super.key, required this.index});
+  UnitsScreenCardWidget(
+      {super.key, required this.index, required this.subjectName , required this.type_isCourse});
 
   @override
   State<UnitsScreenCardWidget> createState() => _UnitsScreenCardWidgetState();
@@ -39,15 +41,14 @@ class _UnitsScreenCardWidgetState extends State<UnitsScreenCardWidget> {
         child: Column(
           children: [
             Row(
-
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     15.h.verticalSpace,
                     Text(
-                      controller.units[widget.index].name ,
+                      controller.units[widget.index].name,
                       textDirection: TextDirection.ltr,
                       style: context.exTextTheme.titleMedium!
                           .copyWith(color: context.exInversePrimaryColor),
@@ -55,37 +56,50 @@ class _UnitsScreenCardWidgetState extends State<UnitsScreenCardWidget> {
                     15.h.verticalSpace,
                   ],
                 ),
-              Spacer(),
+                Spacer(),
                 InkWell(
                   child: Text(
                     "عرض الدروس",
                     textAlign: TextAlign.start,
-                    style: context.exTextTheme.titleMedium!
-                        .copyWith(color: context.exInversePrimaryColor,fontSize: 15.sp),
-
+                    style: context.exTextTheme.titleMedium!.copyWith(
+                        color: context.exInversePrimaryColor, fontSize: 15.sp),
                   ),
-                  onTap: () {Navigator.of(context).push(MaterialPageRoute(builder: (context ) => LessonScreen(unit: controller.units[widget.index],)));},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => LessonScreen(
+                          type_isCourse: widget.type_isCourse,
+                          subjectName: widget.subjectName,
+                              unit: controller.units[widget.index],
+                            )));
+                  },
                 ),
-                SizedBox(width: 15,),
+                SizedBox(
+                  width: 15,
+                ),
                 InkWell(
                   child: Text(
                     "عرض الأسئلة",
                     textAlign: TextAlign.start,
-                    style: context.exTextTheme.titleMedium!
-                        .copyWith(color: context.exInversePrimaryColor,fontSize: 15.sp),
-
+                    style: context.exTextTheme.titleMedium!.copyWith(
+                        color: context.exInversePrimaryColor, fontSize: 15.sp),
                   ),
-                  onTap: () {Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context ) =>
-                          UnitsQuestionsView(idUnit: controller.units[widget.index].id,type: "test",)));},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => CoursesQuestionsView(
+                          id_course_bank_lesson_unite: -1,
+                          subjectName: widget.subjectName,
+                          coursName: controller.units[widget.index].name,
+                              idUnit: controller.units[widget.index].id,
+                              type: widget.type_isCourse,
+                            )));
+                  },
                 ),
                 SizedBox(width: 10), // لإضافة مسافة بين النص والسهم
                 // Center(()
                 //   child: Icon(Icons.arrow_forward_ios_rounded),
                 // ).exBox(height: 40, width: 20),
               ],
-            )
-            ,
+            ),
             Divider(
               height: 10.h,
               color: context.exBackground,

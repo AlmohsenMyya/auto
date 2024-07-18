@@ -13,7 +13,7 @@ class UnitsScreenController extends BaseController {
   void readfile(int part_id) async {
     isLoading.value = true;
     // TODO: implement onInit
-    jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
+    jsonfile = await JsonReader.loadJsonData();
     units = JsonReader.extractUnitsByPartId(jsonfile, part_id);
     print("object ddddddddd ${units.length}");
 
@@ -22,7 +22,7 @@ class UnitsScreenController extends BaseController {
   void readLesson(int unitId) async {
     isLoading.value = true;
     // TODO: implement onInit
-    jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
+    jsonfile = await JsonReader.loadJsonData();
     lessons = JsonReader.extractLessonByUnitId(jsonfile, unitId);
     print("object ddddddddd ${lessons.length }for unit ${unitId}");
   }

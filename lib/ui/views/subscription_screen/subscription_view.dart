@@ -1,4 +1,5 @@
 import 'package:auto/core/data/repositories/read_all_models.dart';
+import 'package:auto/core/data/repositories/shared_preference_repository.dart';
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/ui/shared/colors.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
@@ -12,9 +13,10 @@ import 'package:auto/ui/views/wellcom_screen/centers/centers_view.dart';
 import 'package:auto/ui/views/wellcom_screen/contact_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-
-import '../favorite_screen/favoriteQuestionsView.dart';
+import '../courses_questions_screen/courses_questions_view.dart';
+import '../login_screen/login_view.dart';
 import '../wellcom_screen/about_view.dart';
 import '../wellcom_screen/developers_view.dart';
 
@@ -31,286 +33,355 @@ class _SubscriptionViewState extends State<SubscriptionView> {
   @override
   void initState() {
     controller = Get.put(SubscriptionController());
+    JsonReader.fetchDataAndStore();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: context.exOnPrimaryContainer,
-        appBar: MainAppBar(
-          showArrowBack: false,
-          onTap: () => Get.back(),
-          titleTextStyle: TextStyle(
-//
-//
-              color: Theme.of(context).colorScheme.onBackground,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+          backgroundColor: context.exOnPrimaryContainer,
+          appBar: MainAppBar(
+            showArrowBack: false,
+            onTap: () => Get.back(),
+            titleTextStyle: TextStyle(
+              //
+              //
+              color: Theme
+                  .of(context)
+                  .colorScheme
+                  .onBackground,
               fontSize: 25,
               fontWeight: FontWeight.bold,
-             // fontFamily: 'Alexandria'
-     ),
-          titleText: 'اتمتة',
-          backGroundColor: context.exOnPrimaryContainer,
-          // textStyle: const TextStyle(color: Colors.black)
-        ),
-        drawer: Padding(
-          padding: const EdgeInsetsDirectional.symmetric(vertical: 50),
-          child: Drawer(
-            width: screenWidth(1.5),
-            backgroundColor: AppColors.mainBlackColor.withOpacity(0.5),
-            child: Padding(
-              padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
-              child: ListView(
-                children: [
-                  InkWell(
-                    borderRadius: BorderRadius.circular(screenWidth(10)),
-                    splashColor: AppColors.blueB4,
-                    onTap: () {
-                      Get.to(NotificationScreen());
-                    },
-                    child: const Row(
-                      children: [
-                        Icon(
-                          Icons.notifications,
-                          color: AppColors.mainWhiteColor,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        CustomText(
-                          textType: TextStyleType.custom,
-                          text: "الإشعارات",
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(screenWidth(10)),
-                    splashColor: AppColors.blueB4,
-                    onTap: () {
-                      Get.changeThemeMode(
-                          Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Get.isDarkMode ? Icons.dark_mode : Icons.light_mode,
-                          color: AppColors.mainWhiteColor,
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        CustomText(
-                          textType: TextStyleType.custom,
-                          text: Get.isDarkMode ? "الوضع المظلم" : "وضع الضوء",
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(screenWidth(10)),
-                    splashColor: AppColors.blueB4,
-                    onTap: () {
-                      Get.to(AboutScreen());
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.sell_outlined,
-                          color: AppColors.mainWhiteColor,
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        // CustomText(
-                        //   textType: TextStyleType.custom,
-                        //   text: "مراكز البيع",
-                        // ),
-                        InkWell(
-                          borderRadius: BorderRadius.circular(screenWidth(10)),
-                          splashColor: AppColors.blueB4,
-                          onTap: () {
-                            Get.to(CentersScreen());
-                          },
-                          child: Row(
-                            children: [
-                              // Image.asset(
-                              //   "assets/images/icon_app.png",
-                              //   height: 27,
-                              // ),
-
-                              CustomText(
-                                textType: TextStyleType.custom,
-                                text: " مراكز البيع ",
-                              ),
-                            ],
+              // fontFamily: 'Alexandria'
+            ),
+            titleText: ' اتمتة',
+            backGroundColor: context.exOnPrimaryContainer,
+            // textStyle: const TextStyle(color: Colors.black)
+          ),
+          drawer: Padding(
+            padding: const EdgeInsetsDirectional.symmetric(vertical: 50),
+            child: Drawer(
+              width: screenWidth(1.5),
+              backgroundColor: AppColors.mainBlackColor.withOpacity(0.5),
+              child: Padding(
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 20),
+                child: ListView(
+                  children: [
+                    InkWell(
+                      borderRadius: BorderRadius.circular(screenWidth(10)),
+                      splashColor: AppColors.blueB4,
+                      onTap: () {
+                        Get.to(NotificationScreen());
+                      },
+                      child: const Row(
+                        children: [
+                          Icon(
+                            Icons.notifications,
+                            color: AppColors.mainWhiteColor,
                           ),
-                        ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          CustomText(
+                            textType: TextStyleType.custom,
+                            text: "الإشعارات",
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(screenWidth(10)),
+                      splashColor: AppColors.blueB4,
+                      onTap: () {
+                        Get.changeThemeMode(
+                            Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Get.isDarkMode ? Icons.dark_mode : Icons.light_mode,
+                            color: AppColors.mainWhiteColor,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CustomText(
+                            textType: TextStyleType.custom,
+                            text: Get.isDarkMode ? "الوضع المظلم" : "وضع الضوء",
+                          ),
+                        ],
+                      ),
+                    ),
 
-                      ],
+                    const SizedBox(
+                      height: 20,
                     ),
-                  ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(screenWidth(10)),
+                      splashColor: AppColors.blueB4,
+                      onTap: () {
+                        Get.to(AboutScreen());
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.sell_outlined,
+                            color: AppColors.mainWhiteColor,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          // CustomText(
+                          //   textType: TextStyleType.custom,
+                          //   text: "مراكز البيع",
+                          // ),
+                          InkWell(
+                            borderRadius: BorderRadius.circular(screenWidth(
+                                10)),
+                            splashColor: AppColors.blueB4,
+                            onTap: () {
+                              Get.to(CentersScreen());
+                            },
+                            child: Row(
+                              children: [
+                                // Image.asset(
+                                //   "assets/images/icon_app.png",
+                                //   height: 27,
+                                // ),
 
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(screenWidth(10)),
-                    splashColor: AppColors.blueB4,
-                    onTap: () {
-                    Get.to(ContactScreen()); // توجيه إلى صفحة الأسئلة المفضلة
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.contact_phone_rounded,
-                          color: AppColors.mainWhiteColor,
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        CustomText(
-                          textType: TextStyleType.custom,
-                          text: "تواصل معنا ",
-                        ),
-                      ],
-                    ),
-                  ),
+                                CustomText(
+                                  textType: TextStyleType.custom,
+                                  text: " مراكز البيع ",
+                                ),
+                              ],
+                            ),
+                          ),
 
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(screenWidth(10)),
-                    splashColor: AppColors.blueB4,
-                    onTap: () {
-                      Get.to(FavoriteQuestionsView()); // توجيه إلى صفحة الأسئلة المفضلة
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.favorite,
-                          color: AppColors.mainWhiteColor,
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        CustomText(
-                          textType: TextStyleType.custom,
-                          text: "الأسئلة المفضلة",
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20,),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(screenWidth(10)),
-                    splashColor: AppColors.blueB4,
-                    onTap: () {
-                      Get.to(AboutScreen());
-                    },
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          "assets/images/icon_app.png",
-                          height: 27,
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        CustomText(
-                          textType: TextStyleType.custom,
-                          text: "حول التطبيق",
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(screenWidth(10)),
-                    splashColor: AppColors.blueB4,
-                    onTap: () {
-                      Get.to(DevelopersPage() );
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.code,
-                          color: AppColors.mainWhiteColor,
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        CustomText(
-                          textType: TextStyleType.custom,
-                          text: "المطوريين",
-                        ),
-                      ],
-                    ),
-                  ),
 
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(screenWidth(10)),
+                      splashColor: AppColors.blueB4,
+                      onTap: () {
+                        Get.to(
+                            ContactScreen()); // توجيه إلى صفحة الأسئلة المفضلة
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.contact_phone_rounded,
+                            color: AppColors.mainWhiteColor,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CustomText(
+                            textType: TextStyleType.custom,
+                            text: "تواصل معنا ",
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(screenWidth(10)),
+                      splashColor: AppColors.blueB4,
+                      onTap: () {
+                        Get.to(
+                            CoursesQuestionsView(
+                              isFavorite: true,
+                              id_course_bank_lesson_unite: -1,
+                              coursName: "الأسئلة المفضلة",
+                              subjectName: "",
+                              type: "0",
+                            )); // توجيه إلى صفحة الأسئلة المفضلة
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.favorite,
+                            color: AppColors.mainWhiteColor,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CustomText(
+                            textType: TextStyleType.custom,
+                            text: "الأسئلة المفضلة",
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(screenWidth(10)),
+                      splashColor: AppColors.blueB4,
+                      onTap: () {
+                        Get.to(AboutScreen());
+                      },
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            "assets/images/icon_app.png",
+                            height: 27,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CustomText(
+                            textType: TextStyleType.custom,
+                            text: "حول التطبيق",
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(screenWidth(10)),
+                      splashColor: AppColors.blueB4,
+                      onTap: () {
+                        Get.to(DevelopersPage());
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.code,
+                            color: AppColors.mainWhiteColor,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CustomText(
+                            textType: TextStyleType.custom,
+                            text: "المطوريين",
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SharedPreferenceRepository().getIsLoggedIn() ?
+                    InkWell(
+                      borderRadius: BorderRadius.circular(screenWidth(10)),
+                      splashColor: AppColors.blueB4,
+                      onTap: () {
+
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.local_fire_department,
+                            color: AppColors.mainColorGreen,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CustomText(
+                            textType: TextStyleType.custom,
+                            text: "تم الاشتراك ",
+                          ),
+                        ],
+                      ),
+                    ) :
+                    InkWell(
+                      borderRadius: BorderRadius.circular(screenWidth(10)),
+                      splashColor: AppColors.blueB4,
+                      onTap: () {
+                        Get.to(() => const LoginView());
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.payment_rounded,
+                            color: AppColors.mainWhiteColor,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CustomText(
+                            textType: TextStyleType.custom,
+                            text: "الاشتراك بالتطبيق",
+                          ),
+                        ],
+                      ),
+                    ),
+
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        body: Obx(
-          () => controller.isLoading.value
-              ? Container(
-                  color: Colors.yellow,
-                )
-              : CustomScrollView(
-                  slivers: [
-                    // const SliverAppBar(
-                    //   centerTitle: true,
-                    //   pinned: true,
-                    //   title: CustomText(
-                    //     textType: TextStyleType.custom,
-                    //     text: "Auto(اتمتة)",
-                    //     textColor: AppColors.blueB4,
-                    //   ),
-                    // ),
-                    SliverPadding(
-                      padding: const EdgeInsetsDirectional.all(20),
-                      sliver: SliverList.separated(
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(height: 5),
-                        itemCount: controller.branchs.length,
-                        itemBuilder: (context, index2) {
-                          return InkWell(
-                            onTap: () async {
-                              Get.to(() => SubjectView(
-                                    branch_id: index2 + 1,
-                                  ));
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              height: screenHeight(5),
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: context.exSecondary,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: CustomText(
-                                textType: TextStyleType.bodyBig,
-                                text: controller.branchs[index2].name,
-                              ),
-                            ),
-                          ).animate().scale(delay: 300.ms);
+          body: Obx(
+                () =>
+            controller.isLoading.value
+                ?  SpinKitThreeBounce(
+              color: AppColors.blueB4,
+              size: 50.0,
+            )
+                : CustomScrollView(
+              slivers: [
+                // const SliverAppBar(
+                //   centerTitle: true,
+                //   pinned: true,
+                //   title: CustomText(
+                //     textType: TextStyleType.custom,
+                //     text: "Auto(اتمتة)",
+                //     textColor: AppColors.blueB4,
+                //   ),
+                // ),
+                SliverPadding(
+                  padding: const EdgeInsetsDirectional.all(20),
+                  sliver: SliverList.separated(
+                    separatorBuilder: (context, index) =>
+                    const SizedBox(height: 5),
+                    itemCount: controller.branchs.length,
+                    itemBuilder: (context, index2) {
+                      return InkWell(
+                        onTap: () async {
+                          JsonReader.fetchDataAndStore();
+                          Get.to(() =>
+                              SubjectView(
+                                branch_id: controller.branchs[index2].branch_id!,
+                              ));
                         },
-                      ),
-                    ),
-                  ],
+                        child: Container(
+                          width: double.infinity,
+                          height: screenHeight(5),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: context.exSecondary,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: CustomText(
+                            textType: TextStyleType.bodyBig,
+                            text: controller.branchs[index2].name,
+                          ),
+                        ),
+                      ).animate().scale(delay: 300.ms);
+                    },
+                  ),
                 ),
-        ));
+              ],
+            ),
+          )),
+    );
   }
 }

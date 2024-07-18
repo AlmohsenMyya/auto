@@ -1,3 +1,4 @@
+import 'package:auto/core/data/repositories/shared_preference_repository.dart';
 import 'package:auto/ui/shared/colors.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_button.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
@@ -12,6 +13,8 @@ import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../core/data/repositories/read_all_models.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -42,6 +45,7 @@ print("response.statusCode ${response.body}");
         await prefs.setString('access_token', accessToken);
         await prefs.setString('token_type', tokenType);
         await prefs.setInt('branch_id', branchId);
+        SharedPreferenceRepository().setIsLoggedIN(true);
         Get.to(() => const SubscriptionView());
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('تم الاشتراك بنجاح')),
@@ -135,7 +139,7 @@ print("response.statusCode ${response.body}");
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       Get.to(() => const SubscriptionView());
                     },
                     child: const CustomText(

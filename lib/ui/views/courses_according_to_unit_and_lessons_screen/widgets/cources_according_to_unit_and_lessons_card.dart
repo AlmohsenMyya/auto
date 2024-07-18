@@ -10,59 +10,6 @@ class CoursesAccordingToUnitAndLessonsCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: context.exOnPrimaryContainer,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  5.h.verticalSpace,
-                  Text(
-                    "الدورة الاولى :",
-                    style: context.exTextTheme.titleMedium!
-                        .copyWith(color: context.exPrimaryColor),
-                  ),
-                  10.h.verticalSpace,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      10.w.horizontalSpace,
-                      Text(
-                        'عدد الأسئلة :',
-                        style: context.exTextTheme.titleMedium!
-                            .copyWith(color: context.exPrimaryColor),
-                      ),
-                      10.w.horizontalSpace,
-                      Text(
-                        '23',
-                        style: context.exTextTheme.titleMedium!
-                            .copyWith(color: context.exPrimaryColor),
-                      ),
-                      0.4.sw.horizontalSpace,
-                    ],
-                  ),
-                ],
-              ),
-              Center(
-                child: Icon(Icons.arrow_forward_ios_rounded),
-              ).exBox(height: 40, width: 20).paddingAll(10.w)
-            ],
-          ),
-          Divider(
-            height: 10.h,
-            color: context.exBackground,
-          )
-        ],
-      ),
-    ).onTap(() => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => CoursesQuestionsView(
-            id_course_bank_lesson_unite: 1,
-            type: "تيست",
-          ),
-        )));
+    return Container();
   }
 }

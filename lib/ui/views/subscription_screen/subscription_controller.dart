@@ -13,7 +13,7 @@ class SubscriptionController extends BaseController {
   void readfile() async {
     isLoading.value = true ;
     // TODO: implement onInit
-    jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
+    jsonfile = await JsonReader.loadJsonData();
     branchs = JsonReader.extractBranches(jsonfile);
     isLoading.value = false;
   }

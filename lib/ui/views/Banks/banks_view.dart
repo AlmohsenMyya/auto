@@ -99,6 +99,7 @@ class _BanksState extends State<Banks> {
             : Expanded(
                 child: ListView.builder(
                     itemBuilder: (context, index) => BanksCardWidget(
+                      subjectName: widget.subject.name,
                           index: index,
                         ),
                     itemCount: controller.banks.length)))

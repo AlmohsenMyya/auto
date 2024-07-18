@@ -13,7 +13,7 @@ class CentersController extends BaseController {
 
   void readCities() async {
     isLoading.value = true;
-    jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
+    jsonfile = await JsonReader.loadJsonData();
     cities = JsonReader.extractCities(jsonfile);
     isLoading.value = false;
   }

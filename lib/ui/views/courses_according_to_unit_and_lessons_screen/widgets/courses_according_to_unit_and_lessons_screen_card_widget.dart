@@ -8,19 +8,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../parts_questions_screen/parts_questions_view.dart';
 import '../courses_according_to_unit_and_lessons_screen_controller.dart';
 
 class CoursesAccordingToUnitAndLessonsScreenCardWidget extends StatefulWidget {
   int index;
+  final String subjectName;
 
-  CoursesAccordingToUnitAndLessonsScreenCardWidget({super.key, required this.index});
+  CoursesAccordingToUnitAndLessonsScreenCardWidget(
+      {super.key, required this.subjectName, required this.index});
 
   @override
-  State<CoursesAccordingToUnitAndLessonsScreenCardWidget> createState() => _CoursesAccordingToUnitAndLessonsScreenCardWidgetState();
+  State<CoursesAccordingToUnitAndLessonsScreenCardWidget> createState() =>
+      _CoursesAccordingToUnitAndLessonsScreenCardWidgetState();
 }
 
-class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<CoursesAccordingToUnitAndLessonsScreenCardWidget> {
+class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState
+    extends State<CoursesAccordingToUnitAndLessonsScreenCardWidget> {
   late CoursesAccordingToUnitAndLessonsScreenController controller;
 
   @override
@@ -49,7 +52,7 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<Cours
                       controller.parts[widget.index].name,
                       textDirection: TextDirection.ltr,
                       style: context.exTextTheme.titleMedium!
-                          .copyWith(color:  context.exInversePrimaryColor),
+                          .copyWith(color: context.exInversePrimaryColor),
                     ),
                     15.h.verticalSpace,
                   ],
@@ -59,32 +62,38 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<Cours
                   child: Text(
                     "عرض الوحدات ",
                     textDirection: TextDirection.ltr,
-                    style: context.exTextTheme.titleMedium!
-                        .copyWith(color:  context.exInversePrimaryColor,fontSize: 15.sp),
+                    style: context.exTextTheme.titleMedium!.copyWith(
+                        color: context.exInversePrimaryColor, fontSize: 15.sp),
                   ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => UnitsScreen(
-                          part: controller.parts[widget.index]
-                      ),
+                        type_isCourse: "دورة",
+                          subjectName: widget.subjectName,
+                          part: controller.parts[widget.index]),
                     ));
                   },
                 ),
-                SizedBox(width: 15,),
-
+                SizedBox(
+                  width: 15,
+                ),
 
                 InkWell(
                   child: Text(
                     "عرض الأسئلة ",
                     textDirection: TextDirection.ltr,
-                    style: context.exTextTheme.titleMedium!
-                        .copyWith(color:  context.exInversePrimaryColor, fontSize: 15.sp),
+                    style: context.exTextTheme.titleMedium!.copyWith(
+                        color: context.exInversePrimaryColor, fontSize: 15.sp),
                   ),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PartsQuestionsView( idPart: controller.parts[widget.index].id,type: 'test',)
-                    ));
-                 },
+                        builder: (context) => CoursesQuestionsView(
+                          subjectName: widget.subjectName,
+                          coursName: controller.parts[widget.index].name,
+                              idPart: controller.parts[widget.index].id,
+                              type: 'دورة', id_course_bank_lesson_unite: -1,
+                            )));
+                  },
                 ),
                 15.h.verticalSpace,
                 // Center(
@@ -98,23 +107,23 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<Cours
             )
           ],
         ),
-      // ).onTap(() { if(controller.ifFoundPart == true){
-      //   print("kdkkd ${controller.parts[widget.index].id}");
-      //   Navigator.of(context).push(MaterialPageRoute(
-      //     builder: (context) =>  UnitsScreen(
-      //       part: controller.parts[widget.index]
-      //     ),
-      //   ));
-      // }else{
-      //
-      // }
-      //   print("kdkkd ${controller.parts[widget.index].id}");
-      //   return Navigator.of(context).push(MaterialPageRoute(
-      //     builder: (context) =>  UnitsScreen(
-      //       part: controller.parts[widget.index]
-      //     ),
-      //   ));
-    //  }
+        // ).onTap(() { if(controller.ifFoundPart == true){
+        //   print("kdkkd ${controller.parts[widget.index].id}");
+        //   Navigator.of(context).push(MaterialPageRoute(
+        //     builder: (context) =>  UnitsScreen(
+        //       part: controller.parts[widget.index]
+        //     ),
+        //   ));
+        // }else{
+        //
+        // }
+        //   print("kdkkd ${controller.parts[widget.index].id}");
+        //   return Navigator.of(context).push(MaterialPageRoute(
+        //     builder: (context) =>  UnitsScreen(
+        //       part: controller.parts[widget.index]
+        //     ),
+        //   ));
+        //  }
       ),
     );
   }

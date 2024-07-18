@@ -13,7 +13,7 @@ class BankAccordingToUnitAndLessonsScreenController extends BaseController {
 
   // void readfile(int subjectId) async {
   //   isLoading.value = true;
-  //   jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
+  //   jsonfile = await JsonReader.loadJsonData();
   //   questions = JsonReader.extractQuestionsBYBank(jsonfile, subjectId);
   //   print("Questions count: ${questions.length}");
   //   isLoading.value = false;
@@ -23,7 +23,7 @@ class BankAccordingToUnitAndLessonsScreenController extends BaseController {
   void readfile(int subject_id) async {
   isLoading.value = true;
   // TODO: implement onInit
-  jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
+  jsonfile = await JsonReader.loadJsonData();
   parts = JsonReader.extractParts(jsonfile, subject_id);
   print("object ddddddddd ${parts.length}");
 
@@ -31,7 +31,7 @@ class BankAccordingToUnitAndLessonsScreenController extends BaseController {
   }
 
   void ifFoundPart(int subject_id) async {
-  jsonfile = await JsonReader.loadJsonFromAssets('assets/data.json');
+  jsonfile = await JsonReader.loadJsonData();
   var x = JsonReader.findPartByID(jsonfile, subject_id);
   print("object ddddddddd ${x}");
 

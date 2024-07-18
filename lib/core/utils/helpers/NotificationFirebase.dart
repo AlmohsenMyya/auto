@@ -104,8 +104,7 @@ class NotificationSetUp {
               android: AndroidNotificationDetails(
                 "newnote",
                 "High Importance Notifications",
-                icon: android.smallIcon,
-                sound: RawResourceAndroidNotificationSound('custom_sound.mp3'), // تحديد ملف الصوت بدون الامتداد
+                icon: android.smallIcon, // تحديد ملف الصوت بدون الامتداد
               ),
             ));
       } else if (apple != null) {
@@ -118,8 +117,7 @@ class NotificationSetUp {
                 presentAlert: true,
                 subtitle: notification.title,
                 badgeNumber: 1,
-                presentSound: true,
-                sound: 'custom_sound.aiff', // تحديد ملف الصوت مع الامتداد الصحيح
+                presentSound: true, // تحديد ملف الصوت مع الامتداد الصحيح
                 presentBanner: true,
                 presentList: true,
                 presentBadge: true,

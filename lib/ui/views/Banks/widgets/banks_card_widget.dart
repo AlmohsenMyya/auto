@@ -6,13 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../login_screen/login_view.dart';
 import '../banks_controller.dart';
 
 class BanksCardWidget extends StatefulWidget {
   int index;
-
-  BanksCardWidget({super.key, required this.index});
+  final String subjectName;
+  BanksCardWidget({super.key, required this.index , required this.subjectName});
 
   @override
   State<BanksCardWidget> createState() => _BanksCardWidgetState();
@@ -63,47 +65,32 @@ class _BanksCardWidgetState extends State<BanksCardWidget> {
             )
           ],
         ),
-      ).onTap((){
+      ).onTap(()async{
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        final token = await prefs.getString('access_token');
+        // تحقق من is_public قبل السماح بالدخول
+        if (controller.banks[widget.index].isPublic == 0 && token == null)
         // تحقق من is_public قبل السماح بالدخول
         if (controller.banks[widget.index].isPublic == 0) {
-          // عرض مربع الحوار
+          // عرض رسالة بسيطة وزر الاشتراك
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              TextEditingController codeController = TextEditingController();
               return AlertDialog(
-                title: Text('ادخل الكود : ',style: TextStyle(fontSize: 20.sp,fontWeight: FontWeight.bold),),
-
-                content: TextField(
-                  controller: codeController,
-                  decoration: InputDecoration(label: Text(" عذراً لايمكنك فتح هذا المحتوى حتى إدخال الكود"),
-                      hintText: "أدخل الكود هنا"),
+                title: Text(
+                  'لا يمكن الدخول',
+                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold , color: context.exPrimaryContainer),
                 ),
+                content: Text('يتطلب الدخول الاشتراك. يرجى الاشتراك للاستمرار.' , style: TextStyle(color: context.exPrimaryContainer),),
                 actions: <Widget>[
                   TextButton(
-                    child: Text('إرسال'),
+                    child: Text('اشتراك' , style: TextStyle(color: context.exPrimaryContainer),),
                     onPressed: () {
-                      // التحقق من الكود المدخل
-                      if (codeController.text == "your_code") {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CoursesQuestionsView(
-                            id_course_bank_lesson_unite: controller.banks[widget.index].id,
-                            type: "دورة",
-                          ),
-                        ));
-                      } else {
-                        // عرض رسالة خطأ إذا كان الكود غير صحيح
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('الكود غير صحيح.')),
-                        );
-                      }
-                    },
-                  ),
-                  TextButton(
-                    child: Text('إغلاق'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
+                      // توجيه المستخدم لصفحة تسجيل الدخول
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginView()),
+                      );
                     },
                   ),
                 ],
@@ -114,6 +101,8 @@ class _BanksCardWidgetState extends State<BanksCardWidget> {
           // السماح بالدخول مباشرةً إذا كان is_public ليس 0
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => CoursesQuestionsView(
+              subjectName: widget.subjectName,
+            coursName: controller.banks[widget.index].name,
             id_course_bank_lesson_unite: controller.banks[widget.index].id,
             type: "بنك",
             ),

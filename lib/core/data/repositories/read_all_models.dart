@@ -1,18 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/services.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/local_json/all_models.dart';
-
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 // Import the models here
 
 class JsonReader {
-  static Future<Map<String, dynamic>> loadJsonFromAssets(
-      String filePath) async {
-    String jsonString = await rootBundle.loadString(filePath);
-    return jsonDecode(jsonString);
-  }
+  // static Future<Map<String, dynamic>> loadJsonFromAssets(
+  //     String filePath) async {
+  //   String jsonString = await rootBundle.loadString(filePath);
+  //   return jsonDecode(jsonString);
+  // }
 
   // static Map<String, dynamic> readDataFromJson(String filePath) {
   //   // Print current working directory
@@ -179,7 +186,8 @@ class JsonReader {
   }
 
   static List<Question> extractQuestions(
-      Map<String, dynamic> jsonData, int key, String type) {
+      Map<String, dynamic> jsonData, int key, String type, bool isCourse) {
+
     List<Question> questions = [];
 
     if (jsonData['questions'] != null) {
@@ -187,17 +195,23 @@ class JsonReader {
 
       if (type == 'unit') {
         questions = questionList
-            .where((question) => question['unit_id'] == key)
+            .where((question) =>
+        question['unit_id'] == key &&
+            (isCourse ? question['status'] == 'course' : question['status'] != 'course'))
             .map((questionJson) => Question.fromJson(questionJson))
             .toList();
       } else if (type == 'lesson') {
         questions = questionList
-            .where((question) => question['lesson_id'] == key)
+            .where((question) =>
+        question['lesson_id'] == key &&
+            (isCourse ? question['status'] == 'course' : question['status'] != 'course'))
             .map((questionJson) => Question.fromJson(questionJson))
             .toList();
       } else if (type == 'part') {
         questions = questionList
-            .where((question) => question['part_id'] == key)
+            .where((question) =>
+        question['part_id'] == key &&
+            (isCourse ? question['status'] == 'course' : question['status'] != 'course'))
             .map((questionJson) => Question.fromJson(questionJson))
             .toList();
       } else {
@@ -211,6 +225,31 @@ class JsonReader {
     return questions;
   }
 
+  static Question? extractOneQuestionById(String id, Map<String, dynamic> jsonData) {
+    Question? question;
+
+    print("extractOneQuestionById --- id $id");
+
+    if (jsonData['questions'] != null) {
+      var questionList = jsonData['questions'] as List<dynamic>;
+
+      var foundQuestion = questionList.firstWhere(
+            (question) => question['id'].toString() == id,
+        orElse: () => null,
+      );
+
+      print("extractOneQuestionById --- found $foundQuestion");
+
+      if (foundQuestion != null) {
+        question = Question.fromJson(foundQuestion as Map<String, dynamic>);
+      }
+    } else {
+      print("No questions found in the JSON data");
+    }
+
+    print("extractOneQuestionById extracted: $question");
+    return question;
+  }
   static List<Question> extractQuestionsByIdList(
       List<String> idList, Map<String, dynamic> jsonData) {
     List<Question> questions = [];
@@ -237,21 +276,21 @@ class JsonReader {
   }
 
   static List<Question> extractQuestionsByUnitId(
-      Map<String, dynamic> jsonData, int unitId) {
+      Map<String, dynamic> jsonData, int unitId, bool isCourse) {
     print("Question By Unit Id $unitId");
-    return extractQuestions(jsonData, unitId, 'unit');
+    return extractQuestions(jsonData, unitId, 'unit',isCourse);
   }
 
   static List<Question> extractQuestionsByLessonId(
-      Map<String, dynamic> jsonData, int lessonId) {
+      Map<String, dynamic> jsonData, int lessonId , bool isCourse) {
     print("Question By Lesson Id $lessonId");
-    return extractQuestions(jsonData, lessonId, 'lesson');
+    return extractQuestions(jsonData, lessonId, 'lesson',isCourse);
   }
 
   static List<Question> extractQuestionsByPartId(
-      Map<String, dynamic> jsonData, int partId) {
+      Map<String, dynamic> jsonData, int partId , bool isCourse) {
     print("Question By Part Id $partId");
-    return extractQuestions(jsonData, partId, 'part');
+    return extractQuestions(jsonData, partId, 'part',isCourse);
   }
 
   static List<Lesson> extractLessonByUnitId(
@@ -350,13 +389,112 @@ class JsonReader {
         .toList();
     return sliders;
   }
-// Map<String, dynamic> jsonData = JsonReader.readDataFromJson('data1.json');
-//
-// List<Branch> branches = JsonReader.extractBranches(jsonData);
-//
-// Map<String, List<Subject>> subjects = JsonReader.extractSubjects(jsonData);
-//
-// // Repeat the same for other data extraction...
-//
-// List sliders = JsonReader.extractSliders(jsonData);
+  static void shareQuestion(String id) async {
+    print("Processing video with ID: $id");
+
+    // إزالة أي بادئة غير ضرورية من سلسلة Base64
+    Uri? imageUrl = Uri.tryParse("https://firebasestorage.googleapis.com/v0/b/auto-2b136.appspot.com/o/logo.png?alt=media&token=124ffb8a-b004-4b4d-8e97-65134cfa91aa");
+
+    print("Thumbnail: ''''  $id fff $imageUrl");
+    // Configure dynamic link parameters
+    final dynamicLinkParams = DynamicLinkParameters(
+      link: Uri.parse("https://autoapp.page.link?myQuestion=$id"),
+      uriPrefix: "https://autoapp.page.link",
+      androidParameters: const AndroidParameters(
+        packageName: "com.example.auto",
+        // minimumVersion: 30,
+      ),
+      iosParameters: const IOSParameters(
+        bundleId: "com.example.auto",
+        // appStoreId: "123456789",
+        // minimumVersion: "1.0.1",
+      ),
+      // googleAnalyticsParameters: const GoogleAnalyticsParameters(
+      //   source: "twitter",
+      //   medium: "social",
+      //   campaign: "example-promo",
+      // ),
+      socialMetaTagParameters: SocialMetaTagParameters(
+        title: "تطبيق اوتو .. خيارك الافضل للنجاح",
+        description: "انقر على الرابط لعرض السؤال",
+        imageUrl: imageUrl,
+      ),
+    );
+    final dynamicLink =
+    await FirebaseDynamicLinks.instance.buildShortLink(dynamicLinkParams);
+    // Share the short URL
+    Share.share(dynamicLink.shortUrl.toString());
+
+    // Update the state to reflect the share
+  }
+  // static List<Answer?> shuffleAnswers(List<Answer?> answers) {
+  //   print("answer12 before $answers");
+  //   final random = Random();
+  //   List<Answer> randomizedAnswers = List.from(answers);
+  //   randomizedAnswers.shuffle(random);
+  //   print("answer12 after $randomizedAnswers");
+  //   return randomizedAnswers;
+  // }
+  static final String url1 = 'https://auto-sy.com/api/all';
+
+ static Future<void> fetchDataAndStore() async {
+    try {
+      final response = await http.get(Uri.parse(url1));
+      print("gfncgfncgc ${response.body}");
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        await _storeDataInJsonFile(data);
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+ static Future<void> _storeDataInJsonFile(dynamic data) async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final filePath = '${directory.path}/assets/mohsen.json';
+      final file = File(filePath);
+      await file.create(recursive: true);
+      await file.writeAsString(jsonEncode(data));
+      print('Data stored in $filePath');
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('jsonFilePath',filePath);
+    } catch (e) {
+      print('Error storing data: $e');
+    }
+  }
+  // Load JSON data from assets
+  static Future<Map<String, dynamic>> loadJsonFromAssets(String path) async {
+    final data = await rootBundle.loadString(path);
+    return jsonDecode(data);
+  }
+
+  // Load JSON data from a file
+  static Future<Map<String, dynamic>> loadJsonFromFile(String filePath) async {
+    final file = File(filePath);
+    final data = await file.readAsString();
+    return jsonDecode(data);
+  }
+
+  // New method to load JSON data
+  static Future<Map<String, dynamic>> loadJsonData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? jsonFilePath = prefs.getString('jsonFilePath');
+print("bh hjb jhbj jsonFilePath != null${jsonFilePath }  ");
+    if (jsonFilePath != null && await File(jsonFilePath).exists()) {
+      // Load from file
+      print('Loading data from file: $jsonFilePath');
+      return await loadJsonFromFile(jsonFilePath);
+    } else {
+      // Load from assets
+      print('Loading data from assets');
+      return await loadJsonFromAssets('assets/data.json');
+    }
+  }
 }
+
+

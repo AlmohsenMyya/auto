@@ -1,19 +1,26 @@
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/core/utils/extension/widget_extensions.dart';
 import 'package:auto/ui/views/courses_questions_screen/courses_questions_view.dart';
+import 'package:auto/ui/views/login_screen/login_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../lesson_questions_screen/lesson_questions_view.dart';
 import '../lesson_screen_controller.dart';
 
 class LessonScreenCardWidget extends StatefulWidget {
   final int index;
+  final String subjectName;
+  final String type_isCourse;
 
-  LessonScreenCardWidget({super.key, required this.index});
+  LessonScreenCardWidget(
+      {super.key,
+      required this.index,
+      required this.subjectName,
+      required this.type_isCourse});
 
   @override
   State<LessonScreenCardWidget> createState() => _LessonScreenCardWidgetState();
@@ -67,53 +74,31 @@ class _LessonScreenCardWidgetState extends State<LessonScreenCardWidget> {
                 )
               ],
             ),
-          ).onTap(() {
+          ).onTap(() async {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            final token = await prefs.getString('access_token');
             // تحقق من is_public قبل السماح بالدخول
-            if (controller.lessons[widget.index].isPublic == 0) {
-              // عرض مربع الحوار
+            if (controller.lessons[widget.index].isPublic == 0 &&
+                token == null) {
+              // عرض رسالة بسيطة وزر الاشتراك
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  TextEditingController codeController =
-                      TextEditingController();
                   return AlertDialog(
                     title: Text(
-                      'ادخل الكود : ',
-                      style: TextStyle(
-                          fontSize: 20.sp, fontWeight: FontWeight.bold),
+                      'لا يمكن الدخول',
+                      style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold , color: context.exPrimaryContainer),
                     ),
-                    content: TextField(
-                      controller: codeController,
-                      decoration: InputDecoration(
-                          label: Text(
-                              " عذراً لايمكنك فتح هذا المحتوى حتى إدخال الكود"),
-                          hintText: "أدخل الكود هنا"),
-                    ),
+                    content: Text('يتطلب الدخول الاشتراك. يرجى الاشتراك للاستمرار.' , style: TextStyle(color: context.exPrimaryContainer),),
                     actions: <Widget>[
                       TextButton(
-                        child: Text('إرسال'),
+                        child: Text('اشتراك' , style: TextStyle(color: context.exPrimaryContainer),),
                         onPressed: () {
-                          // التحقق من الكود المدخل
-                          if (codeController.text == "your_code") {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => LessonQuestionsView(
-                                idLESSON: controller.lessons[widget.index].id,
-                                type: "lesson",
-                              ),
-                            ));
-                          } else {
-                            // عرض رسالة خطأ إذا كان الكود غير صحيح
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('الكود غير صحيح.')),
-                            );
-                          }
-                        },
-                      ),
-                      TextButton(
-                        child: Text('إغلاق'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
+                          // توجيه المستخدم لصفحة تسجيل الدخول
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => LoginView()),
+                          );
                         },
                       ),
                     ],
@@ -123,11 +108,16 @@ class _LessonScreenCardWidgetState extends State<LessonScreenCardWidget> {
             } else {
               // السماح بالدخول مباشرةً إذا كان is_public ليس 0
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => CoursesQuestionsView(
-                  id_course_bank_lesson_unite:
-                      controller.lessons[widget.index].id,
-                  type: "دورة",
-                ),
+                builder: (context) {
+                  return CoursesQuestionsView(
+                    type: widget.type_isCourse,
+                    isLesson: true,
+                    idLESSON: controller.lessons[widget.index].id,
+                    coursName: controller.lessons[widget.index].name,
+                    id_course_bank_lesson_unite: -1,
+                    subjectName: widget.subjectName,
+                  );
+                },
               ));
             }
           }),

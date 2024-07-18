@@ -11,8 +11,8 @@ import '../parts_screen_controller.dart';
 
 class PartsScreenCardWidget extends StatefulWidget {
   int index;
-
-  PartsScreenCardWidget({super.key, required this.index});
+  final String subjectName;
+  PartsScreenCardWidget({super.key, required this.index , required this.subjectName});
 
   @override
   State<PartsScreenCardWidget> createState() => _PartsScreenCardWidgetState();
@@ -67,6 +67,8 @@ class _PartsScreenCardWidgetState extends State<PartsScreenCardWidget> {
         print("kdkkd ${controller.parts[widget.index].id}");
         return Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => CoursesQuestionsView(
+            coursName: controller.parts[widget.index].name,
+            subjectName: widget.subjectName,
             id_course_bank_lesson_unite: controller.parts[widget.index].id,
             type: "دورة",
           ),

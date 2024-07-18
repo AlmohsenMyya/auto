@@ -20,8 +20,9 @@ import 'lesson_screen_controller.dart';
 
 class LessonScreen extends StatefulWidget {
   final Unit unit;
-
-  LessonScreen({super.key, required this.unit});
+  final String subjectName;
+  final String type_isCourse;
+  LessonScreen({super.key, required this.unit , required this.subjectName , required this.type_isCourse});
 
   @override
   State<LessonScreen> createState() => _LessonScreenState();
@@ -111,6 +112,8 @@ class _LessonScreenState extends State<LessonScreen> {
             : Expanded(
           child: ListView.builder(
             itemBuilder: (context, index) => LessonScreenCardWidget(
+              type_isCourse: widget.type_isCourse,
+              subjectName: widget.subjectName ,
               index: index,
             ),
             itemCount: controller.lessons.length,  // تعديل هنا
