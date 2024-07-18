@@ -30,31 +30,37 @@ class SubscriptionView extends StatefulWidget {
 
 class _SubscriptionViewState extends State<SubscriptionView> {
   late SubscriptionController controller;
+
   @override
   void initState() {
     controller = Get.put(SubscriptionController());
     JsonReader.fetchDataAndStore();
     super.initState();
   }
+
   Future<bool> _showExitConfirmationDialog() async {
     return await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('هل أنت متأكد أنك تريد الخروج من التطبيق؟' , style: TextStyle(color: context.exPrimaryContainer)),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text('إلغاء' , style: TextStyle(color: context.exPrimaryContainer)),
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('هل أنت متأكد أنك تريد الخروج من التطبيق؟',
+                style: TextStyle(color: context.exPrimaryContainer)),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text('إلغاء',
+                    style: TextStyle(color: context.exPrimaryContainer)),
+              ),
+              TextButton(
+                onPressed: () {
+                  SystemNavigator.pop(); // Close the app
+                },
+                child: Text('موافق',
+                    style: TextStyle(color: context.exPrimaryContainer)),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              SystemNavigator.pop();  // Close the app
-            },
-            child: Text('موافق',style: TextStyle(color: context.exPrimaryContainer)),
-          ),
-        ],
-      ),
-    ) ?? false;
+        ) ??
+        false;
   }
 
   @override
@@ -72,10 +78,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
             titleTextStyle: TextStyle(
               //
               //
-              color: Theme
-                  .of(context)
-                  .colorScheme
-                  .onBackground,
+              color: Theme.of(context).colorScheme.onBackground,
               fontSize: 25,
               fontWeight: FontWeight.bold,
               // fontFamily: 'Alexandria'
@@ -124,6 +127,9 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                       onTap: () {
                         Get.changeThemeMode(
                             Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
+                        ThemeMode themeMode = SharedPreferenceRepository().getSavedThemeMode();
+                        if(themeMode == ThemeMode.dark) {themeMode = ThemeMode.light ;} else {themeMode = ThemeMode.dark;}
+                        SharedPreferenceRepository().saveThemeMode(themeMode);
                       },
                       child: Row(
                         children: [
@@ -141,7 +147,6 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                         ],
                       ),
                     ),
-
                     const SizedBox(
                       height: 20,
                     ),
@@ -165,8 +170,8 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                           //   text: "مراكز البيع",
                           // ),
                           InkWell(
-                            borderRadius: BorderRadius.circular(screenWidth(
-                                10)),
+                            borderRadius:
+                                BorderRadius.circular(screenWidth(10)),
                             splashColor: AppColors.blueB4,
                             onTap: () {
                               Get.to(CentersScreen());
@@ -185,11 +190,9 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                               ],
                             ),
                           ),
-
                         ],
                       ),
                     ),
-
                     const SizedBox(
                       height: 20,
                     ),
@@ -216,7 +219,6 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                         ],
                       ),
                     ),
-
                     const SizedBox(
                       height: 20,
                     ),
@@ -224,14 +226,13 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                       borderRadius: BorderRadius.circular(screenWidth(10)),
                       splashColor: AppColors.blueB4,
                       onTap: () {
-                        Get.to(
-                            CoursesQuestionsView(
-                              isFavorite: true,
-                              id_course_bank_lesson_unite: -1,
-                              coursName: "الأسئلة المفضلة",
-                              subjectName: "",
-                              type: "0",
-                            )); // توجيه إلى صفحة الأسئلة المفضلة
+                        Get.to(CoursesQuestionsView(
+                          isFavorite: true,
+                          id_course_bank_lesson_unite: -1,
+                          coursName: "الأسئلة المفضلة",
+                          subjectName: "",
+                          type: "0",
+                        )); // توجيه إلى صفحة الأسئلة المفضلة
                       },
                       child: Row(
                         children: [
@@ -249,7 +250,9 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     InkWell(
                       borderRadius: BorderRadius.circular(screenWidth(10)),
                       splashColor: AppColors.blueB4,
@@ -297,113 +300,112 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                         ],
                       ),
                     ),
-
                     const SizedBox(
                       height: 20,
                     ),
-                    SharedPreferenceRepository().getIsLoggedIn() ?
-                    InkWell(
-                      borderRadius: BorderRadius.circular(screenWidth(10)),
-                      splashColor: AppColors.blueB4,
-                      onTap: () {
-                        Get.offAll(() => const LoginView());
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.local_fire_department,
-                            color: AppColors.mainColorGreen,
+                    SharedPreferenceRepository().getIsLoggedIn()
+                        ? InkWell(
+                            borderRadius:
+                                BorderRadius.circular(screenWidth(10)),
+                            splashColor: AppColors.blueB4,
+                            onTap: () {
+                              Get.offAll(() => const LoginView());
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.local_fire_department,
+                                  color: AppColors.mainColorGreen,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                CustomText(
+                                  textType: TextStyleType.custom,
+                                  text: "الاشتراك بفرع جديد",
+                                ),
+                              ],
+                            ),
+                          )
+                        : InkWell(
+                            borderRadius:
+                                BorderRadius.circular(screenWidth(10)),
+                            splashColor: AppColors.blueB4,
+                            onTap: () {
+                              Get.offAll(() => const LoginView());
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.payment_rounded,
+                                  color: AppColors.mainWhiteColor,
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                CustomText(
+                                  textType: TextStyleType.custom,
+                                  text: "الاشتراك بالتطبيق",
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          CustomText(
-                            textType: TextStyleType.custom,
-                            text: "الاشتراك بفرع جديد",
-                          ),
-                        ],
-                      ),
-                    ) :
-                    InkWell(
-                      borderRadius: BorderRadius.circular(screenWidth(10)),
-                      splashColor: AppColors.blueB4,
-                      onTap: () {
-                        Get.offAll(() => const LoginView());
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.payment_rounded,
-                            color: AppColors.mainWhiteColor,
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          CustomText(
-                            textType: TextStyleType.custom,
-                            text: "الاشتراك بالتطبيق",
-                          ),
-                        ],
-                      ),
-                    ),
-
                   ],
                 ),
               ),
             ),
           ),
           body: Obx(
-                () =>
-            controller.isLoading.value
-                ?  SpinKitThreeBounce(
-              color: AppColors.blueB4,
-              size: 50.0,
-            )
+            () => controller.isLoading.value
+                ? SpinKitThreeBounce(
+                    color: AppColors.blueB4,
+                    size: 50.0,
+                  )
                 : CustomScrollView(
-              slivers: [
-                // const SliverAppBar(
-                //   centerTitle: true,
-                //   pinned: true,
-                //   title: CustomText(
-                //     textType: TextStyleType.custom,
-                //     text: "Auto(اتمتة)",
-                //     textColor: AppColors.blueB4,
-                //   ),
-                // ),
-                SliverPadding(
-                  padding: const EdgeInsetsDirectional.all(20),
-                  sliver: SliverList.separated(
-                    separatorBuilder: (context, index) =>
-                    const SizedBox(height: 5),
-                    itemCount: controller.branchs.length,
-                    itemBuilder: (context, index2) {
-                      return InkWell(
-                        onTap: () async {
-                          JsonReader.fetchDataAndStore();
-                          Get.to(() =>
-                              SubjectView(
-                                branch_id: controller.branchs[index2].branch_id!,
-                              ));
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          height: screenHeight(5),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: context.exSecondary,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: CustomText(
-                            textType: TextStyleType.bodyBig,
-                            text: controller.branchs[index2].name,
-                          ),
+                    slivers: [
+                      // const SliverAppBar(
+                      //   centerTitle: true,
+                      //   pinned: true,
+                      //   title: CustomText(
+                      //     textType: TextStyleType.custom,
+                      //     text: "Auto(اتمتة)",
+                      //     textColor: AppColors.blueB4,
+                      //   ),
+                      // ),
+                      SliverPadding(
+                        padding: const EdgeInsetsDirectional.all(20),
+                        sliver: SliverList.separated(
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 5),
+                          itemCount: controller.branchs.length,
+                          itemBuilder: (context, index2) {
+                            return InkWell(
+                              onTap: () async {
+                                JsonReader.fetchDataAndStore();
+                                Get.to(() => SubjectView(
+                                      branch_id:
+                                          controller.branchs[index2].branch_id!,
+                                    ));
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                height: screenHeight(5),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: context.exSecondary,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: CustomText(
+                                  textType: TextStyleType.bodyBig,
+                                  text: controller.branchs[index2].name,
+                                ),
+                              ),
+                            ).animate().scale(delay: 300.ms);
+                          },
                         ),
-                      ).animate().scale(delay: 300.ms);
-                    },
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
           )),
     );
   }

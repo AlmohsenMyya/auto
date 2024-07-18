@@ -10,6 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import '../core/data/repositories/shared_preference_repository.dart';
+
 ThemeData lightTheme = ThemeData(
   appBarTheme:  AppBarTheme(titleTextStyle:TextStyle(  color:const ColorScheme.light().primary) ),
   useMaterial3: true,
@@ -76,7 +78,7 @@ class MyApp extends StatelessWidget {
         initialData: ConnectivityStatus.onLine,
         child: GetMaterialApp(
             theme: AppTheme.light,
-            themeMode: ThemeMode.light,
+            themeMode: SharedPreferenceRepository().getSavedThemeMode(),
             darkTheme: AppTheme.dark,
 
             defaultTransition:
