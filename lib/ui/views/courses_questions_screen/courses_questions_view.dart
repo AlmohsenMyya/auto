@@ -271,20 +271,17 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                             key: controller.wrongKey,
                             description: "عدد الأسئلة الخاطئة",
                             child: Obx(
-                              () => InkWell(
-                                onTap: controller.toggleshowRowngs,
-                                child: Container(
-                                  width: 40.w,
-                                  height: 40.h,
-                                  color: Colors.red,
-                                  child: Center(
-                                    child: Text(
-                                      '${controller.wrongAnswers.value}',
-                                      style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
+                              () => Container(
+                                width: 40.w,
+                                height: 40.h,
+                                color: Colors.red,
+                                child: Center(
+                                  child: Text(
+                                    '${controller.wrongAnswers.value}',
+                                    style: TextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -296,20 +293,17 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                             key: controller.answerWithoutSoution,
                             description: "عدد الاسئلة غير المجاوب عليها",
                             child: Obx(
-                              () => InkWell(
-                                onTap: controller.toggleshowRowngs,
-                                child: Container(
-                                  width: 40.w,
-                                  height: 40.h,
-                                  color: Colors.grey,
-                                  child: Center(
-                                    child: Text(
-                                      '${controller.countOfDidnotAnswers.value}',
-                                      style: TextStyle(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
+                              () => Container(
+                                width: 40.w,
+                                height: 40.h,
+                                color: Colors.grey,
+                                child: Center(
+                                  child: Text(
+                                    '${controller.countOfDidnotAnswers.value}',
+                                    style: TextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
