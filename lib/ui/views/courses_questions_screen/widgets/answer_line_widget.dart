@@ -23,8 +23,8 @@ class _AnswerLineState extends State<AnswerLine> {
   bool isExpanded = false;
   @override
   Widget build(BuildContext context) {
-    final answerPreview = widget.answer.text.length > 100
-        ? widget.answer.text.substring(0, 100) + '...'
+    final answerPreview = widget.answer.text.length > 200
+        ? widget.answer.text.substring(0, 200) + '...'
         : widget.answer.text;
 
     final controller = Get.find<CoursesQuestionsController>();
@@ -56,7 +56,7 @@ class _AnswerLineState extends State<AnswerLine> {
                             fontSize: 18,
                           ),
                         ),
-                        if (widget.answer.text.length > 100)
+                        if (widget.answer.text.length > 200)
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

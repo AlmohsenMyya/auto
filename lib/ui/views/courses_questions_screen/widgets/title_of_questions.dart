@@ -26,8 +26,8 @@ class _TitleOfQuestionsState extends State<TitleOfQuestions> {
 
   @override
   Widget build(BuildContext context) {
-    final questionPreview = controller.questions[widget.question_index].text.length > 100
-        ? controller.questions[widget.question_index].text.substring(0, 100) + '...'
+    final questionPreview = controller.questions[widget.question_index].text.length > 200
+        ? controller.questions[widget.question_index].text.substring(0, 200) + '...'
         : controller.questions[widget.question_index].text;
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -82,7 +82,7 @@ class _TitleOfQuestionsState extends State<TitleOfQuestions> {
                   ),
                 ),
               ),
-              if (controller.questions[widget.question_index].text.length > 100)
+              if (controller.questions[widget.question_index].text.length > 200)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
