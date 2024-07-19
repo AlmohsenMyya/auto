@@ -5,11 +5,11 @@ part of 'app_theme.dart';
 const _darkColorScheme = ColorScheme.dark(
   inversePrimary: Color(0xffffffff) ,
 
-  primary : Color(0xFF000000),
+  primary : Colors.cyanAccent,
   onPrimary : Color(0xffffffff),
 
   primaryContainer: Color(0xffF7F7F7),
-  onPrimaryContainer: Color(0xFF000000),
+  onPrimaryContainer: Color.fromRGBO(39, 52, 68 ,1),
 
 
   secondary :Color(0xFF48b4e0),
