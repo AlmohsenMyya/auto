@@ -171,6 +171,7 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 10.w, vertical: 10.h),
                                 child: TextField(
+                                  style: TextStyle(color: context.exOnPrimaryContainer),
                                   controller: searchController,
                                   onChanged: (value) =>
                                       controller.searchQuestions(value),
@@ -181,7 +182,7 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                                       borderSide: BorderSide.none,
                                     ),
                                     filled: true,
-                                    fillColor: Colors.grey[200],
+                                    fillColor: context.primaryColor,
                                     suffixIcon: IconButton(
                                       icon: Icon(Icons.clear),
                                       onPressed: () {
