@@ -10,7 +10,7 @@ import '../../../core/data/repositories/read_all_models.dart';
 class BanksController extends BaseController {
   late Map<String, dynamic> jsonfile;
   RxBool isLoading = true.obs;
-
+  var filteredBanks = <Bank>[].obs;
   late List<Bank> banks;
 
 
@@ -20,10 +20,19 @@ class BanksController extends BaseController {
     // TODO: implement onInit
     jsonfile = await JsonReader.loadJsonData();
     banks = JsonReader.extractBanks(jsonfile, subject_id);
+    filteredBanks.value = banks;
     isLoading.value = false;
   }
 
-
+  void filterBanks(String query) {
+    if (query.isEmpty) {
+      filteredBanks.value = banks;
+    } else {
+      isLoading.value = true;
+      filteredBanks.value = banks.where((bank) => bank.name.contains(query)).toList();
+      isLoading.value = false;
+    }
+  }
   @override
   void onInit() {
     super.onInit();

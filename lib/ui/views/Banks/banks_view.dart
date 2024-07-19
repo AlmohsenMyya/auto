@@ -63,6 +63,9 @@ class _BanksState extends State<Banks> {
                 alignment: Alignment.topRight,
                 child: TextField(
                     controller: searchController,
+                    onChanged:(query){
+                      controller.filterBanks(query);
+                    },
                     onTap: () => openTextField.value = true,
                     onTapOutside: (event) {
                       focusNode.unfocus();
@@ -102,7 +105,7 @@ class _BanksState extends State<Banks> {
                       subjectName: widget.subject.name,
                           index: index,
                         ),
-                    itemCount: controller.banks.length)))
+                    itemCount: controller.filteredBanks.length)))
       ]),
     );
   }

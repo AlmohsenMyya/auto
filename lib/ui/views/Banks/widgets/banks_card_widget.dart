@@ -46,7 +46,7 @@ class _BanksCardWidgetState extends State<BanksCardWidget> {
                   children: [
                     15.h.verticalSpace,
                     Text(
-                      controller.banks[widget.index].name,
+                      controller.filteredBanks[widget.index].name,
                       textDirection: TextDirection.ltr,
                       style: context.exTextTheme.titleMedium!
                           .copyWith(color:  context.exInversePrimaryColor),
@@ -69,9 +69,9 @@ class _BanksCardWidgetState extends State<BanksCardWidget> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final token = await prefs.getString('access_token');
         // تحقق من is_public قبل السماح بالدخول
-        if (controller.banks[widget.index].isPublic == 0 && token == null)
+        if (controller.filteredBanks[widget.index].isPublic == 0 && token == null)
         // تحقق من is_public قبل السماح بالدخول
-        if (controller.banks[widget.index].isPublic == 0) {
+        if (controller.filteredBanks[widget.index].isPublic == 0) {
           // عرض رسالة بسيطة وزر الاشتراك
           showDialog(
             context: context,
@@ -102,8 +102,8 @@ class _BanksCardWidgetState extends State<BanksCardWidget> {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => CoursesQuestionsView(
               subjectName: widget.subjectName,
-            coursName: controller.banks[widget.index].name,
-            id_course_bank_lesson_unite: controller.banks[widget.index].id,
+            coursName: controller.filteredBanks[widget.index].name,
+            id_course_bank_lesson_unite: controller.filteredBanks[widget.index].id,
             type: "بنك",
             ),
           ));
