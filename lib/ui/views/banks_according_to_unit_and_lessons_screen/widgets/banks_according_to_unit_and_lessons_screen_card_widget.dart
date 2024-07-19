@@ -82,9 +82,7 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<BankA
                     SharedPreferences prefs = await SharedPreferences.getInstance();
                     final token = await prefs.getString('access_token');
                     // تحقق من is_public قبل السماح بالدخول
-                    if (controller.questions[widget.index].isPublic == 0 && token == null)
-                    // تحقق من is_public قبل السماح بالدخول
-                    if (controller.questions[widget.index].isPublic == 0) {
+                    if (token == null) {
                       // عرض رسالة بسيطة وزر الاشتراك
                       showDialog(
                         context: context,

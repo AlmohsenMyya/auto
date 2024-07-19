@@ -7,7 +7,6 @@ import '../../../core/data/repositories/read_all_models.dart';
 class BankAccordingToUnitAndLessonsScreenController extends BaseController {
   late Map<String, dynamic> jsonfile;
   RxBool isLoading = true.obs;
-  late List<Question> questions;
   late List<Part> parts;
   var filteredparts = <Part>[].obs;
 
