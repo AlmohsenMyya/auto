@@ -16,7 +16,7 @@ class TitleOfQuestions extends StatefulWidget {
 
 class _TitleOfQuestionsState extends State<TitleOfQuestions> {
   late CoursesQuestionsController controller;
-
+  bool isExpanded = false;
   @override
   void initState() {
     controller = Get.put(CoursesQuestionsController());
@@ -26,6 +26,9 @@ class _TitleOfQuestionsState extends State<TitleOfQuestions> {
 
   @override
   Widget build(BuildContext context) {
+    final questionPreview = controller.questions[widget.question_index].text.length > 100
+        ? controller.questions[widget.question_index].text.substring(0, 100) + '...'
+        : controller.questions[widget.question_index].text;
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,13 +72,31 @@ class _TitleOfQuestionsState extends State<TitleOfQuestions> {
         ),
         SizedBox(width: 10.w),
         Expanded(
-          child: RichText(
-            text: TextSpan(
-              text: controller.questions[widget.question_index].text,
-              style: context.exTextTheme.titleMedium!.copyWith(
-                color: context.exOnBackground,
+          child: Column(
+            children: [
+              RichText(
+                text: TextSpan(
+                  text: isExpanded? controller.questions[widget.question_index].text : questionPreview,
+                  style: context.exTextTheme.titleMedium!.copyWith(
+                    color: context.exOnBackground,
+                  ),
+                ),
               ),
-            ),
+              if (controller.questions[widget.question_index].text.length > 100)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          isExpanded = !isExpanded;
+                        });
+                      },
+                      child: Text(isExpanded ? 'عرض أقل' : 'عرض المزيد',style: TextStyle(fontSize: 15,color: context.exOnBackground,),),
+                    ),
+                  ],
+                ),
+            ],
           ),
         ),
       ],
