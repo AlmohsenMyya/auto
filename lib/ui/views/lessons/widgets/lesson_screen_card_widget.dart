@@ -38,7 +38,7 @@ class _LessonScreenCardWidgetState extends State<LessonScreenCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (controller.lessons.isEmpty) {
+      if (controller.filteredlessons.isEmpty) {
         return Center(child: Text("No lessons available."));
       } else {
         return Padding(
@@ -55,7 +55,7 @@ class _LessonScreenCardWidgetState extends State<LessonScreenCardWidget> {
                       children: [
                         15.h.verticalSpace,
                         Text(
-                          controller.lessons[widget.index].name,
+                          controller.filteredlessons[widget.index].name,
                           textDirection: TextDirection.ltr,
                           style: context.exTextTheme.titleMedium!
                               .copyWith(color: context.exInversePrimaryColor),
@@ -78,7 +78,7 @@ class _LessonScreenCardWidgetState extends State<LessonScreenCardWidget> {
             SharedPreferences prefs = await SharedPreferences.getInstance();
             final token = await prefs.getString('access_token');
             // تحقق من is_public قبل السماح بالدخول
-            if (controller.lessons[widget.index].isPublic == 0 &&
+            if (controller.filteredlessons[widget.index].isPublic == 0 &&
                 token == null) {
               // عرض رسالة بسيطة وزر الاشتراك
               showDialog(
@@ -112,8 +112,8 @@ class _LessonScreenCardWidgetState extends State<LessonScreenCardWidget> {
                   return CoursesQuestionsView(
                     type: widget.type_isCourse,
                     isLesson: true,
-                    idLESSON: controller.lessons[widget.index].id,
-                    coursName: controller.lessons[widget.index].name,
+                    idLESSON: controller.filteredlessons[widget.index].id,
+                    coursName: controller.filteredlessons[widget.index].name,
                     id_course_bank_lesson_unite: -1,
                     subjectName: widget.subjectName,
                   );

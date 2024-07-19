@@ -71,6 +71,9 @@ class _LessonScreenState extends State<LessonScreen> {
             builder: (context, value, child) => Align(
               alignment: Alignment.topRight,
               child: TextField(
+                onChanged: (query){
+                  controller.filterlessons(query);
+                },
                 controller: searchController,
                 onTap: () => openTextField.value = true,
                 onTapOutside: (event) {
@@ -116,7 +119,7 @@ class _LessonScreenState extends State<LessonScreen> {
               subjectName: widget.subjectName ,
               index: index,
             ),
-            itemCount: controller.lessons.length,  // تعديل هنا
+            itemCount: controller.filteredlessons.length,  // تعديل هنا
           ),
         ),
         ),

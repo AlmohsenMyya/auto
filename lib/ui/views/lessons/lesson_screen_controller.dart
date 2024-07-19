@@ -9,23 +9,25 @@ class LessonScreenController extends BaseController {
   RxBool isLoading = true.obs;
   RxList<Unit> units = <Unit>[].obs;
   RxList<Lesson> lessons = <Lesson>[].obs;
-  //
-  // void readfile(int unit_id) async {
-  //   isLoading.value = true;
-  //   jsonfile = await JsonReader.loadJsonData();
-  //   lessons.assignAll(JsonReader.extractLessonByUnitId(jsonfile, unit_id));
-  //   print("object ddddddddd ${lessons.length}");
-  //   isLoading.value = false;
-  // }
-
+  var filteredlessons = <Lesson>[].obs;
   void readLesson(int unitId) async {
     isLoading.value = true;
     jsonfile = await JsonReader.loadJsonData();
     lessons.assignAll(JsonReader.extractLessonByUnitId(jsonfile, unitId));
+    filteredlessons.value = lessons;
     print("object ddddddddd ${lessons.length} for unit $unitId");
     isLoading.value = false;
   }
 
+  void filterlessons(String query) {
+    if (query.isEmpty) {
+      filteredlessons.value = lessons;
+    } else {
+      isLoading.value = true;
+      filteredlessons.value = lessons.where((bank) => bank.name.contains(query)).toList();
+      isLoading.value = false;
+    }
+  }
   @override
   void onInit() {
     super.onInit();
