@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
@@ -31,7 +32,6 @@ class CoursesQuestionsController extends BaseController {
   RxBool hideAllAnswers = false.obs;
   RxBool showAllFavorite = false.obs ;
 
-  Timer? timer;
   final GlobalKey floatingButtonKey = GlobalKey();
   final GlobalKey editButtonKey = GlobalKey();
   final GlobalKey settingsButtonKey = GlobalKey();
@@ -74,7 +74,11 @@ class CoursesQuestionsController extends BaseController {
 
   RxList<int> favoriteQuestions = RxList<int>();
   RxList<int> rowngQuestions = RxList<int>();
-
+  Timer? timer;
+  int elapsedSeconds = 0;
+  bool isRunning = false;
+  Rx<String> myformatTime = "00:00".obs;
+  final AudioPlayer audioPlayer = AudioPlayer();
   void initializeExpandedQuestions() {
     for (int i = 0; i < 150; i++) {
       _expandedQuestions[i] = false;
@@ -248,15 +252,11 @@ class CoursesQuestionsController extends BaseController {
     showResults.value = false;
   }
 
-  void resetTimerState() {
-    isTimerActive.value = false;
-    countdown.value = 0;
-  }
 
   void resetAllStates() {
     print("reseeeeeeeetAlllllll");
     resetQuestionState();
-    resetTimerState();
+    resetTimer();
   }
 
   void stopExpandAll() {
@@ -576,12 +576,6 @@ class CoursesQuestionsController extends BaseController {
     Get.back();
   }
 
-  void startTimer() {
-    if (timer != null) timer!.cancel(); // إلغاء المؤقت السابق إذا كان موجودًا
-    timer = Timer.periodic(Duration(seconds: 1), (timer) {
-     countdown ++ ;
-    });
-  }
 
   void searchQuestions(String query) {
     if (query.isEmpty) {
@@ -631,4 +625,56 @@ class CoursesQuestionsController extends BaseController {
   void secureWindow() async {
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   }
+  ///timer
+
+  void startTimer() {
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+
+        elapsedSeconds++;
+        myformatTime.value = formatTime(elapsedSeconds);
+        update();
+    });
+
+  }
+
+  void stopTimer() {
+    timer?.cancel();
+    update();
+  }
+
+  Future<void> playSound(String sound) async {
+    await audioPlayer.play(AssetSource(sound));
+    update();
+  }
+
+  void handleTap() {
+    if (isRunning) {
+      stopTimer();
+      playSound('sounds/pause.mp3');
+    } else {
+      startTimer();
+      playSound('sounds/start.mp3');
+    }
+
+      isRunning = !isRunning;
+    update();
+  }
+
+  void resetTimer() {
+    stopTimer();
+
+      elapsedSeconds = 0;
+      isRunning = false;
+    myformatTime.value = formatTime(elapsedSeconds);
+    update();
+  }
+
+  String formatTime(int seconds) {
+    final minutes = seconds ~/ 60;
+    final remainingSeconds = seconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
+  }
+
+
+///
 }

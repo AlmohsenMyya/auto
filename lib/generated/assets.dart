@@ -5,6 +5,8 @@ class Assets {
   static const String assetsData = 'assets/data.json';
   static const String assetsData1 = 'assets/data1.json';
   static const String assetsImagesFacebook = 'assets/images/facebook.png';
+  static const String assetsSoundsPause = 'assets/sounds/pause.mp3';
+  static const String assetsSoundsStart = 'assets/sounds/start.mp3';
   static const String autoAssetsData1 = 'assets/data1.json';
   static const String fontsAlexandriaMedium = 'assets/fonts/Alexandria-Medium.ttf';
   static const String fontsAlexandriaRegular = 'assets/fonts/Alexandria-Regular.ttf';
@@ -19,6 +21,8 @@ class Assets {
   static const String imagesWhats = 'assets/images/whats.png';
   static const String imagesWhatsapp = 'assets/images/whatsapp.gif';
   static const String imagesYoutube = 'assets/images/youtube.png';
+  static const String soundsPause = 'assets/sounds/pause.mp3';
+  static const String soundsStart = 'assets/sounds/start.mp3';
   static const String svgFacebook = 'assets/svg/facebook.svg';
   static const String svgLinkedin = 'assets/svg/linkedin.svg';
   static const String svgWhatsapp = 'assets/svg/whatsapp.svg';

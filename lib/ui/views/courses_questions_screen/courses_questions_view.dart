@@ -43,6 +43,7 @@ class CoursesQuestionsView extends StatefulWidget {
 }
 
 class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
+
   late CoursesQuestionsController controller;
   late TextEditingController searchController;
   bool isisSearchActive = false;
@@ -241,8 +242,9 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                             key: controller.timerKey,
                             description:
                                 'اضغط على المؤقت لبدء الإجابة على الأسئلة',
-                            child: TimerListener(
-                              onTimeEnd: controller.calculateResults,
+                            child: Container(
+                              child: TimerWidget(
+                              ),
                             ),
                           ),
                           Spacer(),
