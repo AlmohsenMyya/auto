@@ -31,14 +31,6 @@ class BankAccordingToUnitAndLessonsScreenController extends BaseController {
   isLoading.value = false;
   }
 
-  void ifFoundPart(int subject_id) async {
-  jsonfile = await JsonReader.loadJsonData();
-  var x = JsonReader.findPartByID(jsonfile, subject_id);
-  print("object ddddddddd ${x}");
-
-
-  }
-
   void filterparts(String query) {
     if (query.isEmpty) {
       filteredparts.value = parts;

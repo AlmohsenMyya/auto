@@ -8,23 +8,27 @@ class CoursesAccordingToUnitAndLessonsScreenController extends BaseController {
   late Map<String, dynamic> jsonfile;
   RxBool isLoading = true.obs;
  late List<Part> parts;
-
+  var filteredparts = <Part>[].obs;
   void readfile(int subject_id) async {
     isLoading.value = true;
     // TODO: implement onInit
     jsonfile = await JsonReader.loadJsonData();
     parts = JsonReader.extractParts(jsonfile, subject_id);
+    filteredparts.value = parts;
     print("object ddddddddd ${parts.length}");
 
     isLoading.value = false;
   }
 
-  void ifFoundPart(int subject_id) async {
-    jsonfile = await JsonReader.loadJsonData();
-    var x = JsonReader.findPartByID(jsonfile, subject_id);
-    print("object ddddddddd ${x}");
 
-
+  void filterparts(String query) {
+    if (query.isEmpty) {
+      filteredparts.value = parts;
+    } else {
+      isLoading.value = true;
+      filteredparts.value = parts.where((bank) => bank.name.contains(query)).toList();
+      isLoading.value = false;
+    }
   }
   @override
   void onInit() {

@@ -49,7 +49,7 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState
                   children: [
                     15.h.verticalSpace,
                     Text(
-                      controller.parts[widget.index].name,
+                      controller.filteredparts[widget.index].name,
                       textDirection: TextDirection.ltr,
                       style: context.exTextTheme.titleMedium!
                           .copyWith(color: context.exInversePrimaryColor),
@@ -70,7 +70,7 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState
                       builder: (context) => UnitsScreen(
                         type_isCourse: "دورة",
                           subjectName: widget.subjectName,
-                          part: controller.parts[widget.index]),
+                          part: controller.filteredparts[widget.index]),
                     ));
                   },
                 ),
@@ -89,8 +89,8 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => CoursesQuestionsView(
                           subjectName: widget.subjectName,
-                          coursName: controller.parts[widget.index].name,
-                              idPart: controller.parts[widget.index].id,
+                          coursName: controller.filteredparts[widget.index].name,
+                              idPart: controller.filteredparts[widget.index].id,
                               type: 'دورة', id_course_bank_lesson_unite: -1,
                             )));
                   },
@@ -107,23 +107,7 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState
             )
           ],
         ),
-        // ).onTap(() { if(controller.ifFoundPart == true){
-        //   print("kdkkd ${controller.parts[widget.index].id}");
-        //   Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) =>  UnitsScreen(
-        //       part: controller.parts[widget.index]
-        //     ),
-        //   ));
-        // }else{
-        //
-        // }
-        //   print("kdkkd ${controller.parts[widget.index].id}");
-        //   return Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) =>  UnitsScreen(
-        //       part: controller.parts[widget.index]
-        //     ),
-        //   ));
-        //  }
+
       ),
     );
   }

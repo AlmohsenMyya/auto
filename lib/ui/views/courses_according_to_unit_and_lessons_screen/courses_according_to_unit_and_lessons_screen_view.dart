@@ -70,6 +70,9 @@ class _CoursesAccordingToUnitAndLessonsScreenState
               builder: (context, value, child) => Align(
                 alignment: Alignment.topRight,
                 child: TextField(
+                  onChanged: (query){
+                    controller.filterparts(query);
+                  },
                   controller: searchController,
                   onTap: () => openTextField.value = true,
                   onTapOutside: (event) {
@@ -115,7 +118,7 @@ class _CoursesAccordingToUnitAndLessonsScreenState
                           subjectName: widget.subject.name,
                       index: index,
                     ),
-                    itemCount: controller.parts.length,
+                    itemCount: controller.filteredparts.length,
                   ),
                 )),
         ]));
