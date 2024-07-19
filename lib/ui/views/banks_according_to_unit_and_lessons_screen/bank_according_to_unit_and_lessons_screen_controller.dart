@@ -9,7 +9,7 @@ class BankAccordingToUnitAndLessonsScreenController extends BaseController {
   RxBool isLoading = true.obs;
   late List<Question> questions;
   late List<Part> parts;
-
+  var filteredparts = <Part>[].obs;
 
   // void readfile(int subjectId) async {
   //   isLoading.value = true;
@@ -25,6 +25,7 @@ class BankAccordingToUnitAndLessonsScreenController extends BaseController {
   // TODO: implement onInit
   jsonfile = await JsonReader.loadJsonData();
   parts = JsonReader.extractParts(jsonfile, subject_id);
+  filteredparts.value = parts;
   print("object ddddddddd ${parts.length}");
 
   isLoading.value = false;
@@ -36,6 +37,16 @@ class BankAccordingToUnitAndLessonsScreenController extends BaseController {
   print("object ddddddddd ${x}");
 
 
+  }
+
+  void filterparts(String query) {
+    if (query.isEmpty) {
+      filteredparts.value = parts;
+    } else {
+      isLoading.value = true;
+      filteredparts.value = parts.where((bank) => bank.name.contains(query)).toList();
+      isLoading.value = false;
+    }
   }
   @override
   void onInit() {

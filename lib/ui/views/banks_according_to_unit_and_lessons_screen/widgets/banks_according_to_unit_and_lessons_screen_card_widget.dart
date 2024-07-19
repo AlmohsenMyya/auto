@@ -44,7 +44,7 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<BankA
                   children: [
                     15.h.verticalSpace,
                     Text(
-                      controller.parts[widget.index].name,
+                      controller.filteredparts[widget.index].name,
                       textDirection: TextDirection.ltr,
                       style: context.exTextTheme.titleMedium!
                           .copyWith(color: context.exPrimaryColor),
@@ -65,7 +65,7 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<BankA
                       builder: (context) => UnitsScreen(
                         type_isCourse: "بنك",
                         subjectName: widget.subjectName ,
-                        part: controller.parts[widget.index],
+                        part: controller.filteredparts[widget.index],
                       ),
                     ));
                   },
@@ -115,8 +115,8 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<BankA
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => CoursesQuestionsView(
                           subjectName: widget.subjectName,
-                          coursName: controller.parts[widget.index].name,
-                          idPart: controller.parts[widget.index].id,
+                          coursName: controller.filteredparts[widget.index].name,
+                          idPart: controller.filteredparts[widget.index].id,
                           type: 'بنك', id_course_bank_lesson_unite: -1,
                         ),
                       ));

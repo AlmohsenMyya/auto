@@ -69,6 +69,7 @@ class _BankAccordingToUnitAndLessonsScreenState
               builder: (context, value, child) => Align(
                 alignment: Alignment.topRight,
                 child: TextField(
+                  onChanged: (query){controller.filterparts(query);},
                   controller: searchController,
                   onTap: () => openTextField.value = true,
                   onTapOutside: (event) {
@@ -114,7 +115,7 @@ class _BankAccordingToUnitAndLessonsScreenState
                           subjectName: widget.subject.name,
                       index: index,
                     ),
-                    itemCount: controller.parts.length,
+                    itemCount: controller.filteredparts.length,
                   ),
                 )),
         ]));
