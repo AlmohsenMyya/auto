@@ -322,7 +322,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                                 ),
                                 CustomText(
                                   textType: TextStyleType.custom,
-                                  text: "الاشتراك بفرع جديد",
+                                  text: "الاشتراك بمادة جديدة",
                                 ),
                               ],
                             ),
