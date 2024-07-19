@@ -69,6 +69,7 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: TitleOfQuestions(
@@ -83,12 +84,13 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                   ),
                 ],
               ),
+              Divider(color: Colors.blueAccent,),
               controller.hideAllAnswers.value
                   ? SizedBox()
                   : SizedBox(
-                      height: 65 * question.answers!.length.toDouble(),
                       child: ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
                         itemCount: question.answers!.length,
                         itemBuilder: (context, index) {
                           final answer = question.answers![index];
@@ -98,7 +100,6 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                           return AnswerLine(
                             key: Key(answer.id.toString()),
                             answerIndex: index,
-                            // Ensure each AnswerLine has a unique key
                             questionIndex: widget.questionIndex,
                             answer: answer,
                           );
