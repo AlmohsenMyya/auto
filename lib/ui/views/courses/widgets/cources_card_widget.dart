@@ -29,30 +29,22 @@ class CoursesCardWidget extends StatefulWidget {
 
 class _CoursesCardWidgetState extends State<CoursesCardWidget> {
   late CoursesController controller;
-  String numberQuestions = "...";
+
   late Map<String, dynamic> jsonfile;
 
   late List<Question> questions;
 
-  void getQuestionsNumber() async {
-    int id = controller.courses[widget.index].id;
-    jsonfile = await JsonReader.loadJsonData();
-    questions = JsonReader.extractQuestionsByCourseId(jsonfile, id);
-    setState(() {
-      numberQuestions = questions.length.toString();
-    });
-  }
 
   @override
   void initState() {
     super.initState();
     controller = Get.put(CoursesController());
-    getQuestionsNumber();
   }
 
   @override
   @override
   Widget build(BuildContext context) {
+    final numberQuestions = controller.getQuestionsCount(widget.index);
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
@@ -71,7 +63,7 @@ class _CoursesCardWidgetState extends State<CoursesCardWidget> {
                       child: Column(
                         children: [
                           Text(
-                            controller.courses[widget.index].name,
+                            controller.filteredcourses[widget.index].name,
                             textDirection: TextDirection.ltr,
                             style: context.exTextTheme.titleLarge!
                                 .copyWith(color: context.exInversePrimaryColor),
@@ -80,7 +72,7 @@ class _CoursesCardWidgetState extends State<CoursesCardWidget> {
                             height: 10.w,
                           ),
                           Text(
-                            "عدد الاسئلة : $numberQuestions",
+                            "عدد الاسئلة : ${controller.courseQuestionsCount[controller.filteredcourses[widget.index].id]}",
                             textDirection: TextDirection.ltr,
                             style: context.exTextTheme.titleMedium!
                                 .copyWith(color: context.exInversePrimaryColor),
@@ -106,7 +98,7 @@ class _CoursesCardWidgetState extends State<CoursesCardWidget> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final token = await prefs.getString('access_token');
         // تحقق من is_public قبل السماح بالدخول
-        if (controller.courses[widget.index].is_public == 0 && token == null) {
+        if (controller.filteredcourses[widget.index].is_public == 0 && token == null) {
           // عرض رسالة بسيطة وزر الاشتراك
           showDialog(
             context: context,
@@ -137,10 +129,10 @@ class _CoursesCardWidgetState extends State<CoursesCardWidget> {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) =>
                 CoursesQuestionsView(
-                  id_course_bank_lesson_unite: controller.courses[widget.index]
+                  id_course_bank_lesson_unite: controller.filteredcourses[widget.index]
                       .id,
                   subjectName: widget.subjectName,
-                  coursName: controller.courses[widget.index].name,
+                  coursName: controller.filteredcourses[widget.index].name,
                   type: "دورة",
                 ),
           ));

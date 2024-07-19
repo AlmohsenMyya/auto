@@ -46,7 +46,7 @@ class _CoursesState extends State<Courses> {
           onTap: () => Navigator.of(context).pop(),
           titleText: ' دورات مادة ${widget.subject.name}',
           titleTextStyle: context.exTextTheme.titleLarge!.copyWith(
-              color: context.exInversePrimaryColor,// fontFamily: 'Alexandria'
+            color: context.exInversePrimaryColor, // fontFamily: 'Alexandria'
           )),
       body: Column(children: [
         //todo search
@@ -64,6 +64,10 @@ class _CoursesState extends State<Courses> {
                 alignment: Alignment.topRight,
                 child: TextField(
                     controller: searchController,
+                    onChanged: (query) {
+                      controller.filtercourses(query);
+
+                    },
                     onTap: () => openTextField.value = true,
                     onTapOutside: (event) {
                       focusNode.unfocus();
@@ -100,10 +104,10 @@ class _CoursesState extends State<Courses> {
             : Expanded(
                 child: ListView.builder(
                     itemBuilder: (context, index) => CoursesCardWidget(
-                      subjectName: widget.subject.name,
+                          subjectName: widget.subject.name,
                           index: index,
                         ),
-                    itemCount: controller.courses.length)))
+                    itemCount: controller.filteredcourses.length)))
       ]),
     );
   }
