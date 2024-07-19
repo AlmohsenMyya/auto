@@ -108,8 +108,7 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
       searchController.clear(); // Clear search text field
       controller.clearSearch(); // Clear filtered search results
       // Call readfile again to reset to show all questions
-      controller.readfileForCoursOrBank(
-          widget.id_course_bank_lesson_unite, widget.type);
+      readFile();
     }
     setState(() {});
   }
@@ -189,11 +188,7 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                                       onPressed: () {
                                         _toggleSearchBar();
                                         searchController.clear();
-                                        controller.clearSearch();
-                                        controller.readfileForCoursOrBank(
-                                            widget.id_course_bank_lesson_unite,
-                                            widget
-                                                .type); // Optionally clear search results
+                                        controller.clearSearch(); // Optionally clear search results
                                       },
                                     ),
                                   ),
