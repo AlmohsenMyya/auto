@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../lessons/lesson_screen_view.dart';
+import '../../login_screen/login_view.dart';
 import '../units_screen_controller.dart';
 
 class UnitsScreenCardWidget extends StatefulWidget {
@@ -16,7 +18,10 @@ class UnitsScreenCardWidget extends StatefulWidget {
   final String type_isCourse;
 
   UnitsScreenCardWidget(
-      {super.key, required this.index, required this.subjectName , required this.type_isCourse});
+      {super.key,
+      required this.index,
+      required this.subjectName,
+      required this.type_isCourse});
 
   @override
   State<UnitsScreenCardWidget> createState() => _UnitsScreenCardWidgetState();
@@ -67,8 +72,8 @@ class _UnitsScreenCardWidgetState extends State<UnitsScreenCardWidget> {
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => LessonScreen(
-                          type_isCourse: widget.type_isCourse,
-                          subjectName: widget.subjectName,
+                              type_isCourse: widget.type_isCourse,
+                              subjectName: widget.subjectName,
                               unit: controller.filteredunits[widget.index],
                             )));
                   },
@@ -83,15 +88,61 @@ class _UnitsScreenCardWidgetState extends State<UnitsScreenCardWidget> {
                     style: context.exTextTheme.titleMedium!.copyWith(
                         color: context.exInversePrimaryColor, fontSize: 15.sp),
                   ),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CoursesQuestionsView(
-                          id_course_bank_lesson_unite: -1,
-                          subjectName: widget.subjectName,
-                          coursName: controller.filteredunits[widget.index].name,
-                              idUnit: controller.filteredunits[widget.index].id,
-                              type: widget.type_isCourse,
-                            )));
+                  onTap: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    final token = await prefs.getString('access_token');
+                    // تحقق من is_public قبل السماح بالدخول
+                    if (token == null) {
+                      // عرض رسالة بسيطة وزر الاشتراك
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text(
+                              'لا يمكن الدخول',
+                              style: TextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: context.exPrimaryContainer),
+                            ),
+                            content: Text(
+                              'يتطلب الدخول الاشتراك. يرجى الاشتراك للاستمرار.',
+                              style:
+                                  TextStyle(color: context.exPrimaryContainer),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text(
+                                  'اشتراك',
+                                  style: TextStyle(
+                                      color: context.exPrimaryContainer),
+                                ),
+                                onPressed: () {
+                                  // توجيه المستخدم لصفحة تسجيل الدخول
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginView()),
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CoursesQuestionsView(
+                                id_course_bank_lesson_unite: -1,
+                                subjectName: widget.subjectName,
+                                coursName:
+                                    controller.filteredunits[widget.index].name,
+                                idUnit:
+                                    controller.filteredunits[widget.index].id,
+                                type: widget.type_isCourse,
+                              )));
+                    }
                   },
                 ),
                 SizedBox(width: 10), // لإضافة مسافة بين النص والسهم

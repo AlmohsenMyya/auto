@@ -69,7 +69,7 @@ class _BanksCardWidgetState extends State<BanksCardWidget> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final token = await prefs.getString('access_token');
         // تحقق من is_public قبل السماح بالدخول
-        if (token== null ) {
+        if (controller.filteredBanks[widget.index].isPublic == 0 && token== null ) {
           // عرض رسالة بسيطة وزر الاشتراك
           showDialog(
             context: context,
