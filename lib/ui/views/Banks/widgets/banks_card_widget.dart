@@ -61,7 +61,7 @@ class _BanksCardWidgetState extends State<BanksCardWidget> {
             ),
             Divider(
               height: 10.h,
-              color: context.exBackground,
+              color: context.primaryColor,
             )
           ],
         ),
@@ -69,9 +69,7 @@ class _BanksCardWidgetState extends State<BanksCardWidget> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         final token = await prefs.getString('access_token');
         // تحقق من is_public قبل السماح بالدخول
-        if (controller.filteredBanks[widget.index].isPublic == 0 && token == null)
-        // تحقق من is_public قبل السماح بالدخول
-        if (controller.filteredBanks[widget.index].isPublic == 0) {
+        if (token== null ) {
           // عرض رسالة بسيطة وزر الاشتراك
           showDialog(
             context: context,
