@@ -75,7 +75,7 @@ class _LoginViewState extends State<LoginView> {
     } catch (e) {
       print('Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('حدث خطأ أثناء تسجيل الدخول')),
+        SnackBar(content: Text(' حدث خطأ أثناء تسجيل الدخول تأكد من اتصالك بالانترنت')),
       );
     } finally {
       setState(() {
