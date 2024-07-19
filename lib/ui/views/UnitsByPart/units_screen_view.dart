@@ -72,6 +72,9 @@ class _UnitsScreenState extends State<UnitsScreen> {
               alignment: Alignment.topRight,
               child: TextField(
                 controller: searchController,
+                onChanged: (query){
+                  controller.filterunits(query);
+                },
                 onTap: () => openTextField.value = true,
                 onTapOutside: (event) {
                   focusNode.unfocus();
@@ -116,7 +119,7 @@ class _UnitsScreenState extends State<UnitsScreen> {
               index: index,
               subjectName: widget.subjectName,
             ),
-            itemCount: controller.units.length,
+            itemCount: controller.filteredunits.length,
           ),
         ),
         ),

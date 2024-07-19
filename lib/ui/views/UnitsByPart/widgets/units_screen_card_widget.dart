@@ -48,7 +48,7 @@ class _UnitsScreenCardWidgetState extends State<UnitsScreenCardWidget> {
                   children: [
                     15.h.verticalSpace,
                     Text(
-                      controller.units[widget.index].name,
+                      controller.filteredunits[widget.index].name,
                       textDirection: TextDirection.ltr,
                       style: context.exTextTheme.titleMedium!
                           .copyWith(color: context.exInversePrimaryColor),
@@ -69,7 +69,7 @@ class _UnitsScreenCardWidgetState extends State<UnitsScreenCardWidget> {
                         builder: (context) => LessonScreen(
                           type_isCourse: widget.type_isCourse,
                           subjectName: widget.subjectName,
-                              unit: controller.units[widget.index],
+                              unit: controller.filteredunits[widget.index],
                             )));
                   },
                 ),
@@ -88,8 +88,8 @@ class _UnitsScreenCardWidgetState extends State<UnitsScreenCardWidget> {
                         builder: (context) => CoursesQuestionsView(
                           id_course_bank_lesson_unite: -1,
                           subjectName: widget.subjectName,
-                          coursName: controller.units[widget.index].name,
-                              idUnit: controller.units[widget.index].id,
+                          coursName: controller.filteredunits[widget.index].name,
+                              idUnit: controller.filteredunits[widget.index].id,
                               type: widget.type_isCourse,
                             )));
                   },

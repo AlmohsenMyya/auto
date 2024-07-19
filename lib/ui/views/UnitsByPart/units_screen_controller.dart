@@ -8,6 +8,7 @@ class UnitsScreenController extends BaseController {
   late Map<String, dynamic> jsonfile;
   RxBool isLoading = true.obs;
  late List<Unit> units;
+  var filteredunits = <Unit>[].obs;
   late List<Lesson> lessons;
 
   void readfile(int part_id) async {
@@ -15,6 +16,7 @@ class UnitsScreenController extends BaseController {
     // TODO: implement onInit
     jsonfile = await JsonReader.loadJsonData();
     units = JsonReader.extractUnitsByPartId(jsonfile, part_id);
+    filteredunits.value = units;
     print("object ddddddddd ${units.length}");
 
     isLoading.value = false;
@@ -24,7 +26,18 @@ class UnitsScreenController extends BaseController {
     // TODO: implement onInit
     jsonfile = await JsonReader.loadJsonData();
     lessons = JsonReader.extractLessonByUnitId(jsonfile, unitId);
+
     print("object ddddddddd ${lessons.length }for unit ${unitId}");
+  }
+
+  void filterunits(String query) {
+    if (query.isEmpty) {
+      filteredunits.value = units;
+    } else {
+      isLoading.value = true;
+      filteredunits.value = units.where((bank) => bank.name.contains(query)).toList();
+      isLoading.value = false;
+    }
   }
   @override
   void onInit() {
