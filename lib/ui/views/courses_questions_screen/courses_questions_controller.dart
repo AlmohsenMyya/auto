@@ -211,7 +211,7 @@ class CoursesQuestionsController extends BaseController {
           answerIndex < question.answers!.length;
           answerIndex++) {
         answers_color[questionIndex]![answerIndex] =
-            Colors.grey.shade100.withOpacity(0.8);
+            Colors.grey.shade300.withOpacity(0.8);
       }
     }
     update();
