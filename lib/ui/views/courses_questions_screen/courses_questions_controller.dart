@@ -420,6 +420,36 @@ class CoursesQuestionsController extends BaseController {
     // تحديث حالة التحميل
     isLoading.value = false;
   }
+  void readfileForFavoriteSubject(int favoriteSubjectId ) async {
+    print("readfileForFavoriteSubject  ");
+    isLoading.value = true;
+    // TODO: implement onInit
+    jsonfile = await JsonReader.loadJsonData();
+    //
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? favoriteList = prefs.getStringList('favoriteQuestions');
+    if (favoriteList != null) {
+      questions =
+          JsonReader.extractQuestionsByIdListAndSubjectID(favoriteList, favoriteSubjectId ,jsonfile);
+      print("readfileForFavoriteSubject  favoriteQuestions: ${favoriteQuestions.length}");
+    }
+    isLoading.value = false;
+    update();
+    // ترتيب الأسئلة حسب المعرف
+    questions.sort((a, b) => a.id.compareTo(b.id));
+
+    // تغيير ترتيب الإجابات بشكل عشوائي إذا كان الشرط question.order_changing يساوي 1
+    if (questions.isNotEmpty && questions[0].order_changing == 1) {
+      questions.forEach((question) {
+        question.answers?.shuffle();
+      });
+    }
+
+    initializeAnswerColors();
+    countOfDidnotAnswers.value = questions.length;
+    // تحديث حالة التحميل
+    isLoading.value = false;
+  }
   void readfileForFavorite( ) async {
     print("readfileForFavorite  ");
     isLoading.value = true;

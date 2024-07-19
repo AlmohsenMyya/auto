@@ -1,6 +1,7 @@
 import 'package:auto/core/resource/consts/image_const.dart';
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_network_image.dart';
+import 'package:auto/ui/views/courses_questions_screen/courses_questions_view.dart';
 import 'package:auto/ui/views/subject_deails_screen/subject_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +17,9 @@ class SubjectTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(SubjectDetailsScreen(subject: subject,)),
+      onTap: () => Get.to(SubjectDetailsScreen(
+        subject: subject,
+      )),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Container(
@@ -39,7 +42,7 @@ class SubjectTile extends StatelessWidget {
                     text: 'اسم المادة :  ',
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.onBackground,
-                      //  fontFamily: 'Alexandria',
+                        //  fontFamily: 'Alexandria',
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                     children: [
@@ -47,14 +50,71 @@ class SubjectTile extends StatelessWidget {
                       text: subject.name,
                       style: TextStyle(
                           color: Theme.of(context).colorScheme.onBackground,
-                         fontSize: 20,
-                         // fontFamily: 'Alexandria',
+                          fontSize: 20,
+                          // fontFamily: 'Alexandria',
                           fontWeight: FontWeight.w500))
                 ])),
-          Spacer(),
+            Spacer(),  IconButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Dialog(
+                      child: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'عرض الأسئلة المفضلة لمادة "${subject.name}"',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 16.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Get.to(CoursesQuestionsView(
+                                      id_course_bank_lesson_unite: -1,
+                                      subjectName: "الأسئلة المفضلة :",
+                                      coursName: subject.name,
+                                      favoriteSubject: subject.subject_id,
+                                      type: "",
+                                    ));
+                                  },
+                                  child: Text('انتقال'),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('إغلاق'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              icon: const Icon(
+                Icons.star,
+                color: Colors.yellow,
+              ),
+            ),
+            SizedBox(
+              width: 1,
+            ),
             IconButton(
                 onPressed: () {
-                  Get.to( SubjectDetailsScreen(  subject: subject,));
+                  Get.to(SubjectDetailsScreen(
+                    subject: subject,
+                  ));
                 },
                 icon: const Icon(Icons.arrow_forward))
           ]),

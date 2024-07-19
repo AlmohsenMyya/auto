@@ -250,6 +250,31 @@ class JsonReader {
     print("extractOneQuestionById extracted: $question");
     return question;
   }
+  static List<Question> extractQuestionsByIdListAndSubjectID(
+      List<String> idList, int subjectID , Map<String, dynamic> jsonData) {
+    List<Question> questions = [];
+    print("loadFavorites --- count ${idList.length}");
+    if (jsonData['questions'] != null) {
+      var questionList = jsonData['questions'] as List<dynamic>;
+
+      for (var id in idList) {
+        var foundQuestion = questionList.firstWhere(
+              (question) => question['id'].toString() == id &&
+                  question['subject_id'].toString() == subjectID.toString(),
+          orElse: () => null,
+        );
+        print("loadFavorites --- found $foundQuestion");
+        if (foundQuestion != null) {
+          questions.add(Question.fromJson(foundQuestion));
+        }
+      }
+    } else {
+      print("No questions found in the JSON data");
+    }
+
+    print("Number of questions extracted by ID list: ${questions.length}");
+    return questions;
+  }
   static List<Question> extractQuestionsByIdList(
       List<String> idList, Map<String, dynamic> jsonData) {
     List<Question> questions = [];

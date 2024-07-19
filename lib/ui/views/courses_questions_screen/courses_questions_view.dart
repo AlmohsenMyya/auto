@@ -19,6 +19,7 @@ class CoursesQuestionsView extends StatefulWidget {
   final int? idLESSON;
   final int? idPart;
   final int? idUnit;
+  final int? favoriteSubject;
   final bool? isLesson;
   final bool? isFavorite ;
 // تغيير التسمية إلى camelCase
@@ -32,6 +33,7 @@ class CoursesQuestionsView extends StatefulWidget {
       this.idLESSON,
       this.idPart,
       this.idUnit,
+        this.favoriteSubject,
         this.isFavorite,
       this.isLesson})
       : super(key: key);
@@ -50,10 +52,12 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
       controller.readfileForLesson(widget.idLESSON!, widget.type);
     } else if (widget.idPart != null) {
       controller.readfileForPart(widget.idPart!, widget.type);
-    } else if (widget.idUnit != null) {
+    }  else if (widget.idUnit != null) {
       controller.readfileForUnit(widget.idUnit!, widget.type);
     } else if (widget.isFavorite !=null) {
       controller.readfileForFavorite();
+    }else if (widget.favoriteSubject != null) {
+      controller.readfileForFavoriteSubject(widget.favoriteSubject!);
     } else{
       controller.readfileForCoursOrBank(
           widget.id_course_bank_lesson_unite, widget.type);
@@ -133,7 +137,7 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                 icon: Icon(Icons.search),
                 onPressed: _toggleSearchBar,
               ),
-              Showcase(
+             if(widget.favoriteSubject == null) Showcase(
                 key: controller.favQuestion,
                 description: "عرض الاسئلة المفضلة فقط ",
                 child: Obx(
