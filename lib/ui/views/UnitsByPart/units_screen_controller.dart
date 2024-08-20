@@ -21,6 +21,16 @@ class UnitsScreenController extends BaseController {
 
     isLoading.value = false;
   }
+  void readfileBySubject(int subjectId) async {
+    isLoading.value = true;
+    // TODO: implement onInit
+    jsonfile = await JsonReader.loadJsonData();
+    units = JsonReader.extractUnitsBySubjectId(jsonfile, subjectId);
+    filteredunits.value = units;
+    print("object ddddddddd ${units.length}");
+
+    isLoading.value = false;
+  }
   void readLesson(int unitId) async {
     isLoading.value = true;
     // TODO: implement onInit

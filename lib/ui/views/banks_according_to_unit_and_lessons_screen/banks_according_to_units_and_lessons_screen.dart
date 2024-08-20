@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 
 import '../../../core/data/models/local_json/all_models.dart';
 import '../../shared/colors.dart';
+import '../UnitsByPart/units_screen_controller.dart';
+import '../UnitsByPart/widgets/units_screen_card_widget.dart';
 import 'bank_according_to_unit_and_lessons_screen_controller.dart';
 
 class BankAccordingToUnitAndLessonsScreen extends StatefulWidget {
@@ -30,10 +32,12 @@ class _BankAccordingToUnitAndLessonsScreenState
   ValueNotifier<bool> openTextField = ValueNotifier(false);
   TextEditingController searchController = TextEditingController();
   late BankAccordingToUnitAndLessonsScreenController controller;
-
+  late UnitsScreenController unitController;
   @override
   void initState() {
     controller = Get.put(BankAccordingToUnitAndLessonsScreenController());
+    unitController = Get.put(UnitsScreenController());
+    unitController.readfileBySubject(widget.subject.subject_id!);
     controller.readfile(widget.subject.subject_id!);
     print("111");
     super.initState();
@@ -108,6 +112,17 @@ class _BankAccordingToUnitAndLessonsScreenState
                   color: AppColors.blueB4,
                   size: 50.0,
                 )
+              :  controller.parts.isEmpty
+              ? Expanded(
+            child: ListView.builder(
+              itemBuilder: (context, index) => UnitsScreenCardWidget(
+                type_isCourse: "بنك",
+                index: index,
+                subjectName: widget.subject.name,
+              ),
+              itemCount: unitController.filteredunits.length,
+            ),
+          )
               : Expanded(
                   child: ListView.builder(
                     itemBuilder: (context, index) =>

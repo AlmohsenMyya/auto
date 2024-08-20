@@ -3,6 +3,7 @@ import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/core/utils/extension/widget_extensions.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
 import 'package:auto/ui/shared/main_app_bar.dart';
+import 'package:auto/ui/views/UnitsByPart/units_screen_controller.dart';
 import 'package:auto/ui/views/courses_according_to_unit_and_lessons_screen/widgets/courses_according_to_unit_and_lessons_screen_card_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ import 'package:get/get.dart';
 
 import '../../../core/data/models/local_json/all_models.dart';
 import '../../shared/colors.dart';
+import '../UnitsByPart/units_screen_view.dart';
+import '../UnitsByPart/widgets/units_screen_card_widget.dart';
 import '../courses/widgets/cources_card_widget.dart';
 import 'courses_according_to_unit_and_lessons_screen_controller.dart';
 
@@ -31,10 +34,13 @@ class _CoursesAccordingToUnitAndLessonsScreenState
   ValueNotifier<bool> openTextField = ValueNotifier(false);
   TextEditingController searchController = TextEditingController();
   late CoursesAccordingToUnitAndLessonsScreenController controller;
+  late UnitsScreenController unitController;
 
   @override
   void initState() {
     controller = Get.put(CoursesAccordingToUnitAndLessonsScreenController());
+    unitController = Get.put(UnitsScreenController());
+    unitController.readfileBySubject(widget.subject.subject_id!);
     controller.readfile(widget.subject.subject_id!);
     print("111");
     super.initState();
@@ -70,7 +76,7 @@ class _CoursesAccordingToUnitAndLessonsScreenState
               builder: (context, value, child) => Align(
                 alignment: Alignment.topRight,
                 child: TextField(
-                  onChanged: (query){
+                  onChanged: (query) {
                     controller.filterparts(query);
                   },
                   controller: searchController,
@@ -111,16 +117,27 @@ class _CoursesAccordingToUnitAndLessonsScreenState
                   color: AppColors.blueB4,
                   size: 50.0,
                 )
-              : Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (context, index) =>
-                        CoursesAccordingToUnitAndLessonsScreenCardWidget(
+              : controller.parts.isEmpty
+                  ? Expanded(
+                      child: ListView.builder(
+                        itemBuilder: (context, index) => UnitsScreenCardWidget(
+                          type_isCourse: "دورة",
+                          index: index,
                           subjectName: widget.subject.name,
-                      index: index,
-                    ),
-                    itemCount: controller.filteredparts.length,
-                  ),
-                )),
+                        ),
+                        itemCount: unitController.filteredunits.length,
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                        itemBuilder: (context, index) =>
+                            CoursesAccordingToUnitAndLessonsScreenCardWidget(
+                          subjectName: widget.subject.name,
+                          index: index,
+                        ),
+                        itemCount: controller.filteredparts.length,
+                      ),
+                    )),
         ]));
   }
 }
