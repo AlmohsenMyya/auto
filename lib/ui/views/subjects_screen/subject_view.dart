@@ -1,3 +1,4 @@
+import 'package:auto/core/data/models/local_json/all_models.dart';
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/ui/shared/main_app_bar.dart';
 import 'package:auto/ui/views/subjects_screen/Subject_controller.dart';
@@ -10,9 +11,9 @@ import 'package:get/get.dart';
 import '../../shared/colors.dart';
 
 class SubjectView extends StatefulWidget {
-  int branch_id;
+  Branch branch;
 
-  SubjectView({super.key, required this.branch_id});
+  SubjectView({super.key, required this.branch});
 
   @override
   State<SubjectView> createState() => _SubjectViewState();
@@ -24,8 +25,8 @@ class _SubjectViewState extends State<SubjectView> {
   @override
   void initState() {
     controller = Get.put(SubjectController());
-    print("widget.branch_id ${widget.branch_id}");
-    controller.readfile(widget.branch_id);
+    print("widget.branch_id ${widget.branch}");
+    controller.readfile(widget.branch.branchId!);
     super.initState();
   }
 
@@ -60,6 +61,7 @@ class _SubjectViewState extends State<SubjectView> {
                     itemBuilder: (context, index) {
                       return SubjectTile(
                         subject: controller.subjects[index],
+                        branch: widget.branch,
                       );
                     },
                     separatorBuilder: (context, index) =>

@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/data/models/local_json/all_models.dart';
 import '../../lessons/lesson_screen_view.dart';
 import '../../login_screen/login_view.dart';
 import '../units_screen_controller.dart';
@@ -16,10 +17,11 @@ class UnitsScreenCardWidget extends StatefulWidget {
   int index;
   final String subjectName;
   final String type_isCourse;
-
+  Branch branch;
   UnitsScreenCardWidget(
       {super.key,
       required this.index,
+        required this.branch,
       required this.subjectName,
       required this.type_isCourse});
 
@@ -72,6 +74,7 @@ class _UnitsScreenCardWidgetState extends State<UnitsScreenCardWidget> {
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => LessonScreen(
+                          branch: widget.branch,
                               type_isCourse: widget.type_isCourse,
                               subjectName: widget.subjectName,
                               unit: controller.filteredunits[widget.index],

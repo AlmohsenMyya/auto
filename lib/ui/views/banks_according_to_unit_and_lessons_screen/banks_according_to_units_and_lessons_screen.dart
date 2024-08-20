@@ -18,8 +18,8 @@ import 'bank_according_to_unit_and_lessons_screen_controller.dart';
 
 class BankAccordingToUnitAndLessonsScreen extends StatefulWidget {
   Subject subject;
-
-  BankAccordingToUnitAndLessonsScreen({super.key, required this.subject});
+  Branch branch;
+  BankAccordingToUnitAndLessonsScreen({super.key,required this.branch, required this.subject});
 
   @override
   State<BankAccordingToUnitAndLessonsScreen> createState() =>
@@ -116,6 +116,7 @@ class _BankAccordingToUnitAndLessonsScreenState
               ? Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) => UnitsScreenCardWidget(
+                branch: widget.branch,
                 type_isCourse: "بنك",
                 index: index,
                 subjectName: widget.subject.name,
@@ -127,6 +128,7 @@ class _BankAccordingToUnitAndLessonsScreenState
                   child: ListView.builder(
                     itemBuilder: (context, index) =>
                         BankAccordingToUnitAndLessonsScreenCardWidget(
+                          branch: widget.branch,
                           subjectName: widget.subject.name,
                       index: index,
                     ),

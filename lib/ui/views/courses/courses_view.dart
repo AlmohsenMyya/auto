@@ -16,8 +16,8 @@ import 'courses_controller.dart';
 
 class Courses extends StatefulWidget {
   Subject subject;
-
-  Courses({super.key, required this.subject});
+  Branch branch;
+  Courses({super.key,required this.branch, required this.subject});
 
   @override
   State<Courses> createState() => _CoursesState();
@@ -104,6 +104,7 @@ class _CoursesState extends State<Courses> {
             : Expanded(
                 child: ListView.builder(
                     itemBuilder: (context, index) => CoursesCardWidget(
+                      branch: widget.branch,
                           subjectName: widget.subject.name,
                           index: index,
                         ),

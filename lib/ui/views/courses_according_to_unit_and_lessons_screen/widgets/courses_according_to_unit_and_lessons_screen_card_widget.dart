@@ -9,15 +9,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../core/data/models/local_json/all_models.dart';
 import '../../login_screen/login_view.dart';
 import '../courses_according_to_unit_and_lessons_screen_controller.dart';
 
 class CoursesAccordingToUnitAndLessonsScreenCardWidget extends StatefulWidget {
   int index;
   final String subjectName;
-
+  Branch branch;
   CoursesAccordingToUnitAndLessonsScreenCardWidget(
-      {super.key, required this.subjectName, required this.index});
+      {super.key, required this.subjectName,required this.branch, required this.index});
 
   @override
   State<CoursesAccordingToUnitAndLessonsScreenCardWidget> createState() =>
@@ -71,6 +72,7 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => UnitsScreen(
                           type_isCourse: "دورة",
+                          branch: widget.branch,
                           subjectName: widget.subjectName,
                           part: controller.filteredparts[widget.index]),
                     ));

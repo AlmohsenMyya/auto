@@ -376,7 +376,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                                 if (isVistor) {
                                   JsonReader.fetchDataAndStore();
                                   Get.to(() => SubjectView(
-                                        branch_id: branch.branchId!,
+                                        branch: branch,
                                       ));
                                 }
                               },
@@ -415,7 +415,9 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                                       ),
                                       child: InkWell(
                                         onTap: () {
-                                          Get.to(LoginView());
+                                          if (!isVistor) {
+                                            Get.to(LoginView());
+                                          }
                                         },
                                         child: Text(
                                           !isVistor

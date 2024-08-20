@@ -12,17 +12,17 @@ import '../banks_according_to_unit_and_lessons_screen/banks_according_to_units_a
 import '../courses_according_to_unit_and_lessons_screen/courses_according_to_unit_and_lessons_screen_view.dart';
 class SubjectDetailsScreen extends StatelessWidget {
   final Subject subject;
-
-  SubjectDetailsScreen({super.key, required this.subject});
+  Branch branch;
+  SubjectDetailsScreen({super.key,required this.branch, required this.subject});
 
   @override
   Widget build(BuildContext context) {
     // Courses and lessons
     List<Map<String, dynamic>> array2 = [
-      {'دورات': Courses(subject: subject)},
-      {'بنوك': Banks(subject: subject)},
-      {'دورات حسب الوحدة والدروس': CoursesAccordingToUnitAndLessonsScreen(subject: subject)},
-      {'بنوك مصنفة حسب الوحدة والدروس': BankAccordingToUnitAndLessonsScreen(subject: subject)}
+      {'دورات': Courses(subject: subject , branch: branch,)},
+      {'بنوك': Banks(subject: subject , branch: branch,)},
+      {'دورات حسب الوحدة والدروس': CoursesAccordingToUnitAndLessonsScreen(subject: subject ,branch: branch,)},
+      {'بنوك مصنفة حسب الوحدة والدروس': BankAccordingToUnitAndLessonsScreen(subject: subject,branch: branch,)}
     ];
 
     return Scaffold(

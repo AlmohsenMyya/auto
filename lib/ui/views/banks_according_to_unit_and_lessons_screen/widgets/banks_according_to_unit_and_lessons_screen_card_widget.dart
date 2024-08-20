@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/data/models/local_json/all_models.dart';
 import '../../courses_questions_screen/courses_questions_view.dart';
 import '../../login_screen/login_view.dart';
 import '../bank_according_to_unit_and_lessons_screen_controller.dart';
@@ -13,7 +14,8 @@ import '../bank_according_to_unit_and_lessons_screen_controller.dart';
 class BankAccordingToUnitAndLessonsScreenCardWidget extends StatefulWidget {
   final int index;
   final String subjectName;
-  BankAccordingToUnitAndLessonsScreenCardWidget({super.key, required this.subjectName,required this.index});
+  Branch branch;
+  BankAccordingToUnitAndLessonsScreenCardWidget({super.key, required this.branch,required this.subjectName,required this.index});
 
   @override
   State<BankAccordingToUnitAndLessonsScreenCardWidget> createState() => _CoursesAccordingToUnitAndLessonsScreenCardWidgetState();
@@ -63,6 +65,7 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<BankA
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => UnitsScreen(
+                        branch: widget.branch,
                         type_isCourse: "بنك",
                         subjectName: widget.subjectName ,
                         part: controller.filteredparts[widget.index],

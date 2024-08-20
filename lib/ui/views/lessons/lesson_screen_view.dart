@@ -22,7 +22,8 @@ class LessonScreen extends StatefulWidget {
   final Unit unit;
   final String subjectName;
   final String type_isCourse;
-  LessonScreen({super.key, required this.unit , required this.subjectName , required this.type_isCourse});
+  Branch branch;
+  LessonScreen({super.key, required this.unit ,required this.branch, required this.subjectName , required this.type_isCourse});
 
   @override
   State<LessonScreen> createState() => _LessonScreenState();
@@ -115,6 +116,7 @@ class _LessonScreenState extends State<LessonScreen> {
             : Expanded(
           child: ListView.builder(
             itemBuilder: (context, index) => LessonScreenCardWidget(
+              branch: widget.branch,
               type_isCourse: widget.type_isCourse,
               subjectName: widget.subjectName ,
               index: index,

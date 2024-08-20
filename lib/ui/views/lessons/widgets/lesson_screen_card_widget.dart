@@ -9,16 +9,18 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/data/models/local_json/all_models.dart';
 import '../lesson_screen_controller.dart';
 
 class LessonScreenCardWidget extends StatefulWidget {
   final int index;
   final String subjectName;
   final String type_isCourse;
-
+  Branch branch;
   LessonScreenCardWidget(
       {super.key,
       required this.index,
+        required this.branch,
       required this.subjectName,
       required this.type_isCourse});
 

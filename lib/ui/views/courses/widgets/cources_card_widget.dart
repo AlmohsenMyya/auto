@@ -16,10 +16,11 @@ import '../courses_controller.dart';
 class CoursesCardWidget extends StatefulWidget {
   final int index;
   final String subjectName;
-
+  Branch branch;
   CoursesCardWidget({
     Key? key,
     required this.index,
+    required this.branch,
     required this.subjectName,
   }) : super(key: key);
 

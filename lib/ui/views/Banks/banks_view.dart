@@ -16,8 +16,8 @@ import 'banks_controller.dart';
 
 class Banks extends StatefulWidget {
   Subject subject;
-
-  Banks({super.key, required this.subject});
+  Branch branch;
+  Banks({super.key,required this.branch, required this.subject});
 
   @override
   State<Banks> createState() => _BanksState();
@@ -102,6 +102,7 @@ class _BanksState extends State<Banks> {
             : Expanded(
                 child: ListView.builder(
                     itemBuilder: (context, index) => BanksCardWidget(
+                      branch: widget.branch,
                       subjectName: widget.subject.name,
                           index: index,
                         ),

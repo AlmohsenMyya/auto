@@ -11,13 +11,14 @@ import '../../../../core/data/models/local_json/all_models.dart';
 
 class SubjectTile extends StatelessWidget {
   Subject subject;
-
-  SubjectTile({super.key, required this.subject});
+  Branch branch;
+  SubjectTile({super.key,required this.branch, required this.subject});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Get.to(SubjectDetailsScreen(
+        branch: branch,
         subject: subject,
       )),
       child: Padding(
@@ -114,6 +115,7 @@ class SubjectTile extends StatelessWidget {
                 onPressed: () {
                   Get.to(SubjectDetailsScreen(
                     subject: subject,
+                    branch: branch,
                   ));
                 },
                 icon: const Icon(Icons.arrow_forward))

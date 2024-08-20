@@ -8,13 +8,15 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/data/models/local_json/all_models.dart';
 import '../../login_screen/login_view.dart';
 import '../banks_controller.dart';
 
 class BanksCardWidget extends StatefulWidget {
   int index;
   final String subjectName;
-  BanksCardWidget({super.key, required this.index , required this.subjectName});
+  Branch branch;
+  BanksCardWidget({super.key, required this.index ,required this.branch, required this.subjectName});
 
   @override
   State<BanksCardWidget> createState() => _BanksCardWidgetState();
