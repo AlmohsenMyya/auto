@@ -9,6 +9,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/data/models/local_json/all_models.dart';
+import '../../../shared/please_subscrib_botton.dart';
 import '../../lessons/lesson_screen_view.dart';
 import '../../login_screen/login_view.dart';
 import '../units_screen_controller.dart';
@@ -18,10 +19,11 @@ class UnitsScreenCardWidget extends StatefulWidget {
   final String subjectName;
   final String type_isCourse;
   Branch branch;
+
   UnitsScreenCardWidget(
       {super.key,
       required this.index,
-        required this.branch,
+      required this.branch,
       required this.subjectName,
       required this.type_isCourse});
 
@@ -74,7 +76,7 @@ class _UnitsScreenCardWidgetState extends State<UnitsScreenCardWidget> {
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => LessonScreen(
-                          branch: widget.branch,
+                              branch: widget.branch,
                               type_isCourse: widget.type_isCourse,
                               subjectName: widget.subjectName,
                               unit: controller.filteredunits[widget.index],
@@ -95,45 +97,12 @@ class _UnitsScreenCardWidgetState extends State<UnitsScreenCardWidget> {
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     final token = await prefs.getString('access_token');
+                    bool isInMyBranch = await SubscriptionDialog.isMyBranch(
+                        widget.branch.branchId.toString());
                     // تحقق من is_public قبل السماح بالدخول
-                    if (token == null) {
-                      // عرض رسالة بسيطة وزر الاشتراك
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(
-                              'لا يمكن الدخول',
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: context.exPrimaryContainer),
-                            ),
-                            content: Text(
-                              'يتطلب الدخول الاشتراك. يرجى الاشتراك للاستمرار.',
-                              style:
-                                  TextStyle(color: context.exPrimaryContainer),
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text(
-                                  'اشتراك',
-                                  style: TextStyle(
-                                      color: context.exPrimaryContainer),
-                                ),
-                                onPressed: () {
-                                  // توجيه المستخدم لصفحة تسجيل الدخول
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginView()),
-                                  );
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                    if (token == null || !isInMyBranch) {
+                      // عرض رسالة بسيطة وزر- الاشتراك
+                      SubscriptionDialog.showSubscriptionDialog(context);
                     } else {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => CoursesQuestionsView(

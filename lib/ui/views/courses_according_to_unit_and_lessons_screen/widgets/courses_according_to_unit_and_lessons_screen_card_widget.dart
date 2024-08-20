@@ -1,5 +1,6 @@
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/core/utils/extension/widget_extensions.dart';
+import 'package:auto/ui/shared/please_subscrib_botton.dart';
 
 import 'package:auto/ui/views/UnitsByPart/units_screen_view.dart';
 import 'package:auto/ui/views/courses_questions_screen/courses_questions_view.dart';
@@ -17,8 +18,12 @@ class CoursesAccordingToUnitAndLessonsScreenCardWidget extends StatefulWidget {
   int index;
   final String subjectName;
   Branch branch;
+
   CoursesAccordingToUnitAndLessonsScreenCardWidget(
-      {super.key, required this.subjectName,required this.branch, required this.index});
+      {super.key,
+      required this.subjectName,
+      required this.branch,
+      required this.index});
 
   @override
   State<CoursesAccordingToUnitAndLessonsScreenCardWidget> createState() =>
@@ -93,46 +98,12 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState
                     SharedPreferences prefs =
                         await SharedPreferences.getInstance();
                     final token = await prefs.getString('access_token');
+                    bool isInMyBranch = await SubscriptionDialog.isMyBranch(
+                        widget.branch.branchId.toString());
                     // تحقق من is_public قبل السماح بالدخول
-                    if (
-                        token == null) {
-                      // عرض رسالة بسيطة وزر الاشتراك
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(
-                              'لا يمكن الدخول',
-                              style: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: context.exPrimaryContainer),
-                            ),
-                            content: Text(
-                              'يتطلب الدخول الاشتراك. يرجى الاشتراك للاستمرار.',
-                              style:
-                                  TextStyle(color: context.exPrimaryContainer),
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text(
-                                  'اشتراك',
-                                  style: TextStyle(
-                                      color: context.exPrimaryContainer),
-                                ),
-                                onPressed: () {
-                                  // توجيه المستخدم لصفحة تسجيل الدخول
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginView()),
-                                  );
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                    if (token == null || !isInMyBranch) {
+                      // عرض رسالة بسيطة وزر- الاشتراك
+                      SubscriptionDialog.showSubscriptionDialog(context);
                     } else {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => CoursesQuestionsView(

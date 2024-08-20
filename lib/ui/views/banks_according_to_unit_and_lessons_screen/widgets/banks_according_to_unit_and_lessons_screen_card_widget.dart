@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/data/models/local_json/all_models.dart';
+import '../../../shared/please_subscrib_botton.dart';
 import '../../courses_questions_screen/courses_questions_view.dart';
 import '../../login_screen/login_view.dart';
 import '../bank_according_to_unit_and_lessons_screen_controller.dart';
@@ -85,33 +86,13 @@ class _CoursesAccordingToUnitAndLessonsScreenCardWidgetState extends State<BankA
                     SharedPreferences prefs = await SharedPreferences.getInstance();
                     final token = await prefs.getString('access_token');
                     // تحقق من is_public قبل السماح بالدخول
-                    if (token == null) {
-                      // عرض رسالة بسيطة وزر الاشتراك
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(
-                              'لا يمكن الدخول',
-                              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold , color: context.exPrimaryContainer),
-                            ),
-                            content: Text('يتطلب الدخول الاشتراك. يرجى الاشتراك للاستمرار.' , style: TextStyle(color: context.exPrimaryContainer),),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('اشتراك' , style: TextStyle(color: context.exPrimaryContainer),),
-                                onPressed: () {
-                                  // توجيه المستخدم لصفحة تسجيل الدخول
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => LoginView()),
-                                  );
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    } else {
+                    bool isInMyBranch = await SubscriptionDialog.isMyBranch(
+                        widget.branch.branchId.toString());
+                    // تحقق من is_public قبل السماح بالدخول
+                    if  (token == null || !isInMyBranch) {
+                      // عرض رسالة بسيطة وزر- الاشتراك
+                      SubscriptionDialog.showSubscriptionDialog(context);
+                    }   else {
                       // السماح بالدخول مباشرةً إذا كان is_public ليس 0
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => CoursesQuestionsView(
