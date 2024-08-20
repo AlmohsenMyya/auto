@@ -12,20 +12,34 @@ class SubscriptionController extends BaseController {
 
   late List<Branch> branchs;
 
-  void readfile() async {
+  void readfile(bool? isVistor) async {
     isLoading.value = true;
-    // TODO: implement onInit
+    // قراءة ملف الـ JSON
     jsonfile = await JsonReader.loadJsonData();
     branchs = JsonReader.extractBranches(jsonfile);
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isLoggedIn = SharedPreferenceRepository().getIsLoggedIn();
+
     if (isLoggedIn) {
       List<String> myBranchIds =
           await prefs.getStringList('my_branchs_id') ?? [];
-      // Filter branches based on the user's branch IDs
-      branchs = branchs
-          .where((branch) => myBranchIds.contains(branch.branch_id.toString()))
-          .toList();
+
+      // تعيين isVistor إلى true فقط للفروع التي ID خاصتها موجودة في myBranchIds
+      branchs.forEach((branch) {
+        if (myBranchIds.contains(branch.branchId.toString())) {
+          branch.isVistor = true;
+        }
+      });
+      // if (isVistor == true) {
+      //   branchs = branchs
+      //       .where((branch) => myBranchIds.contains(branch.branchId.toString()))
+      //       .toList();
+      // }
+      // يمكنك أيضًا تصفية الفروع حسب isVistor إذا كنت تريد عرض الأفرع التي اشتركت بها فقط
+      if (isVistor != true) {
+        branchs = branchs.where((branch) => branch.isVistor).toList();
+      }
     }
 
     isLoading.value = false;
@@ -33,7 +47,6 @@ class SubscriptionController extends BaseController {
 
   @override
   void onInit() {
-    readfile();
     super.onInit();
   }
 }

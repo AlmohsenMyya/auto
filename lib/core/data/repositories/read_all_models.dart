@@ -43,6 +43,7 @@ class JsonReader {
     List<Branch> branches = (jsonData['branches'] as List)
         .map((branchJson) => Branch.fromJson(branchJson))
         .toList();
+    print("jhbhjbjlkj jknkj ${branches.length}");
     return branches;
   }
 
@@ -507,18 +508,19 @@ class JsonReader {
 
   // New method to load JSON data
   static Future<Map<String, dynamic>> loadJsonData() async {
+    fetchDataAndStore();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? jsonFilePath = prefs.getString('jsonFilePath');
 print("bh hjb jhbj jsonFilePath != null${jsonFilePath }  ");
-    if (jsonFilePath != null && await File(jsonFilePath).exists()) {
+    // if (jsonFilePath != null && await File(jsonFilePath).exists()) {
       // Load from file
       print('Loading data from file: $jsonFilePath');
-      return await loadJsonFromFile(jsonFilePath);
-    } else {
-      // Load from assets
-      print('Loading data from assets');
-      return await loadJsonFromAssets('assets/data.json');
-    }
+      return await loadJsonFromFile(jsonFilePath!);
+    // } else {
+    //   // Load from assets
+    //   print('Loading data from assets');
+    //   // return await loadJsonFromAssets('assets/data.json');
+    // }
   }
 }
 

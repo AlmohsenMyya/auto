@@ -112,6 +112,8 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                   IconButton(
                     icon: Icon(Icons.camera_alt, color: Colors.grey),
                     onPressed: () {
+                      print("jhvjhbhjbj ${controller.questions[widget.questionIndex]
+                          .image}");
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {

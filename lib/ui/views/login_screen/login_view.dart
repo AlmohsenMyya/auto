@@ -61,7 +61,7 @@ class _LoginViewState extends State<LoginView> {
         mybranchIds.add(branchId.toString());
         await prefs.setStringList('my_branchs_id', mybranchIds);
         SharedPreferenceRepository().setIsLoggedIN(true);
-        Get.to(() => const SubscriptionView());
+        Get.to(() =>  SubscriptionView());
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('تم الاشتراك بنجاح')),
         );
@@ -174,7 +174,7 @@ class _LoginViewState extends State<LoginView> {
                   isLoggedIn? SizedBox():
                   TextButton(
                     onPressed: () async {
-                      Get.to(() => const SubscriptionView());
+                      Get.to(() =>  SubscriptionView(isVistor: true,));
                     },
                     child: const CustomText(
                       textType: TextStyleType.custom,

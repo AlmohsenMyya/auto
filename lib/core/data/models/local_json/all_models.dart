@@ -1,26 +1,35 @@
 class Branch {
-  final int? branch_id;
-
+  final int? branchId;
   final String name;
   final String? image;
+  bool isVistor;
 
-  // final List<Subject?> subjects;
-
-  Branch({required this.name, this.image, this.branch_id
-      // required this.subjects,
-      });
+  Branch({
+    required this.name,
+    this.image,
+    this.branchId,
+    this.isVistor = false, // القيمة الافتراضية
+  });
 
   factory Branch.fromJson(Map<String, dynamic> json) {
     return Branch(
-      branch_id: json['id'],
+      branchId: json['id'],
       name: json['name'],
       image: json['image'],
-      // subjects: (json['subjects'] as List)
-      //     .map((subjectJson) => Subject.fromJson(subjectJson))
-      //     .toList(),
+      isVistor: json['isVistor'] ?? false, // إذا كانت القيمة موجودة في الـ JSON
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': branchId,
+      'name': name,
+      'image': image,
+      'isVistor': isVistor,
+    };
+  }
 }
+
 
 class Subject {
   final int? subject_id;

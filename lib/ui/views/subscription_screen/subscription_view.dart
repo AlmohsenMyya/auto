@@ -16,13 +16,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import '../../shared/custom_widgets/subscrib_new_subject_button.dart';
 import '../courses_questions_screen/courses_questions_view.dart';
 import '../login_screen/login_view.dart';
 import '../wellcom_screen/about_view.dart';
 import '../wellcom_screen/developers_view.dart';
 
 class SubscriptionView extends StatefulWidget {
-  const SubscriptionView({super.key});
+  bool? isVistor;
+
+  SubscriptionView({this.isVistor, super.key});
 
   @override
   State<SubscriptionView> createState() => _SubscriptionViewState();
@@ -34,6 +37,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
   @override
   void initState() {
     controller = Get.put(SubscriptionController());
+    controller.readfile(widget.isVistor);
     JsonReader.fetchDataAndStore();
     super.initState();
   }
@@ -127,8 +131,13 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                       onTap: () {
                         Get.changeThemeMode(
                             Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-                        ThemeMode themeMode = SharedPreferenceRepository().getSavedThemeMode();
-                        if(themeMode == ThemeMode.dark) {themeMode = ThemeMode.light ;} else {themeMode = ThemeMode.dark;}
+                        ThemeMode themeMode =
+                            SharedPreferenceRepository().getSavedThemeMode();
+                        if (themeMode == ThemeMode.dark) {
+                          themeMode = ThemeMode.light;
+                        } else {
+                          themeMode = ThemeMode.dark;
+                        }
                         SharedPreferenceRepository().saveThemeMode(themeMode);
                       },
                       child: Row(
@@ -304,29 +313,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                       height: 20,
                     ),
                     SharedPreferenceRepository().getIsLoggedIn()
-                        ? InkWell(
-                            borderRadius:
-                                BorderRadius.circular(screenWidth(10)),
-                            splashColor: AppColors.blueB4,
-                            onTap: () {
-                              Get.offAll(() => const LoginView());
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.local_fire_department,
-                                  color: AppColors.mainColorGreen,
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                CustomText(
-                                  textType: TextStyleType.custom,
-                                  text: "الاشتراك بمادة جديدة",
-                                ),
-                              ],
-                            ),
-                          )
+                        ? SubscriptionButton()
                         : InkWell(
                             borderRadius:
                                 BorderRadius.circular(screenWidth(10)),
@@ -372,6 +359,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                       //     textColor: AppColors.blueB4,
                       //   ),
                       // ),
+
                       SliverPadding(
                         padding: const EdgeInsetsDirectional.all(20),
                         sliver: SliverList.separated(
@@ -379,31 +367,75 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                               const SizedBox(height: 5),
                           itemCount: controller.branchs.length,
                           itemBuilder: (context, index2) {
+                            final branch = controller.branchs[index2];
+                            final isVistor = branch.isVistor;
+                            print(
+                                "branch.isVistor ${branch.isVistor} ${branch.name}");
                             return InkWell(
                               onTap: () async {
-                                JsonReader.fetchDataAndStore();
-                                Get.to(() => SubjectView(
-                                      branch_id:
-                                          controller.branchs[index2].branch_id!,
-                                    ));
+                                if (isVistor) {
+                                  JsonReader.fetchDataAndStore();
+                                  Get.to(() => SubjectView(
+                                        branch_id: branch.branchId!,
+                                      ));
+                                }
                               },
-                              child: Container(
-                                width: double.infinity,
-                                height: screenHeight(5),
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: context.exSecondary,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: CustomText(
-                                  textType: TextStyleType.bodyBig,
-                                  text: controller.branchs[index2].name,
-                                ),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    height: screenHeight(5),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: context.primaryColor,
+                                      // لون مختلف للفروع المشتركة والزائرة
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: CustomText(
+                                      textType: TextStyleType.bodyBig,
+                                      text: branch.name,
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        vertical: 4,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: !isVistor
+                                            ? Colors.redAccent
+                                            : Colors.green,
+                                        borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          bottomLeft: Radius.circular(20),
+                                        ),
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {
+                                          Get.to(LoginView());
+                                        },
+                                        child: Text(
+                                          !isVistor
+                                              ? ' انقر للاشتراك '
+                                              : 'تم الاشتراك ',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ).animate().scale(delay: 300.ms);
                           },
                         ),
-                      ),
+                      )
                     ],
                   ),
           )),

@@ -1,1346 +1,606 @@
 {
   "branches": [
     {
-      "id": 1,
-      "name": "الفرع العلمي",
-      "image": null
+      "id": 11,
+      "name": "العلوم",
+      "image": "https://auto-sy.com/storage/images/branches/T2a8dvSxk1T4QZ64Wu9ypm0t6xHOX7wZ0rhnEay3.jpg"
     },
     {
-      "id": 2,
-      "name": "الفرع الأدبي",
-      "image": null
+      "id": 12,
+      "name": "التربية الوطنية",
+      "image": "https://auto-sy.com/storage/images/branches/VVMkX8JSCLiJrXxVdnkZiXV65GWNlacpIepBV30z.jpg"
+    },
+    {
+      "id": 13,
+      "name": "اللغة الإنكليزية",
+      "image": "https://auto-sy.com/storage/images/branches/5r9TGwyqP8qWNmNJhn1QwLF5OhnyIRIxgypNwajx.jpg"
     }
   ],
   "subjects": {
-    "1": [
-      {
-        "id": 1,
-        "name": "الرياضيات ",
-        "image": null,
-        "branch_id": 1
-      },
-      {
-        "id": 2,
-        "name": "العلوم ",
-        "image": null,
-        "branch_id": 1
-      },
-      {
-        "id": 3,
-        "name": "الفيزياء ",
-        "image": null,
-        "branch_id": 1
-      },
-      {
-        "id": 4,
-        "name": "الكيمياء ",
-        "image": null,
-        "branch_id": 1
-      },
-      {
-        "id": 5,
-        "name": "اللغة العربية",
-        "image": null,
-        "branch_id": 1
-      },
-      {
-        "id": 6,
-        "name": "اللغة الإنكليزية",
-        "image": null,
-        "branch_id": 1
-      },
-      {
-        "id": 7,
-        "name": "اللغة الفرنسية",
-        "image": null,
-        "branch_id": 1
-      },
-      {
-        "id": 8,
-        "name": "التربية الوطنية",
-        "image": null,
-        "branch_id": 1
-      },
-      {
-        "id": 9,
-        "name": "التربية الدينية ",
-        "image": null,
-        "branch_id": 1
-      }
-    ],
-    "2": [
-      {
-        "id": 10,
-        "name": "الجغرافيا ",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 11,
-        "name": "التاريح ",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 12,
-        "name": "العلوم السياسية ",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 13,
-        "name": "التاريخ الحديث ",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 14,
-        "name": "اللغة العربية",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 15,
-        "name": "اللغة الإنكليزية",
-        "image": null,
-        "branch_id": 2
-      },
+    "11": [
       {
         "id": 16,
-        "name": "اللغة الفرنسية",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 17,
-        "name": "التربية الوطنية",
-        "image": null,
-        "branch_id": 2
-      },
-      {
-        "id": 18,
-        "name": "التربية الدينية ",
-        "image": null,
-        "branch_id": 2
+        "name": "العلوم",
+        "image": "https://auto-sy.com/storage/images/subjects/MxZl4zg12PqtHXiJYBBwXf8XwivJ4S3u3uXXAaXC.jpg",
+        "branch_id": 11
       }
     ],
-    "3": []
+    "12": [
+      {
+        "id": 15,
+        "name": "التربية الوطنية",
+        "image": "https://auto-sy.com/storage/images/subjects/nZNnK4XHstqn643rP8RRnXQVyKNbTFjThw19f9nL.jpg",
+        "branch_id": 12
+      }
+    ],
+    "13": []
   },
   "parts": {
-    "1": [
+    "16": [],
+    "15": [
       {
-        "id": 1,
-        "name": "الجزء الأول",
-        "image": null,
-        "subject_id": 1,
-        "isPublic": 0
-      },
-      {
-        "id": 2,
-        "name": "الجزء الثاني",
-        "image": null,
-        "subject_id": 1,
-        "isPublic": 1
+        "id": 3,
+        "name": "جزء ١",
+        "image": "https://auto-sy.com/storage/images/parts/Yzi4AQjxubktpiP09WH79USmzYoXkVOw3KwMhV3W.jpg",
+        "subject_id": 15
       }
-    ],
-    "2": [],
-    "3": [],
-    "4": [],
-    "5": [],
-    "6": [],
-    "7": [],
-    "8": [],
-    "9": []
+    ]
   },
   "units_subject": {
-    "1": [],
-    "2": [
+    "16": [
       {
-        "id": 34,
-        "name": "عصبية",
+        "id": 48,
+        "name": "الوحدة ١",
+        "is_public": 0,
         "image": null,
-        "subject_id": 2
+        "subject_id": 16
       },
       {
-        "id": 35,
-        "name": "التكاثر",
+        "id": 49,
+        "name": "سي",
+        "is_public": 0,
         "image": null,
-        "subject_id": 2
-      },
-      {
-        "id": 36,
-        "name": "وراثة",
-        "image": null,
-        "subject_id": 2
+        "subject_id": 16
       }
     ],
-    "3": [
+    "15": [
       {
-        "id": 10,
-        "name": "الحركة و التحريك",
-        "image": null,
-        "subject_id": 3
-      },
-      {
-        "id": 11,
-        "name": "الكهرباء و المغناطيسية",
-        "image": null,
-        "subject_id": 3
-      },
-      {
-        "id": 12,
-        "name": "أمواج مستقرة",
-        "image": null,
-        "subject_id": 3
-      },
-      {
-        "id": 13,
-        "name": "الكترونيات",
-        "image": null,
-        "subject_id": 3
-      },
-      {
-        "id": 14,
-        "name": "فلكية",
-        "image": null,
-        "subject_id": 3
-      }
-    ],
-    "4": [
-      {
-        "id": 1,
-        "name": "الكيمياء نووية",
-        "image": null,
-        "subject_id": 4
-      },
-      {
-        "id": 2,
-        "name": "الغازات",
-        "image": null,
-        "subject_id": 4
-      },
-      {
-        "id": 3,
-        "name": "حركية التفاعلات الكيميائية  والتوازن الكيميائي",
-        "image": null,
-        "subject_id": 4
-      },
-      {
-        "id": 4,
-        "name": "الكيمياء التحليلية",
-        "image": null,
-        "subject_id": 4
-      }
-    ],
-    "5": [
-      {
-        "id": 15,
-        "name": "قضايا وطنية و قومية",
-        "image": null,
-        "subject_id": 5
-      },
-      {
-        "id": 16,
-        "name": "الغربة و الاغتراب في الأدب المهجري",
-        "image": null,
-        "subject_id": 5
-      },
-      {
-        "id": 17,
-        "name": "فن الرواية",
-        "image": null,
-        "subject_id": 5
-      },
-      {
-        "id": 18,
-        "name": "ظواهر وجدانية",
-        "image": null,
-        "subject_id": 5
-      },
-      {
-        "id": 19,
-        "name": " أدب القضايا الاجتماعية",
-        "image": null,
-        "subject_id": 5
-      }
-    ],
-    "6": [],
-    "7": [],
-    "8": [
-      {
-        "id": 5,
-        "name": "عضوية",
-        "image": null,
-        "subject_id": 8
-      },
-      {
-        "id": 6,
+        "id": 42,
         "name": "تطوير الذات",
+        "is_public": 0,
         "image": null,
-        "subject_id": 8
+        "subject_id": 15
       },
       {
-        "id": 7,
-        "name": "الوطن و المواطنة",
+        "id": 45,
+        "name": "test",
+        "is_public": 0,
         "image": null,
-        "subject_id": 8
+        "subject_id": 15
       },
       {
-        "id": 8,
-        "name": "الحقوق و الواجبات",
+        "id": 46,
+        "name": "تطوير الذات",
+        "is_public": 0,
         "image": null,
-        "subject_id": 8
+        "subject_id": 15
       },
       {
-        "id": 9,
-        "name": "التنمية المستدامة",
+        "id": 47,
+        "name": "الوحدة ٢",
+        "is_public": 0,
         "image": null,
-        "subject_id": 8
+        "subject_id": 15
       }
-    ],
-    "9": []
+    ]
   },
   "units_part": {
-    "1": [
-      {
-        "id": 20,
-        "name": "متتاليات",
-        "image": null,
-        "part_id": 1
-      },
-      {
-        "id": 21,
-        "name": "نهايات و استمرار",
-        "image": null,
-        "part_id": 1
-      },
-      {
-        "id": 22,
-        "name": "اشتقاق",
-        "image": null,
-        "part_id": 1
-      },
-      {
-        "id": 23,
-        "name": "نهاية متتالية",
-        "image": null,
-        "part_id": 1
-      },
-      {
-        "id": 24,
-        "name": "التابع اللوغارتمي النيبري",
-        "image": null,
-        "part_id": 1
-      },
-      {
-        "id": 25,
-        "name": "لتابع الأسي",
-        "image": null,
-        "part_id": 1
-      },
-      {
-        "id": 26,
-        "name": "تكامل و توابع أصلية",
-        "image": null,
-        "part_id": 1
-      }
-    ],
-    "2": [
-      {
-        "id": 27,
-        "name": "الأشعة في الفراغ",
-        "image": null,
-        "part_id": 2
-      },
-      {
-        "id": 28,
-        "name": "الجداء السلمي في الفراغ",
-        "image": null,
-        "part_id": 2
-      },
-      {
-        "id": 29,
-        "name": "المستقيمات و المستويات في الفراغ",
-        "image": null,
-        "part_id": 2
-      },
-      {
-        "id": 30,
-        "name": "عقدية",
-        "image": null,
-        "part_id": 2
-      },
-      {
-        "id": 31,
-        "name": "تطبيقات عقدية",
-        "image": null,
-        "part_id": 2
-      },
-      {
-        "id": 32,
-        "name": "تحليل التوافقي",
-        "image": null,
-        "part_id": 2
-      },
-      {
-        "id": 33,
-        "name": "احتمالات",
-        "image": null,
-        "part_id": 2
-      }
-    ]
-  },
-  "lessons": {
-    "20": [
-      {
-        "id": 20,
-        "name": "الدرس الاول",
-        "image": null,
-        "unit_id": 1,
-        "isPublic": 1
-      },
-      {
-        "id": 21,
-        "name": "الدرس الثاني",
-        "image": null,
-        "unit_id": 1,
-        "isPublic": 0
-      }
-    ],
-    "21": [],
-    "22": [],
-    "23": [],
-    "24": [],
-    "25": [],
-    "26": [],
-    "27": [],
-    "28": [],
-    "29": [],
-    "30": [],
-    "31": [],
-    "32": [],
-    "33": []
+    "3": []
   },
   "courses": {
-    "1": [
-      {
-        "id": 1,
-        "name": "2024 دورة أولى",
-        "is_public": 0,
-        "subject_id": 1
-      },
-      {
-        "id": 2,
-        "name": "2024 تكميلية",
-        "is_public": 0,
-        "subject_id": 1
-      }
-    ],
-    "2": [
-      {
-        "id": 3,
-        "name": "2024 دورة أولى",
-        "is_public": 0,
-        "subject_id": 2
-      },
-      {
-        "id": 4,
-        "name": "2024 تكميلية",
-        "is_public": 0,
-        "subject_id": 2
-      }
-    ]
-  },
-  "questions_course": {
-    "1": {
-      "id": 1,
-      "name": "2024 دورة أولى",
-      "subject_id": 1,
-      "questions": [
-        {
-          "id": 1,
-          "text": "سؤال دورة ..",
-          "explain": "شرح السؤال الاول ",
-          "part_id": null,
-          "unit_id": 1,
-          "lesson_id": null,
-          "image": null,
-          "answers": [
-            {
-              "id": 1,
-              "text": "Monako",
-              "image": null,
-              "is_correct": 1
-            },
-            {
-              "id": 1,
-              "text": "Monako",
-              "image": null,
-              "is_correct": 1
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "text": "سؤال دورة ..",
-          "explain": "شرح السؤال الثاني",
-          "part_id": null,
-          "unit_id": 1,
-          "lesson_id": null,
-          "image": null,
-          "answers": [
-            {
-              "id": 1,
-              "text": "Monako",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 2,
-              "text": "Paris",
-              "image": null,
-              "is_correct": 1
-            },
-            {
-              "id": 3,
-              "text": "Lille",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 4,
-              "text": "Nice",
-              "image": null,
-              "is_correct": 0
-            }
-          ]
-        },
-        {
-          "id": 3,
-          "text": "سؤال دورة ..",
-          "explain": null,
-          "order_changing": 0,
-          "part_id": null,
-          "unit_id": 1,
-          "lesson_id": null,
-          "image": null,
-          "answers": [
-            {
-              "id": 1,
-              "text": "Monako",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 2,
-              "text": "Paris",
-              "image": null,
-              "is_correct": 1
-            },
-            {
-              "id": 3,
-              "text": "Lille",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 4,
-              "text": "Nice",
-              "image": null,
-              "is_correct": 0
-            }
-          ]
-        },
-        {
-          "id": 4,
-          "text": "سؤال دورة ..",
-          "explain": null,
-          "order_changing": 0,
-          "part_id": null,
-          "unit_id": 1,
-          "lesson_id": null,
-          "image": null,
-          "answers": [
-            {
-              "id": 1,
-              "text": "Monako",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 2,
-              "text": "Paris",
-              "image": null,
-              "is_correct": 1
-            },
-            {
-              "id": 3,
-              "text": "Lille",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 4,
-              "text": "Nice",
-              "image": null,
-              "is_correct": 0
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "text": "سؤال دورة ..",
-          "explain": "شرح السؤال 204",
-          "part_id": null,
-          "unit_id": 1,
-          "lesson_id": null,
-          "image": "assets/images/icon_app.png",
-          "answers": [
-            {
-              "id": 1,
-              "text": "Monako",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 2,
-              "text": "Paris",
-              "image": null,
-              "is_correct": 1
-            },
-            {
-              "id": 3,
-              "text": "Lille",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 4,
-              "text": "Nice",
-              "image": null,
-              "is_correct": 0
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "text": "سؤال دورة ..",
-          "explain": "شرح السؤال 205",
-          "part_id": null,
-          "unit_id": 1,
-          "lesson_id": null,
-          "image": null,
-          "answers": [
-            {
-              "id": 1,
-              "text": "Monako",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 2,
-              "text": "Paris",
-              "image": null,
-              "is_correct": 1
-            },
-            {
-              "id": 3,
-              "text": "Lille",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 4,
-              "text": "Nice",
-              "image": null,
-              "is_correct": 0
-            }
-          ]
-        }
-      ]
-    },
-    "2": {
-      "id": 2,
-      "name": "2024 تكميلية",
-      "subject_id": 1,
-      "questions": [
-        {
-          "id": 2,
-          "text": "What is the largest ocean?",
-          "explain": null,
-          "order_changing": 1,
-          "part_id": null,
-          "unit_id": 2,
-          "lesson_id": null,
-          "image": null,
-          "answers": [
-            {
-              "id": 5,
-              "text": "Paris1",
-              "image": "path/to/image2.jpg",
-              "is_correct": 0
-            },
-            {
-              "id": 6,
-              "text": "Atlantic Ocean2",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 7,
-              "text": "Pacific Ocean3",
-              "image": null,
-              "is_correct": 1
-            },
-            {
-              "id": 8,
-              "text": "Hindy Ocean4",
-              "image": null,
-              "is_correct": 0
-            }
-          ]
-        },
-        {
-          "id": 3,
-          "text": "What is the biggest governorate in syria?",
-          "explain": null,
-          "order_changing": 0,
-          "part_id": null,
-          "unit_id": 5,
-          "lesson_id": null,
-          "image": null,
-          "answers": [
-            {
-              "id": 9,
-              "text": "Damascus",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 10,
-              "text": "Aleppo",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 11,
-              "text": "Homs",
-              "image": null,
-              "is_correct": 1
-            },
-            {
-              "id": 12,
-              "text": "Tartous",
-              "image": null,
-              "is_correct": 0
-            }
-          ]
-        }
-      ]
-    },
-    "3": {
-      "id": 3,
-      "name": "2024 دورة أولى",
-      "subject_id": 2,
-      "questions": []
-    },
-    "4": {
-      "id": 4,
-      "name": "2024 تكميلية",
-      "subject_id": 2,
-      "questions": []
-    }
+    "11": [],
+    "12": [],
+    "13": []
   },
   "banks": {
-    "1": [
-      {
-        "id": 1,
-        "name": "الإختبار الأول",
-        "is_public": 1,
-        "subject_id": 1
-      },
-      {
-        "id": 2,
-        "name": "الإختبار الثاني",
-        "is_public": 1,
-        "subject_id": 1
-      }
-    ],
-    "2": [
-      {
-        "id": 3,
-        "name": "الإختبار الأول",
-        "is_public": 1,
-        "subject_id": 2
-      },
-      {
-        "id": 4,
-        "name": "الإختبار الثاني",
-        "is_public": 0,
-        "subject_id": 2
-      }
-    ]
-  },
-  "questions_bank": {
-    "1": {
-      "id": 1,
-      "name": "الإختبار الأول",
-      "subject_id": 1,
-      "questions": [
-        {
-          "id": 5,
-          "text": "سؤال بنك",
-          "explain": null,
-          "order_changing": 0,
-          "part_id": null,
-          "unit_id": 5,
-          "lesson_id": null,
-          "image": null,
-          "answers": [
-            {
-              "id": 17,
-              "text": "Damascus",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 18,
-              "text": "Aleppo",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 19,
-              "text": "Homs",
-              "image": null,
-              "is_correct": 1
-            },
-            {
-              "id": 20,
-              "text": "Tartous",
-              "image": null,
-              "is_correct": 0
-            }
-          ]
-        }
-      ]
-    },
-    "2": {
-      "id": 2,
-      "name": "الإختبار الثاني",
-      "subject_id": 1,
-      "questions": [
-        {
-          "id": 4,
-          "text": "What is the capital city in syria?",
-          "explain": null,
-          "order_changing": 0,
-          "part_id": null,
-          "unit_id": 7,
-          "lesson_id": null,
-          "image": null,
-          "answers": [
-            {
-              "id": 13,
-              "text": "Damascus",
-              "image": null,
-              "is_correct": 1
-            },
-            {
-              "id": 14,
-              "text": "Aleppo",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 15,
-              "text": "Homs",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 16,
-              "text": "Tartous",
-              "image": null,
-              "is_correct": 0
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "text": "where is Al-Shahbaa hotel in syria?",
-          "explain": null,
-          "order_changing": 0,
-          "part_id": null,
-          "unit_id": 6,
-          "lesson_id": null,
-          "image": null,
-          "answers": [
-            {
-              "id": 21,
-              "text": "Damascus",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 22,
-              "text": "Aleppo",
-              "image": null,
-              "is_correct": 1
-            },
-            {
-              "id": 23,
-              "text": "Homs",
-              "image": null,
-              "is_correct": 0
-            },
-            {
-              "id": 24,
-              "text": "Lattakia",
-              "image": null,
-              "is_correct": 0
-            }
-          ]
-        }
-      ]
-    },
-    "3": {
-      "id": 3,
-      "name": "الإختبار الأول",
-      "subject_id": 2,
-      "questions": []
-    },
-    "4": {
-      "id": 4,
-      "name": "الإختبار الثاني",
-      "subject_id": 2,
-      "questions": []
-    }
+    "11": [],
+    "12": [],
+    "13": []
   },
   "questions": [
     {
-      "id": 1,
-      "isPublic": 1,
-      "iscourse": 1,
-      "text": "سؤال بارت ",
-      "explain": null,
-      "order_changing": 0,
-      "part_id": 1,
-      "unit_id": null,
+      "id": 35,
+      "status": "",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "explain": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "order_changing": 1,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 42,
       "lesson_id": null,
-      "image": null,
+      "image": "https://auto-sy.com/storage/images/questions/images/questions/QHWJMidj5HGiQkW9bGK8xqRGaUOfxyppD1ARBjNE.png",
       "answers": [
         {
-          "id": 1,
-          "text": "Monako",
-          "image": null,
+          "id": 104,
+          "text": "مقبول",
+          "image": "https://auto-sy.com/storage/images/answers",
           "is_correct": 0
         },
         {
-          "id": 2,
-          "text": "Paris",
-          "image": null,
+          "id": 105,
+          "text": "جيد",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 106,
+          "text": "جيد جداً",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 107,
+          "text": "ممتاز",
+          "image": "https://auto-sy.com/storage/images/answers",
           "is_correct": 1
-        },
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "status": "",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "explain": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "order_changing": 1,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 42,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions",
+      "answers": [
         {
-          "id": 3,
-          "text": "Lille",
-          "image": null,
+          "id": 112,
+          "text": "مقبول",
+          "image": "https://auto-sy.com/storage/images/answers",
           "is_correct": 0
         },
         {
-          "id": 4,
-          "text": "Nice",
-          "image": null,
+          "id": 113,
+          "text": "جيد",
+          "image": "https://auto-sy.com/storage/images/answers",
           "is_correct": 0
         }
       ]
     },
     {
-      "id": 2,
-      "iscourse": 1,
-      "isPublic": 0,
-      "text": "سؤال يونت من البارت",
+      "id": 38,
+      "status": "",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "explain": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 42,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions/images/questions/Zit4DeWKiTOZBA56fux9d4BULFMv10qlkcvHari6.png",
+      "answers": [
+        {
+          "id": 114,
+          "text": "مقبول",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 115,
+          "text": "جيد",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 116,
+          "text": "جيد جداً",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "status": "",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "explain": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 42,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions/images/questions/87iMOcnBR7i7QVN0LpMS6ziyFQgDKM07yEofPlDW.png",
+      "answers": [
+        {
+          "id": 117,
+          "text": "مقبول",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 118,
+          "text": "جيد",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 119,
+          "text": "جيد جداً",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "status": "",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "explain": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 42,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions/images/questions/ShWNCh0AaTJ6kLxX5qYHwW8TyhiuqWWx9wke25Fn.png",
+      "answers": [
+        {
+          "id": 120,
+          "text": "مقبول",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 121,
+          "text": "جيد",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 122,
+          "text": "جيد جداً",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "status": "",
+      "text": "شسطمك",
+      "explain": null,
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 42,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions/images/questions/nli2vehq6nFk0DYTMZC9ScRc5ByLGzHzLWtTrw2g.jpg",
+      "answers": [
+        {
+          "id": 123,
+          "text": "زز",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 124,
+          "text": "مم",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 125,
+          "text": "٠",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "status": "",
+      "text": "أيام معدودات وتظهر نتيجة الثانوية العامة..\r\nرسالتي موجهة لكل من يعرفني ولكل شخص سيصادفني ويسألني كيف كانت نتيجتي؟\r\nأريد أن أخبرك بأنني قضيت سنتين مرمي بين كتبي وأقلامي ودفاتري وملخصاتي وحدي..\r\nوحدي عانيت، و تعبت، و مرضت، و سهرت ليالٍ كثيرة..\r\nهذا يعني بأنك لم تقاسمني أياً من التعب الذي كان نصيبي منه كبير..\r\nلم تكن برفقتي عندما كنت أسهر ليلة أو ليلتين وأنا أعارك في قصيدة ما أو مسألة ما أو نص ما..\r\nلقد كنت وحدي عندما ذهبت إلى الإمتحانات و الاختبارات..\r\nلم تذق مرارة البكالوريا معي.. \r\nلقد كان التوتر والخوف يعتليني وحدي.. \r\nلذلك إن كان في جوفك وعقلك الفارغ بضع كلمات ستؤذي مسمعي بها دعها داخلك لا تخرجها، دعها تؤذي روحك بدلاً من إيذائي.. \r\nعندما تريد ان تأتي إلي لتقول (كان بيطلع معك أكتر من هيك )، (لو شديت شوي كنت جبت مجموع احسن) لا تجي لعندي أحسن..\r\nأنا على يقين أنني بذلت قصارى جهدي أنني فعلت كل ما بوسعي..\r\nو بعد التعب و الجهد كان دعائي - اللهم إن كانت العلامات الفلانية خيراً لي فاكتبها لي يا الله، و إن كانت شرّاً لي فاصرفها عنّي -\r\nلذلك أنا في هذا العام سأكون راضياً مهما كانت علاماتي، و سأردد و أنا كلّي رضا -  الخيرة فيما اختاره الله، و الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ -\r\n\r\nلذلك أكرر قولي إن كنت قادم لتؤذي مسامعي و تميت فرحة نجاحي بكلماتك، لا تأتي..\r\nعندما تصدر النتائج، لا أريد أن أسمع -#فلسفات - و تحليلات عن تقديمي، و عن علاماتي، و كيف أنني طالب معيد و لم أحصل على علامات تامة و كل هذا الهراء الذي تتفننون به...\r\n\r\nأمّا إن كنت قادم لتشاركني فرحتي فأهلاً بك...\r\n\r\nوأنا على يقين بهذه الآية\r\n\"وَ لسوف يُعطيكَ ربك فَترضى \"🫀❤‍🩹",
+      "explain": null,
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 42,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions/images/questions/GsZfkS0Anv9rlqrkumTHsocV2cqy8pfYGGZS6EAj.jpg",
+      "answers": [
+        {
+          "id": 126,
+          "text": "كميا",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "status": "",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "explain": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 42,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions/images/questions/jUWe5AkF6hir7FGo97j7qU6yik8r0Ty8Gq9bNsK1.png",
+      "answers": [
+        {
+          "id": 127,
+          "text": "مقبول",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 128,
+          "text": "جيد",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 129,
+          "text": "جيد جداً",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 1
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "status": "",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "explain": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 42,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions/images/questions/GeHdtXV2dgdbwHHTwvxmpREgSaHIemr7RQaFtq76.png",
+      "answers": [
+        {
+          "id": 130,
+          "text": "مقبول",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 131,
+          "text": "جيد",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 132,
+          "text": "جيد جداً",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 1
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "status": "",
+      "text": "خسائر اللازمة ومطالبة حدة بل. الآخر الحلفاء أن غزو, إجلاء وتنامت عدد مع. لقهر معركة لبلجيكا، بـ انه, ربع الأثنان المقيتة في, اقتصّت المحور حدة و. هذه ما طرفاً عالمية استسلام, الصين وتنامت حين ٣٠, ونتج والحزب المذابح كل جوي. أسر كارثة المشتّتون بل, وبعض وبداية الصفحة غزو قد, أي بحث تعداد الجنوب.\r\n\r\nقصف المسرح واستمر الإتحاد في, ذات أسيا للغزو، الخطّة و, الآخر لألمانيا جهة بل. في سحقت هيروشيما البريطاني يتم, غريمه باحتلال الأيديولوجية، في فصل, دحر وقرى لهيمنة الإيطالية ٣٠. استبدال استسلام القاذفات عل مما. ببعض مئات وبلجيكا، قد أما, قِبل الدنمارك حتى كل, العمليات اليابانية انه أن.",
+      "explain": "خسائر اللازمة ومطالبة حدة بل. الآخر الحلفاء أن غزو, إجلاء وتنامت عدد مع. لقهر معركة لبلجيكا، بـ انه, ربع الأثنان المقيتة في, اقتصّت المحور حدة و. هذه ما طرفاً عالمية استسلام, الصين وتنامت حين ٣٠, ونتج والحزب المذابح كل جوي. أسر كارثة المشتّتون بل, وبعض وبداية الصفحة غزو قد, أي بحث تعداد الجنوب.\r\n\r\nقصف المسرح واستمر الإتحاد في, ذات أسيا للغزو، الخطّة و, الآخر لألمانيا جهة بل. في سحقت هيروشيما البريطاني يتم, غريمه باحتلال الأيديولوجية، في فصل, دحر وقرى لهيمنة الإيطالية ٣٠. استبدال استسلام القاذفات عل مما. ببعض مئات وبلجيكا، قد أما, قِبل الدنمارك حتى كل, العمليات اليابانية انه أن.",
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 42,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions",
+      "answers": [
+        {
+          "id": 135,
+          "text": "مقبول",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 136,
+          "text": "جيد",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "status": "",
+      "text": "⭕ في كل دورة #بكالوريا يشعر الطلاب أن دورتهم أصعب دورة وأنهم #مظلومين ❗❗\r\n\r\nوبالحقيقة كل السنوات نفس الأمور ومن يتعب ويجتهد يأخذ حقهمصدر في تربية دمشق لـ \"الوطن أون لاين\": غداً بعد الظهر تصدر نتائج الاعتراض على نتائج التعليم الأساسي في محافظة دمشق.⭕ #عاااااااااااجل | نتائج اعتراض التاسع ستصدر يوم غد بعد الظهر في تربية دمشق ❤️",
+      "explain": "نن",
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 47,
+      "lesson_id": 5,
+      "image": "https://auto-sy.com/storage/images/questions/images/questions/1jQP2RwKXU2AGKt3iJwu0gWZflqkPxzOC0gGP2l1.jpg",
+      "answers": []
+    },
+    {
+      "id": 48,
+      "status": "",
+      "text": "a result of the substantial scientific and\r\ntechnological development, many branches have\r\nappeared within the specialisation of engineering \r\nin particular, including medical technology \r\nengineering, which is also called biomedical \r\nengineering.\r\nThis field is concerned with studying the body \r\nfrom an engineering point of view, in order to \r\ndesign suitable artificial limbs, organs, or other \r\nmedical devices. Medical technology engineering \r\nhelps doctors define their tasks and facilitates \r\ntheir work more, so the medical device has \r\nbecome an essential assistant for the doctors in all \r\nsteps, starting from diagnosis, to the end of the \r\ntreatment course. Medical devices can be divided \r\ninto two parts, diagnostic medical devices, most \r\nnotably the ultrasound device, and medical \r\ntherapeutic devices used in chemical treatments. \r\nAnother classification includes three categories. \r\nFirstly, we have simple devices such as bandages, \r\nbody temperature meters and others. There are \r\nalso more complex devices that require a certain \r\namount of caution, such as those that emit X-rays. \r\nFinally, there are those which require a deep study \r\nbefore their use, such as the valves used in the \r\nartificial heart, in addition to the artificial joints. \r\nMedical engineers work in many fields like wellequipped\r\nhospitals and clinics in particular, \r\nmedical companies and the advanced major \r\nresearch centers in universities. In the end, \r\nmedical engineers work in cooperation with all \r\ndisciplines, including nursing, medicine, biology, \r\nand other disciplines. In short, it is certain that \r\nthis new branch of engineering has improved \r\nhealthcare to a great exten\r\nmanager said that his mother was smart and quiet. \r\nHe would go to her when having any problem. She \r\nwas able to calm him and discuss problems with him \r\nto find the suitable solution. One more thing, when \r\nhe wanted to decide his future career, his parents \r\ngathered information about administration. They \r\ndiscussed that with their son and helped him take the \r\nright decision. He believed that without motivation, a \r\nperson wouldn't have any desire to pursue greatness.\r\n7. The manager's parents had a positive influenc",
+      "explain": "⭕ #عااااااااجل | صدور نتائج اعتراضات الصف التاسع في محافظة دمشق 2024",
+      "order_changing": 1,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 47,
+      "lesson_id": 5,
+      "image": "https://auto-sy.com/storage/images/questions",
+      "answers": []
+    },
+    {
+      "id": 49,
+      "status": "",
+      "text": "a result of the substantial scientific and\r\ntechnological development, many branches have\r\nappeared within the specialisation of engineering \r\nin particular, including medical technology \r\nengineering, which is also called biomedical \r\nengineering.\r\nThis field is concerned with studying the body \r\nfrom an engineering point of view, in order to \r\ndesign suitable artificial limbs, organs, or other \r\nmedical devices. Medical technology engineering \r\nhelps doctors define their tasks and facilitates \r\ntheir work more, so the medical device has \r\nbecome an essential assistant for the doctors in all \r\nsteps, starting from diagnosis, to the end of the \r\ntreatment course. Medical devices can be divided \r\ninto two parts, diagnostic medical devices, most \r\nnotably the ultrasound device, and medical \r\ntherapeutic devices used in chemical treatments. \r\nAnother classification includes three categories. \r\nFirstly, we have simple devices such as bandages, \r\nbody temperature meters and others. There are \r\nalso more complex devices that require a certain \r\namount of caution, such as those that emit X-rays. \r\nFinally, there are those which require a deep study \r\nbefore their use, such as the valves used in the \r\nartificial heart, in addition to the artificial joints. \r\nMedical engineers work in many fields like wellequipped\r\nhospitals and clinics in particular, \r\nmedical companies and the advanced major \r\nresearch centers in universities. In the end, \r\nmedical engineers work in cooperation with all \r\ndisciplines, including nursing, medicine, biology, \r\nand other disciplines. In short, it is certain that \r\nthis new branch of engineering has improved \r\nhealthcare to a great exten\r\nmanager said that his mother was smart and quiet. \r\nHe would go to her when having any problem. She \r\nwas able to calm him and discuss problems with him \r\nto find the suitable solution. One more thing, when \r\nhe wanted to decide his future career, his parents \r\ngathered information about administration. They \r\ndiscussed that with their son and helped him take the \r\nright decision. He believed that without motivation, a \r\nperson wouldn't have any desire to pursue greatness.\r\n7. The manager's parents had a positive influenc",
+      "explain": "⭕ #عااااااااجل | صدور نتائج اعتراضات الصف التاسع في محافظة دمشق 2024",
+      "order_changing": 1,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 47,
+      "lesson_id": 5,
+      "image": "https://auto-sy.com/storage/images/questions",
+      "answers": []
+    },
+    {
+      "id": 50,
+      "status": "",
+      "text": "a result of the substantial scientific and\r\ntechnological development, many branches have\r\nappeared within the specialisation of engineering \r\nin particular, including medical technology \r\nengineering, which is also called biomedical \r\nengineering.\r\nThis field is concerned with studying the body \r\nfrom an engineering point of view, in order to \r\ndesign suitable artificial limbs, organs, or other \r\nmedical devices. Medical technology engineering \r\nhelps doctors define their tasks and facilitates \r\ntheir work more, so the medical device has \r\nbecome an essential assistant for the doctors in all \r\nsteps, starting from diagnosis, to the end of the \r\ntreatment course. Medical devices can be divided \r\ninto two parts, diagnostic medical devices, most \r\nnotably the ultrasound device, and medical \r\ntherapeutic devices used in chemical treatments. \r\nAnother classification includes three categories. \r\nFirstly, we have simple devices such as bandages, \r\nbody temperature meters and others. There are \r\nalso more complex devices that require a certain \r\namount of caution, such as those that emit X-rays. \r\nFinally, there are those which require a deep study \r\nbefore their use, such as the valves used in the \r\nartificial heart, in addition to the artificial joints. \r\nMedical engineers work in many fields like wellequipped\r\nhospitals and clinics in particular, \r\nmedical companies and the advanced major \r\nresearch centers in universities. In the end, \r\nmedical engineers work in cooperation with all \r\ndisciplines, including nursing, medicine, biology, \r\nand other disciplines. In short, it is certain that \r\nthis new branch of engineering has improved \r\nhealthcare to a great exten\r\nmanager said that his mother was smart and quiet. \r\nHe would go to her when having any problem. She \r\nwas able to calm him and discuss problems with him \r\nto find the suitable solution. One more thing, when \r\nhe wanted to decide his future career, his parents \r\ngathered information about administration. They \r\ndiscussed that with their son and helped him take the \r\nright decision. He believed that without motivation, a \r\nperson wouldn't have any desire to pursue greatness.\r\n7. The manager's parents had a positive influenc",
+      "explain": "a result of the substantial scientific and\r\ntechnological development, many branches have\r\nappeared within the specialisation of engineering \r\nin particular, including medical technology \r\nengineering, which is also called biomedical \r\nengineering.\r\nThis field is concerned with studying the body \r\nfrom an engineering point of view, in order to \r\ndesign suitable artificial limbs, organs, or other \r\nmedical devices. Medical technology engineering \r\nhelps doctors define their tasks and facilitates \r\ntheir work more, so the medical device has \r\nbecome an essential assistant for the doctors in all \r\nsteps, starting from diagnosis, to the end of the \r\ntreatment course. Medical devices can be divided \r\ninto two parts, diagnostic medical devices, most \r\nnotably the ultrasound device, and medical \r\ntherapeutic devices used in chemical treatments. \r\nAnother classification includes three categories. \r\nFirstly, we have simple devices such as bandages, \r\nbody temperature meters and others. There are \r\nalso more complex devices that require a certain \r\namount of caution, such as those that emit X-rays. \r\nFinally, there are those which require a deep study \r\nbefore their use, such as the valves used in the \r\nartificial heart, in addition to the artificial joints. \r\nMedical engineers work in many fields like wellequipped\r\nhospitals and clinics in particular, \r\nmedical companies and the advanced major \r\nresearch centers in universities. In the end, \r\nmedical engineers work in cooperation with all \r\ndisciplines, including nursing, medicine, biology, \r\nand other disciplines. In short, it is certain that \r\nthis new branch of engineering has improved \r\nhealthcare to a great exten\r\nmanager said that his mother was smart and quiet. \r\nHe would go to her when having any problem. She \r\nwas able to calm him and discuss problems with him \r\nto find the suitable solution. One more thing, when \r\nhe wanted to decide his future career, his parents \r\ngathered information about administration. They \r\ndiscussed that with their son and helped him take the \r\nright decision. He believed that without motivation, a \r\nperson wouldn't have any desire to pursue greatness.\r\n7. The manager's parents had a positive influenc",
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 45,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions",
+      "answers": [
+        {
+          "id": 137,
+          "text": "مقبول",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 138,
+          "text": "جيد",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 139,
+          "text": "جيد جداً",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 1
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "status": "",
+      "text": "a result of the substantial scientific and\r\ntechnological development, many branches have\r\nappeared within the specialisation of engineering \r\nin particular, including medical technology \r\nengineering, which is also called biomedical \r\nengineering.\r\nThis field is concerned with studying the body \r\nfrom an engineering point of view, in order to \r\ndesign suitable artificial limbs, organs, or other \r\nmedical devices. Medical technology engineering \r\nhelps doctors define their tasks and facilitates \r\ntheir work more, so the medical device has \r\nbecome an essential assistant for the doctors in all \r\nsteps, starting from diagnosis, to the end of the \r\ntreatment course. Medical devices can be divided \r\ninto two parts, diagnostic medical devices, most \r\nnotably the ultrasound device, and medical \r\ntherapeutic devices used in chemical treatments. \r\nAnother classification includes three categories. \r\nFirstly, we have simple devices such as bandages, \r\nbody temperature meters and others. There are \r\nalso more complex devices that require a certain \r\namount of caution, such as those that emit X-rays. \r\nFinally, there are those which require a deep study \r\nbefore their use, such as the valves used in the \r\nartificial heart, in addition to the artificial joints. \r\nMedical engineers work in many fields like wellequipped\r\nhospitals and clinics in particular, \r\nmedical companies and the advanced major \r\nresearch centers in universities. In the end, \r\nmedical engineers work in cooperation with all \r\ndisciplines, including nursing, medicine, biology, \r\nand other disciplines. In short, it is certain that \r\nthis new branch of engineering has improved \r\nhealthcare to a great exten\r\nmanager said that his mother was smart and quiet. \r\nHe would go to her when having any problem. She \r\nwas able to calm him and discuss problems with him \r\nto find the suitable solution. One more thing, when \r\nhe wanted to decide his future career, his parents \r\ngathered information about administration. They \r\ndiscussed that with their son and helped him take the \r\nright decision. He believed that without motivation, a \r\nperson wouldn't have any desire to pursue greatness.\r\n7. The manager's parents had a positive influenc",
+      "explain": "#عاجل || أسماء كامل الطلاب المستفيدين من نتيجة الاعتراض لطلاب شهادة التعليم الأساسي في محافظة دير الزور\r\n\r\n#سويزانا_التعليمية",
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 47,
+      "lesson_id": 5,
+      "image": "https://auto-sy.com/storage/images/questions",
+      "answers": [
+        {
+          "id": 140,
+          "text": "#عاجل || أسماء كامل الطلاب المستفيدين من نتيجة الاعتراض لطلاب شهادة التعليم الأساسي في محافظة دير الزور  #سويزانا_التعليمية",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 141,
+          "text": "#عاااااااااااجل | مدير المركز الوطني للزلازل : هذه الهزة يمكن أن تكون ممهدة لهزة أقوى على المدى المتوسط 💔",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 142,
+          "text": "رياضيات",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "status": "",
+      "text": "manager said that his mother was smart and quiet. \r\nHe would go to her when having any problem. She \r\nwas able to calm him and discuss problems with him \r\nto find the suitable solution. One more thing, when \r\nhe wanted to decide his future career, his parents \r\ngathered information about administration. They \r\ndiscussed that with their son and helped him take the \r\nright decision. He believed that without motivation, a \r\nperson wouldn't have any desire to pursue greatness.\r\n7. The manager's parents had a positive influenca result of the substantial scientific and\r\ntechnological development, many branches have\r\nappeared within the specialisation of engineering \r\nin particular, including medical technology \r\nengineering, which is also called biomedical \r\nengineering.\r\nThis field is concerned with studying the body \r\nfrom an engineering point of view, in order to \r\ndesign suitable artificial limbs, organs, or other \r\nmedical devices. Medical technology engineering \r\nhelps doctors define their tasks and facilitates \r\ntheir work more, so the medical device has \r\nbecome an essential assistant for the doctors in all \r\nsteps, starting from diagnosis, to the end of the \r\ntreatment course. Medical devices can be divided \r\ninto two parts, diagnostic medical devices, most \r\nnotably the ultrasound device, and medical \r\ntherapeutic devices used in chemical treatments. \r\nAnother classification includes three categories. \r\nFirstly, we have simple devices such as bandages, \r\nbody temperature meters and others. There are \r\nalso more complex devices that require a certain \r\namount of caution, such as those that emit X-rays. \r\nFinally, there are those which require a deep study \r\nbefore their use, such as the valves used in the \r\nartificial heart, in addition to the artificial joints. \r\nMedical engineers work in many fields like wellequipped\r\nhospitals and clinics in particular, \r\nmedical companies and the advanced major \r\nresearch centers in universities. In the end, \r\nmedical engineers work in cooperation with all \r\ndisciplines, including nursing, medicine, biology, \r\nand other disciplines. In short, it is certain that \r\nthis new branch of engineering has improved \r\nhealthcare to a great exten",
+      "explain": "ححخاثزثحللزيكصذثوليكسذسظيز وةلل",
+      "order_changing": 0,
+      "subject_id": 16,
+      "part_id": null,
+      "unit_id": 48,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions/images/questions/lXus1SxxyZaKjsJsynzxSd3aOEPCWQjUXFDOHUfZ.jpg",
+      "answers": [
+        {
+          "id": 143,
+          "text": "ننطز",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 144,
+          "text": "ز",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        },
+        {
+          "id": 145,
+          "text": "ة",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "status": "",
+      "text": "‏\"من تعود على تأخير الصلاة ،فليتهيأ للتأخير في كُل أمور حياته، زواج ،وظيفة، ذُرية ، عافية ، بقدر ماتتعدل صلاتك تتعدل حياتك .\r\nألم تعلم أن الصلاة اقترنت بالفلاح “حي على الصلاة حي على الفلاح”فكيف تطلب من الله التوفيق وأنت لحقه غير مجيب!\r\nرب اجعلني مقيم الصلاة ومن ذريتي ربنا وتقبل دعاء.\"",
+      "explain": "{وَكَانَ أَبُوهُمَا صَـٰلِحࣰا }\r\n\r\nماذا كان بينه وبين الله ؟؟\r\n\r\nوما كانت درجة صلاح هذا الأب حتى جاء الله بنبيين حتى يُقيموا الجدار لحفظ مال أولاده؟\r\n\r\nاللهم أصلحنا صلاحًا يُرضيك عنّا",
+      "order_changing": 0,
+      "subject_id": 15,
+      "part_id": null,
+      "unit_id": 42,
+      "lesson_id": null,
+      "image": "https://auto-sy.com/storage/images/questions/images/questions/HRLCTFUL9OVKxb6CFhlM1ShvfKDgF034KiSmm3ie.jpg",
+      "answers": [
+        {
+          "id": 146,
+          "text": "اذكر ما اسم ❌️مكان اصطناع النشاء الاولي 📌مكان البلزمة 📌اسم مكان يحتوي حبيبات نشاء  ❌️اللون التحمر للقليفة الخضراء عرف ✅️نشاء ✅️قشرين صف  ✅️حبيات النشاء في البطاطا ️✅️✅️بلورات في اللبلاب ✅️فلين في الخبيزة  علل  ✅️تسمية حاملات الصبغة ✅️خلايا السم",
+          "image": "https://auto-sy.com/storage/images/answers",
+          "is_correct": 0
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "status": "",
+      "text": "تم",
       "explain": null,
       "order_changing": 1,
-      "part_id": 1,
-      "unit_id": 20,
-      "lesson_id": 20,
-      "image": null,
-      "answers": [
-        {
-          "id": 5,
-          "text": "Paris",
-          "image": "path/to/image2.jpg",
-          "is_correct": 0
-        },
-        {
-          "id": 6,
-          "text": "Atlantic Ocean",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 7,
-          "text": "Pacific Ocean",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 8,
-          "text": "Hindy Ocean",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "text": "What is the biggest governorate in syria?",
-      "isPublic": 1,
-      "explain": null,
-      "order_changing": 0,
+      "subject_id": 16,
       "part_id": null,
-      "unit_id": 5,
+      "unit_id": 48,
       "lesson_id": null,
-      "image": null,
+      "image": "https://auto-sy.com/storage/images/questions",
       "answers": [
         {
-          "id": 9,
-          "text": "Damascus",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 10,
-          "text": "Aleppo",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 11,
-          "text": "Homs",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 12,
-          "text": "Tartous",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "text": "سؤال ليسون من يونت",
-      "isPublic": 1,
-      "explain": null,
-      "order_changing": 0,
-      "part_id": null,
-      "unit_id": 7,
-      "lesson_id": 20,
-      "image": null,
-      "answers": [
-        {
-          "id": 13,
-          "text": "Damascus",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 14,
-          "text": "Aleppo",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 15,
-          "text": "Homs",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 16,
-          "text": "Tartous",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "text": "where is Al-Hadara street in syria?",
-      "isPublic": 1,
-      "explain": null,
-      "order_changing": 0,
-      "part_id": null,
-      "unit_id": 5,
-      "lesson_id": 20,
-      "image": null,
-      "answers": [
-        {
-          "id": 17,
-          "text": "Damascus",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 18,
-          "text": "Aleppo",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 19,
-          "text": "Homs",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 20,
-          "text": "Tartous",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "text": "where is Al-Shahbaa hotel in syria?",
-      "isPublic": 1,
-      "explain": null,
-      "order_changing": 0,
-      "part_id": null,
-      "unit_id": 6,
-      "lesson_id": null,
-      "image": null,
-      "answers": [
-        {
-          "id": 21,
-          "text": "Damascus",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 22,
-          "text": "Aleppo",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 23,
-          "text": "Homs",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 24,
-          "text": "Lattakia",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 201,
-      "text": "سؤال دورة ..",
-      "isPublic": 1,
-      "explain": null,
-      "order_changing": 0,
-      "part_id": null,
-      "unit_id": 1,
-      "lesson_id": null,
-      "image": null,
-      "answers": [
-        {
-          "id": 1,
-          "text": "Monako",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 2,
-          "text": "Paris",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 3,
-          "text": "Lille",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 4,
-          "text": "Nice",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 202,
-      "text": "سؤال دورة ..",
-      "isPublic": 1,
-      "explain": null,
-      "order_changing": 0,
-      "part_id": null,
-      "unit_id": 1,
-      "lesson_id": null,
-      "image": null,
-      "answers": [
-        {
-          "id": 1,
-          "text": "Monako",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 2,
-          "text": "Paris",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 3,
-          "text": "Lille",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 4,
-          "text": "Nice",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 203,
-      "text": "سؤال دورة ..",
-      "isPublic": 1,
-      "explain": null,
-      "order_changing": 0,
-      "part_id": null,
-      "unit_id": 1,
-      "lesson_id": null,
-      "image": null,
-      "answers": [
-        {
-          "id": 1,
-          "text": "Monako",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 2,
-          "text": "Paris",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 3,
-          "text": "Lille",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 4,
-          "text": "Nice",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 204,
-      "text": "سؤال دورة ..",
-      "isPublic": 1,
-      "explain": null,
-      "order_changing": 0,
-      "part_id": null,
-      "unit_id": 1,
-      "lesson_id": null,
-      "image": null,
-      "answers": [
-        {
-          "id": 1,
-          "text": "Monako",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 2,
-          "text": "Paris",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 3,
-          "text": "Lille",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 4,
-          "text": "Nice",
-          "image": null,
-          "is_correct": 0
-        }
-      ]
-    },
-    {
-      "id": 205,
-      "text": "سؤال دورة ..",
-      "isPublic": 1,
-      "explain": null,
-      "order_changing": 0,
-      "part_id": null,
-      "unit_id": 1,
-      "lesson_id": null,
-      "image": null,
-      "answers": [
-        {
-          "id": 1,
-          "text": "Monako",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 2,
-          "text": "Paris",
-          "image": null,
-          "is_correct": 1
-        },
-        {
-          "id": 3,
-          "text": "Lille",
-          "image": null,
-          "is_correct": 0
-        },
-        {
-          "id": 4,
-          "text": "Nice",
-          "image": null,
+          "id": 147,
+          "text": "ت",
+          "image": "https://auto-sy.com/storage/images/answers",
           "is_correct": 0
         }
       ]
     }
   ],
-  "notes": [
+  "notes": [],
+  "sliders": [
     {
-      "text": "test",
-      "user_id": 2,
-      "question_id": 4
+      "image": "https://auto-sy.com/storage/images/sliders/1720311519.jpg"
     },
     {
-      "text": "test 2",
-      "user_id": 1,
-      "question_id": 2
+      "image": "https://auto-sy.com/storage/images/sliders/1720992828.jpg"
+    },
+    {
+      "image": "https://auto-sy.com/storage/images/sliders/1724152851.jpg"
+    },
+    {
+      "image": "https://auto-sy.com/storage/images/sliders/1724153020.jpg"
     }
   ],
-  "sliders": [],
   "cities": [
     {
       "id": 1,
@@ -1369,12 +629,20 @@
     {
       "id": 7,
       "name": "دير الزور"
+    },
+    {
+      "id": 8,
+      "name": "الحسكة"
+    },
+    {
+      "id": 9,
+      "name": "الرقة"
     }
   ],
   "libraries": [
     {
       "id": 1,
-      "name": "مكتبة النجاح",
+      "name": "النجاح",
       "city_id": 1
     },
     {
@@ -1401,6 +669,16 @@
       "id": 6,
       "name": "مكتبة التميز",
       "city_id": 5
+    },
+    {
+      "id": 7,
+      "name": "الطالب العربي",
+      "city_id": 4
+    },
+    {
+      "id": 8,
+      "name": "كشاف",
+      "city_id": 2
     }
   ]
 }

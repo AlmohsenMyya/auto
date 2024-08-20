@@ -3,6 +3,7 @@ import 'package:auto/core/services/base_controller.dart';
 import 'package:auto/ui/views/login_screen/login_view.dart';
 import 'package:auto/ui/views/wellcom_screen/wellcom_screen.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/data/repositories/read_all_models.dart';
 import '../subscription_screen/subscription_view.dart';
@@ -13,6 +14,8 @@ class SplashController extends BaseController {
 
     Future.delayed(const Duration(seconds: 3)).then((value) async {
 
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setBool('isSubscribing', true);
       print("SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository().getFirstLanuch()}");
       if (SharedPreferenceRepository().getFirstLanuch()){
         print("SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository().getFirstLanuch()}");
@@ -22,7 +25,7 @@ class SplashController extends BaseController {
       }else{
         print("SharedPreferenceRepository().getFirstLanuch() --/ ${SharedPreferenceRepository().getFirstLanuch()}");
         if (SharedPreferenceRepository().getIsLoggedIn()){
-          Get.to(() => const SubscriptionView());
+          Get.to(() =>  SubscriptionView());
         }else{
         Get.to(() => const LoginView());}
       }
