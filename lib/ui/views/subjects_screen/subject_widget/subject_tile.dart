@@ -12,7 +12,8 @@ import '../../../../core/data/models/local_json/all_models.dart';
 class SubjectTile extends StatelessWidget {
   Subject subject;
   Branch branch;
-  SubjectTile({super.key,required this.branch, required this.subject});
+
+  SubjectTile({super.key, required this.branch, required this.subject});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class SubjectTile extends StatelessWidget {
               border: Border.all(
                   color: Theme.of(context).colorScheme.primary, width: 2.w)),
           child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            CustomNetworkImage(ImageConst.subjectImageConst,
+            CustomNetworkImage(subject.image ?? ImageConst.subjectImageConst,
                 boxFit: BoxFit.cover, width: 69.w),
             SizedBox(
               width: 10.w,
@@ -55,7 +56,8 @@ class SubjectTile extends StatelessWidget {
                           // fontFamily: 'Alexandria',
                           fontWeight: FontWeight.w500))
                 ])),
-            Spacer(),  IconButton(
+            Spacer(),
+            IconButton(
               onPressed: () {
                 showDialog(
                   context: context,
