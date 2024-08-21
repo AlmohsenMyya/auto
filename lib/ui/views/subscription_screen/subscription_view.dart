@@ -231,37 +231,37 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                     const SizedBox(
                       height: 20,
                     ),
-                    InkWell(
-                      borderRadius: BorderRadius.circular(screenWidth(10)),
-                      splashColor: AppColors.blueB4,
-                      onTap: () {
-                        Get.to(CoursesQuestionsView(
-                          isFavorite: true,
-                          id_course_bank_lesson_unite: -1,
-                          coursName: "الأسئلة المفضلة",
-                          subjectName: "",
-                          type: "0",
-                        )); // توجيه إلى صفحة الأسئلة المفضلة
-                      },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.favorite,
-                            color: AppColors.mainWhiteColor,
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          CustomText(
-                            textType: TextStyleType.custom,
-                            text: "الأسئلة المفضلة",
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    // InkWell(
+                    //   borderRadius: BorderRadius.circular(screenWidth(10)),
+                    //   splashColor: AppColors.blueB4,
+                    //   onTap: () {
+                    //     Get.to(CoursesQuestionsView(
+                    //       isFavorite: true,
+                    //       id_course_bank_lesson_unite: -1,
+                    //       coursName: "الأسئلة المفضلة",
+                    //       subjectName: "",
+                    //       type: "0",
+                    //     )); // توجيه إلى صفحة الأسئلة المفضلة
+                    //   },
+                    //   child: Row(
+                    //     children: [
+                    //       Icon(
+                    //         Icons.favorite,
+                    //         color: AppColors.mainWhiteColor,
+                    //       ),
+                    //       const SizedBox(
+                    //         width: 20,
+                    //       ),
+                    //       CustomText(
+                    //         textType: TextStyleType.custom,
+                    //         text: "الأسئلة المفضلة",
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
                     InkWell(
                       borderRadius: BorderRadius.circular(screenWidth(10)),
                       splashColor: AppColors.blueB4,
