@@ -72,7 +72,8 @@ dependencies:
   showcaseview: ^3.0.0
   firebase_dynamic_links:
   audioplayers:
-
+  html: ^0.15.4
+  youtube_player_flutter: ^8.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

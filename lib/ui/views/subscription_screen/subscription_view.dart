@@ -18,6 +18,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import '../../shared/custom_widgets/subscrib_new_subject_button.dart';
 import '../courses_questions_screen/courses_questions_view.dart';
+import '../explanation_screen/explanation_screen.dart';
 import '../login_screen/login_view.dart';
 import '../wellcom_screen/about_view.dart';
 import '../wellcom_screen/developers_view.dart';
@@ -224,6 +225,33 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                           CustomText(
                             textType: TextStyleType.custom,
                             text: "تواصل معنا ",
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+                    InkWell(
+                      borderRadius: BorderRadius.circular(screenWidth(10)),
+                      splashColor: AppColors.blueB4,
+                      onTap: () {
+                        Get.to(
+                            ExplanationPage()); // توجيه إلى صفحة الأسئلة المفضلة
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.info_outline,
+                            color: AppColors.mainWhiteColor,
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          CustomText(
+                            textType: TextStyleType.custom,
+                            text: " شرح التطبيق ",
                           ),
                         ],
                       ),
