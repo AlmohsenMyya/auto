@@ -41,21 +41,25 @@ class ContactScreen extends StatelessWidget {
                 "assets/images/logo.png",
                 height: 200,
               ),
-              SizedBox(height: 20),
+
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Center(child: Text("بالنقر على ايقونات التواصل يمكنك مباشرة الانتقال لصفحاتنا وقنواتنا: "),),
+              ),
               ContactItem(
                 iconPath: 'assets/images/facebook.png',
-                text: 'بكلوريا سوريا ',
-                url: 'https://www.facebook.com/profile.php?id=61554686086475',
+                text: 'تطبيق Auto _ أتمتة بكالوريا',
+                url: 'https://www.facebook.com/profile.php?id=61559135669873&mibextid=ZbWKwL',
               ),
               ContactItem(
                 iconPath: 'assets/images/whats.png',
-                text: '0939480039',
+                text: 'رقم الواتساب : 0939480039',
                 url: 'https://wa.me/0939480039',
               ),
               ContactItem(
                 iconPath: 'assets/images/youtube.png',
-                text: 'autosyr@gmail.com',
-                url: 'mailto:autosyr@gmail.com',
+                text: 'تطبيق Auto _ أتمتة بكالوريا',
+                url: 'https://youtube.com/@auto-cm5jd?si=XwR283k0VEVR_tG-',
               ),
               ContactItem(
                 iconPath: 'assets/images/tel.png',

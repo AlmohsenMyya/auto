@@ -7,6 +7,8 @@ import 'package:auto/ui/shared/my_images.dart';
 import 'package:auto/ui/shared/utils.dart';
 import 'package:auto/ui/views/login_screen/login_controller.dart';
 import 'package:auto/ui/views/subscription_screen/subscription_view.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
@@ -29,6 +31,7 @@ class _LoginViewState extends State<LoginView> {
   final String baseUrl = "https://auto-sy.com/api";
   bool _isLoading = false;
   bool isLoggedIn = SharedPreferenceRepository().getIsLoggedIn();
+
   Future<void> login(String muid) async {
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
@@ -38,7 +41,13 @@ class _LoginViewState extends State<LoginView> {
       return;
     }
 
-    final url = Uri.parse('$baseUrl/login?muid=$muid');
+    await Firebase.initializeApp();
+
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? fcmToken = await messaging.getToken();
+    print(
+        'FCM Token: $fcmToken ... $baseUrl/login?muid=$muid&fcm_token=$fcmToken');
+    final url = Uri.parse('$baseUrl/login?muid=$muid&fcm_token=$fcmToken');
     setState(() {
       _isLoading = true;
     });
@@ -51,31 +60,49 @@ class _LoginViewState extends State<LoginView> {
 
         String accessToken = data['access_token'];
         String tokenType = data['token_type'];
-        int branchId = data['branch_id'];
+        int code_id = data['user_id'];
+        if (data['branches'] == null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Center(child: Text('branch_id is null !!'))),
+          );
+          return;
+        }
+
+        // تحويل القيم من int إلى String بشكل صحيح
+        List<String> branchIds =
+            data['branches'].map<String>((id) => id.toString()).toList();
 
         // Save to SharedPreferences
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('access_token', accessToken);
         await prefs.setString('token_type', tokenType);
-        List<String> mybranchIds = await prefs.getStringList('my_branchs_id') ?? [];
-        mybranchIds.add(branchId.toString());
+        await prefs.setString("code_id", code_id.toString());
+        List<String> mybranchIds = prefs.getStringList('my_branchs_id') ?? [];
+        print("jknkdjcn $mybranchIds");
+        mybranchIds.addAll(branchIds + mybranchIds);
+        print("jknkdjcn $branchIds");
         await prefs.setStringList('my_branchs_id', mybranchIds);
+
         SharedPreferenceRepository().setIsLoggedIN(true);
-        Get.to(() =>  SubscriptionView());
+        Get.to(() => SubscriptionView());
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('تم الاشتراك بنجاح')),
         );
         print('Login successful');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('فشل في تسجيل الدخول: ${response.statusCode}')),
+          SnackBar(
+              content: Text('فشل في تسجيل الدخول: ${response.statusCode}')),
         );
         print('Failed to login: ${response.statusCode}');
       }
     } catch (e) {
       print('Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(' حدث خطأ أثناء تسجيل الدخول تأكد من اتصالك بالانترنت')),
+        SnackBar(
+            content:
+                Text('حدث خطأ أثناء تسجيل الدخول تأكد من اتصالك بالانترنت')),
       );
     } finally {
       setState(() {
@@ -138,8 +165,8 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   Padding(
-                    padding:
-                    const EdgeInsetsDirectional.only(top: 20, start: 10, end: 10, bottom: 20),
+                    padding: const EdgeInsetsDirectional.only(
+                        top: 20, start: 10, end: 10, bottom: 20),
                     child: CustomTextField(
                       hintText: "الكود الخاص بك",
                       controller: controller.codeController,
@@ -150,41 +177,46 @@ class _LoginViewState extends State<LoginView> {
                   _isLoading
                       ? CircularProgressIndicator()
                       : CustomButton(
-                    text: "تأكيد",
-                    onPressed: () {
-                      if (controller.formKey.currentState!.validate()) {
-                        login(controller.codeController.text);
-                      }
-                    },
-                    widthButton: 3,
-                    circularBorder: screenWidth(10),
-                  ),
+                          text: "تأكيد",
+                          onPressed: () {
+                            if (controller.formKey.currentState!.validate()) {
+                              login(controller.codeController.text);
+                            }
+                          },
+                          widthButton: 3,
+                          circularBorder: screenWidth(10),
+                        ),
                   const SizedBox(
                     height: 50,
                   ),
-                  isLoggedIn? SizedBox():
-                  const Padding(
-                    padding: EdgeInsetsDirectional.symmetric(horizontal: 10),
-                    child: CustomText(
-                      textType: TextStyleType.custom,
-                      text: "أو يمكنك المتابعة كزائر",
-                      textColor: AppColors.mainBlackColor,
-                    ),
-                  ),
-                  isLoggedIn? SizedBox():
-                  TextButton(
-                    onPressed: () async {
-                      Get.to(() =>  SubscriptionView(isVistor: true,));
-                    },
-                    child: const CustomText(
-                      textType: TextStyleType.custom,
-                      text: "المتابعة كزائر",
-                      textColor: AppColors.blueB4,
-                      textDecoration: TextDecoration.underline,
-                      decorationThickness: 2,
-                      decorationColor: AppColors.blueB4,
-                    ),
-                  )
+                  isLoggedIn
+                      ? SizedBox()
+                      : const Padding(
+                          padding:
+                              EdgeInsetsDirectional.symmetric(horizontal: 10),
+                          child: CustomText(
+                            textType: TextStyleType.custom,
+                            text: "أو يمكنك المتابعة كزائر",
+                            textColor: AppColors.mainBlackColor,
+                          ),
+                        ),
+                  isLoggedIn
+                      ? SizedBox()
+                      : TextButton(
+                          onPressed: () async {
+                            Get.to(() => SubscriptionView(
+                                  isVistor: true,
+                                ));
+                          },
+                          child: const CustomText(
+                            textType: TextStyleType.custom,
+                            text: "المتابعة كزائر",
+                            textColor: AppColors.blueB4,
+                            textDecoration: TextDecoration.underline,
+                            decorationThickness: 2,
+                            decorationColor: AppColors.blueB4,
+                          ),
+                        )
                 ].animate(interval: 50.ms).scale(delay: 300.ms),
               ),
             ),

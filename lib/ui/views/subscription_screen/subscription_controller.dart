@@ -43,6 +43,7 @@ class SubscriptionController extends BaseController {
     }
 
     isLoading.value = false;
+    update();
   }
 
   @override

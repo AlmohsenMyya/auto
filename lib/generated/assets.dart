@@ -13,6 +13,7 @@ class Assets {
   static const String fontsAlexandriaThin = 'assets/fonts/Alexandria-Thin.ttf';
   static const String imagesAbd = 'assets/images/abd.jpg';
   static const String imagesAlmohsen = 'assets/images/almohsen.jpg';
+  static const String imagesCodeIcon = 'assets/images/code_icon.png';
   static const String imagesFacebook = 'assets/images/facebook.gif';
   static const String imagesIconApp = 'assets/images/icon_app.png';
   static const String imagesLinkedin = 'assets/images/linkedin.gif';

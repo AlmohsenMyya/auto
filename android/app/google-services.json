@@ -1,26 +1,36 @@
 {
   "project_info": {
-    "project_number": "526450096754",
-    "project_id": "auto-2b136",
-    "storage_bucket": "auto-2b136.appspot.com"
+    "project_number": "770197421753",
+    "project_id": "laravel-firebase-b4582",
+    "storage_bucket": "laravel-firebase-b4582.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:526450096754:android:9ad270e97f2f484f0020eb",
+        "mobilesdk_app_id": "1:770197421753:android:4ddcb6f8ab7226ac91e568",
         "android_client_info": {
           "package_name": "com.example.auto"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "770197421753-2b7v83fgqojsf20t0k1duuhcdm3fe29s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAMwBseB5Bb5MPuyPXoikJBb4pDTkM0iQY"
+          "current_key": "AIzaSyCZQdGbUcq0nUKpAH7sj0NTmzfd5DiCxEg"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770197421753-2b7v83fgqojsf20t0k1duuhcdm3fe29s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

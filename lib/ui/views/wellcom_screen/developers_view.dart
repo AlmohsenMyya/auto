@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 class DevelopersPage extends StatelessWidget {
   final List<Developer> developers = [
     Developer(
-      name: 'ِAbdulrahman Al-Helou',
+      name: 'Abdulrahman Al-Helou',
       image: 'assets/images/abd.jpg',
       description:
           'Software Engineer | Full-stack Web developer | back end Laravel developer | helping clients building scalable and reliable solutions',
@@ -19,22 +19,22 @@ class DevelopersPage extends StatelessWidget {
       name: 'Almohsen Myya',
       image: 'assets/images/almohsen.jpg',
       description:
-          'Mobile Application Developer | Software Engineer | Passionate about Project Management and Team Leadership | Transforming Ideas into Reality',
+          ' Software Engineer | Mobile Application Developer | Laravel Developer | Passionate about Project Management and Team Leadership | Transforming Ideas into Reality',
       facebook:
           'https://www.facebook.com/profile.php?id=61551818735379&mibextid=ZbWKwL',
       linkedin:
           'https://www.linkedin.com/in/almohsen-myya-79230022b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
       whatsapp: '+963996367749',
     ),
-    Developer(
-      name: 'Optimized Engineer ',
-      image: 'assets/images/mia_photo.jpg',
-      description:
-          'Software Engineer passionate about creating innovative solutions.',
-      facebook: 'https://www.facebook.com/mia',
-      linkedin: 'https://www.linkedin.com/in/mia',
-      whatsapp: '123456789',
-    ),
+    // Developer(
+    //   name: 'Optimized Engineer ',
+    //   image: 'assets/images/mia_photo.jpg',
+    //   description:
+    //       'Software Engineer passionate about creating innovative solutions.',
+    //   facebook: 'https://www.facebook.com/mia',
+    //   linkedin: 'https://www.linkedin.com/in/mia',
+    //   whatsapp: '123456789',
+    // ),
 
     // Add more developers here if needed
   ];
@@ -59,11 +59,18 @@ class DevelopersPage extends StatelessWidget {
               height: 20,
             ),
             DeveloperListItem(developer: developers[0]),
+            SizedBox(
+              height: 20,
+            ),
             DeveloperListItem(developer: developers[1]),
-            DeveloperListItem(developer: developers[2]),
+            // DeveloperListItem(developer: developers[2]),
+            // Image.asset(
+            //   "assets/images/code_icon.png",
+            //   height: 200,
+            // ),
             Image.asset(
               "assets/images/logo.png",
-              height: 500,
+              height: 300,
             ),
           ],
         ),

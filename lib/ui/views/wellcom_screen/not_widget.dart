@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../core/data/models/favorite_note_models.dart';
+import '../../../core/data/network/api_client.dart';
+import '../../../core/data/repositories/fav_not_repo.dart';
+import '../../../core/data/repositories/not_storage_repo.dart';
+
 class NoteDialogWidget extends StatefulWidget {
   final int questionId;
 
@@ -14,6 +20,10 @@ class NoteDialogWidget extends StatefulWidget {
 class _NoteDialogWidgetState extends State<NoteDialogWidget> {
   late TextEditingController _noteController;
   late String _note = " ";
+  late ApiClient apiClient;
+  NoteStorage noteStorage = NoteStorage();
+
+  late FavoritesRepository favoritesRepository;
 
   @override
   void initState() {
@@ -21,13 +31,15 @@ class _NoteDialogWidgetState extends State<NoteDialogWidget> {
     _noteController = TextEditingController();
     getNoteForQuestion(widget.questionId);
     _noteController.text = _note;
+
+    apiClient = ApiClient(baseUrl: 'https://auto-sy.com/api');
+    favoritesRepository = FavoritesRepository(apiClient: apiClient);
   }
 
   void getNoteForQuestion(int questionId) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final note = prefs.getString('note_$questionId');
+    Note? note = await noteStorage.getNoteForQuestion(questionId);
     setState(() {
-      _note = note ?? "";
+      _note = note?.note ?? "";
       _noteController.text = _note;
       print("kkkk $note");
     });
@@ -35,7 +47,13 @@ class _NoteDialogWidgetState extends State<NoteDialogWidget> {
 
   void saveNoteForQuestion(int questionId, String note) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('note_$questionId', note);
+    await noteStorage.saveNoteForQuestion(questionId, note);
+
+    String myCode = prefs.getString("code_id")??"000";
+    // Add note
+    favoritesRepository.addNote(
+        NoteRequest(codeId: myCode, text: note, questionId: questionId.toString()));
+
     setState(() {
       _note = note;
     });
@@ -43,7 +61,12 @@ class _NoteDialogWidgetState extends State<NoteDialogWidget> {
 
   void removeNoteForQuestion(int questionId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('note_$questionId');
+    String myCode = prefs.getString("code_id")??"000";
+    // Add note
+    favoritesRepository.deleteNote(myCode ,questionId.toString());
+    await noteStorage.removeNoteForQuestion(questionId);
+
+
     setState(() {
       _note = "";
     });

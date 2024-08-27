@@ -1,3 +1,4 @@
+import 'package:auto/core/data/repositories/back_up_repo.dart';
 import 'package:auto/core/data/repositories/read_all_models.dart';
 import 'package:auto/core/data/repositories/shared_preference_repository.dart';
 import 'package:auto/core/utils/extension/context_extensions.dart';
@@ -16,7 +17,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import '../../../core/data/network/api_client.dart';
+import '../../../core/data/repositories/fav_not_repo.dart';
 import '../../shared/custom_widgets/subscrib_new_subject_button.dart';
+import '../back_up/back_up_bottom.dart';
+import '../back_up/do_back_up.dart';
 import '../courses_questions_screen/courses_questions_view.dart';
 import '../explanation_screen/explanation_screen.dart';
 import '../login_screen/login_view.dart';
@@ -34,9 +39,15 @@ class SubscriptionView extends StatefulWidget {
 
 class _SubscriptionViewState extends State<SubscriptionView> {
   late SubscriptionController controller;
-
+late ApiClient apiClient;
+late FavoritesRepository favoritesRepository;
+late BackupService backupService ;
   @override
   void initState() {
+
+    apiClient = ApiClient(baseUrl: 'https://auto-sy.com/api');
+    favoritesRepository = FavoritesRepository(apiClient: apiClient);
+    backupService =BackupService(favoritesRepository: favoritesRepository);
     controller = Get.put(SubscriptionController());
     controller.readfile(widget.isVistor);
     JsonReader.fetchDataAndStore();
@@ -164,7 +175,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                       borderRadius: BorderRadius.circular(screenWidth(10)),
                       splashColor: AppColors.blueB4,
                       onTap: () {
-                        Get.to(AboutScreen());
+                        Get.to(CentersScreen());
                       },
                       child: Row(
                         children: [
@@ -337,6 +348,14 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                         ],
                       ),
                     ),
+                     SizedBox(
+                      height:   SharedPreferenceRepository().getIsLoggedIn()
+                          ?  20 :0,
+                    ),
+                    SharedPreferenceRepository().getIsLoggedIn()
+                        ? BackupButton(
+                      backupService: backupService, // تمرير الـ BackupService هنا
+                    ):SizedBox(),
                     const SizedBox(
                       height: 20,
                     ),
@@ -370,8 +389,8 @@ class _SubscriptionViewState extends State<SubscriptionView> {
               ),
             ),
           ),
-          body: Obx(
-            () => controller.isLoading.value
+          body: GetBuilder<SubscriptionController>(builder: (controller) {
+            return controller.isLoading.value
                 ? SpinKitThreeBounce(
                     color: AppColors.blueB4,
                     size: 50.0,
@@ -402,10 +421,10 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                             return InkWell(
                               onTap: () async {
                                 // if (isVistor) {
-                                  JsonReader.fetchDataAndStore();
-                                  Get.to(() => SubjectView(
-                                        branch: branch,
-                                      ));
+                                JsonReader.fetchDataAndStore();
+                                Get.to(() => SubjectView(
+                                      branch: branch,
+                                    ));
                                 // }
                               },
                               child: Stack(
@@ -443,9 +462,9 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                                       ),
                                       child: InkWell(
                                         onTap: () {
-                                          if (!isVistor) {
-                                            Get.to(LoginView());
-                                          }
+                                          // if (!isVistor) {
+                                          Get.to(LoginView());
+                                          // }
                                         },
                                         child: Text(
                                           !isVistor
@@ -467,8 +486,10 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                         ),
                       )
                     ],
-                  ),
-          )),
+                  );
+          })
+          //
+          ),
     );
   }
 }

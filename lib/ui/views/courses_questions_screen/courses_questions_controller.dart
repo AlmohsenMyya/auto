@@ -8,11 +8,19 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
+import '../../../core/data/models/favorite_note_models.dart';
 import '../../../core/data/models/local_json/all_models.dart';
+import '../../../core/data/network/api_client.dart';
+import '../../../core/data/repositories/fav_not_repo.dart';
 import '../../../core/data/repositories/read_all_models.dart';
 import '../../../core/services/base_controller.dart';
 
 class CoursesQuestionsController extends BaseController {
+  late ApiClient apiClient;
+
+  late FavoritesRepository favoritesRepository;
+  late String myCodeId;
+
   late RxInt endTime = 1.obs;
   ExpansionTileController expController = ExpansionTileController();
   late RxInt outSideEndTime = 1.obs;
@@ -30,7 +38,7 @@ class CoursesQuestionsController extends BaseController {
   RxBool showResults = false.obs;
   Map<int, Map<int, Color>> answers_color = {};
   RxBool hideAllAnswers = false.obs;
-  RxBool showAllFavorite = false.obs ;
+  RxBool showAllFavorite = false.obs;
 
   final GlobalKey floatingButtonKey = GlobalKey();
   final GlobalKey editButtonKey = GlobalKey();
@@ -79,6 +87,7 @@ class CoursesQuestionsController extends BaseController {
   bool isRunning = false;
   Rx<String> myformatTime = "00:00".obs;
   final AudioPlayer audioPlayer = AudioPlayer();
+
   void initializeExpandedQuestions() {
     for (int i = 0; i < 150; i++) {
       _expandedQuestions[i] = false;
@@ -89,7 +98,7 @@ class CoursesQuestionsController extends BaseController {
     return _expandedQuestions[questionIndex] ?? false;
   }
 
- void toggleHideQuestions() {
+  void toggleHideQuestions() {
     hideAllAnswers.value = !hideAllAnswers.value;
     update();
   }
@@ -108,7 +117,7 @@ class CoursesQuestionsController extends BaseController {
     return favoriteQuestions.contains(questionId);
   }
 
-  void showcaseController(BuildContext context , bool reShowIt ) {
+  void showcaseController(BuildContext context, bool reShowIt) {
     WidgetsBinding.instance!.addPostFrameCallback((_) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       bool? showcaseCompleted = prefs.getBool('showcaseCompleted1');
@@ -135,8 +144,11 @@ class CoursesQuestionsController extends BaseController {
   void toggleFavorite(int questionId) {
     if (favoriteQuestions.contains(questionId)) {
       favoriteQuestions.remove(questionId);
+       favoritesRepository.removeFavorite(myCodeId, questionId.toString());
     } else {
       favoriteQuestions.add(questionId);
+      favoritesRepository
+          .addFavorite(FavoriteRequest(codeId: myCodeId, questionId: questionId.toString()));
     }
     saveFavorites();
     update();
@@ -184,7 +196,7 @@ class CoursesQuestionsController extends BaseController {
       return questions.where((q) => rowngQuestions.contains(q.id)).toList();
     } else if (showAllFavorite.value) {
       loadFavorites();
-      return favoriteQuestions.value as List<Question> ;
+      return favoriteQuestions.value as List<Question>;
     } else {
       return questions;
     }
@@ -221,9 +233,17 @@ class CoursesQuestionsController extends BaseController {
     update();
   }
 
+  void initMyCode() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    myCodeId = prefs.getString('code_id') ?? "no_code";
+  }
+
   @override
   void onInit() {
     super.onInit();
+    apiClient = ApiClient(baseUrl: 'https://auto-sy.com/api');
+    favoritesRepository = FavoritesRepository(apiClient: apiClient);
+    initMyCode();
     // تهيئة وإعدادات أخرى عندما يتم دخول الصفحة لأول مرة
     secureWindow();
     searchController = TextEditingController();
@@ -251,7 +271,6 @@ class CoursesQuestionsController extends BaseController {
     initializeAnswerColors();
     showResults.value = false;
   }
-
 
   void resetAllStates() {
     print("reseeeeeeeetAlllllll");
@@ -394,16 +413,17 @@ class CoursesQuestionsController extends BaseController {
     }
     return null;
   }
-  void readfileForUnit(int unitId , String type) async {
+
+  void readfileForUnit(int unitId, String type) async {
     print("readfileForLesson  partId $unitId  type $type ");
     isLoading.value = true;
     // TODO: implement onInit
     jsonfile = await JsonReader.loadJsonData();
     // استخراج الأسئلة بناءً على النوع
     if (type == "دورة") {
-      questions = JsonReader.extractQuestionsByUnitId(jsonfile, unitId , true);
+      questions = JsonReader.extractQuestionsByUnitId(jsonfile, unitId, true);
     } else if (type == "بنك") {
-      questions = JsonReader.extractQuestionsByUnitId(jsonfile, unitId,false);
+      questions = JsonReader.extractQuestionsByUnitId(jsonfile, unitId, false);
     }
     // ترتيب الأسئلة حسب المعرف
     questions.sort((a, b) => a.id.compareTo(b.id));
@@ -420,7 +440,8 @@ class CoursesQuestionsController extends BaseController {
     // تحديث حالة التحميل
     isLoading.value = false;
   }
-  void readfileForFavoriteSubject(int favoriteSubjectId ) async {
+
+  void readfileForFavoriteSubject(int favoriteSubjectId) async {
     print("readfileForFavoriteSubject  ");
     isLoading.value = true;
     // TODO: implement onInit
@@ -429,9 +450,10 @@ class CoursesQuestionsController extends BaseController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? favoriteList = prefs.getStringList('favoriteQuestions');
     if (favoriteList != null) {
-      questions =
-          JsonReader.extractQuestionsByIdListAndSubjectID(favoriteList, favoriteSubjectId ,jsonfile);
-      print("readfileForFavoriteSubject  favoriteQuestions: ${favoriteQuestions.length}");
+      questions = JsonReader.extractQuestionsByIdListAndSubjectID(
+          favoriteList, favoriteSubjectId, jsonfile);
+      print(
+          "readfileForFavoriteSubject  favoriteQuestions: ${favoriteQuestions.length}");
     }
     isLoading.value = false;
     update();
@@ -450,7 +472,8 @@ class CoursesQuestionsController extends BaseController {
     // تحديث حالة التحميل
     isLoading.value = false;
   }
-  void readfileForFavorite( ) async {
+
+  void readfileForFavorite() async {
     print("readfileForFavorite  ");
     isLoading.value = true;
     // TODO: implement onInit
@@ -459,8 +482,7 @@ class CoursesQuestionsController extends BaseController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? favoriteList = prefs.getStringList('favoriteQuestions');
     if (favoriteList != null) {
-      questions =
-          JsonReader.extractQuestionsByIdList(favoriteList, jsonfile);
+      questions = JsonReader.extractQuestionsByIdList(favoriteList, jsonfile);
       print("loadFavorites  favoriteQuestions: ${favoriteQuestions.length}");
     }
     isLoading.value = false;
@@ -480,15 +502,16 @@ class CoursesQuestionsController extends BaseController {
     // تحديث حالة التحميل
     isLoading.value = false;
   }
-  void readfileForPart(int partId , String type) async {
+
+  void readfileForPart(int partId, String type) async {
     print("readfileForLesson  partId $partId  type $type ");
     isLoading.value = true;
     // TODO: implement onInit
     jsonfile = await JsonReader.loadJsonData();
     if (type == "دورة") {
-      questions = JsonReader.extractQuestionsByPartId(jsonfile, partId,true);
+      questions = JsonReader.extractQuestionsByPartId(jsonfile, partId, true);
     } else if (type == "بنك") {
-      questions = JsonReader.extractQuestionsByPartId(jsonfile, partId,false);
+      questions = JsonReader.extractQuestionsByPartId(jsonfile, partId, false);
     }
     // ترتيب الأسئلة حسب المعرف
     questions.sort((a, b) => a.id.compareTo(b.id));
@@ -505,21 +528,23 @@ class CoursesQuestionsController extends BaseController {
     // تحديث حالة التحميل
     isLoading.value = false;
   }
-  void readfileForLesson(int lessonId , String type) async {
+
+  void readfileForLesson(int lessonId, String type) async {
     print("readfileForLesson  lessonid $lessonId  type $type ");
     isLoading.value = true;
     // TODO: implement onInit
     jsonfile = await JsonReader.loadJsonData();
-    if(type == "دورة"){
+    if (type == "دورة") {
       print("bankkssks ");
-      questions = JsonReader.extractQuestionsByLessonId(jsonfile, lessonId,true);
+      questions =
+          JsonReader.extractQuestionsByLessonId(jsonfile, lessonId, true);
       print(questions.length);
     }
 
-
     if (type == "بنك") {
       print("bankkssks ");
-      questions = JsonReader.extractQuestionsByLessonId(jsonfile, lessonId,false);
+      questions =
+          JsonReader.extractQuestionsByLessonId(jsonfile, lessonId, false);
       print(questions.length);
     }
 
@@ -538,6 +563,7 @@ class CoursesQuestionsController extends BaseController {
     // تحديث حالة التحميل
     isLoading.value = false;
   }
+
   void readfileForCoursOrBank(int course_id, String type) async {
     isLoading.value = true;
     // تحميل ملف JSON من الأصول
@@ -575,7 +601,6 @@ class CoursesQuestionsController extends BaseController {
     showResults.value = true;
     Get.back();
   }
-
 
   void searchQuestions(String query) {
     if (query.isEmpty) {
@@ -625,16 +650,15 @@ class CoursesQuestionsController extends BaseController {
   void secureWindow() async {
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   }
+
   ///timer
 
   void startTimer() {
     timer = Timer.periodic(Duration(seconds: 1), (timer) {
-
-        elapsedSeconds++;
-        myformatTime.value = formatTime(elapsedSeconds);
-        update();
+      elapsedSeconds++;
+      myformatTime.value = formatTime(elapsedSeconds);
+      update();
     });
-
   }
 
   void stopTimer() {
@@ -656,15 +680,15 @@ class CoursesQuestionsController extends BaseController {
       playSound('sounds/start.mp3');
     }
 
-      isRunning = !isRunning;
+    isRunning = !isRunning;
     update();
   }
 
   void resetTimer() {
     stopTimer();
 
-      elapsedSeconds = 0;
-      isRunning = false;
+    elapsedSeconds = 0;
+    isRunning = false;
     myformatTime.value = formatTime(elapsedSeconds);
     update();
   }
@@ -675,6 +699,5 @@ class CoursesQuestionsController extends BaseController {
     return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
-
-///
+  ///
 }
