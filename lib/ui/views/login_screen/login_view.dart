@@ -76,6 +76,7 @@ class _LoginViewState extends State<LoginView> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('access_token', accessToken);
         await prefs.setString('token_type', tokenType);
+        await prefs.setString('muid', muid);
         await prefs.setString("code_id", code_id.toString());
         List<String> mybranchIds = prefs.getStringList('my_branchs_id') ?? [];
         print("jknkdjcn $mybranchIds");

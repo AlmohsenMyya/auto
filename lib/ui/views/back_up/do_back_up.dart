@@ -76,10 +76,10 @@ class _DoBackupButtonState extends State<DoBackupButton> {
       child: _isLoading
           ? CircularProgressIndicator(color: Colors.white)
           : Text('حفظ نسخة احتياطية'),
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        textStyle: TextStyle(fontSize: 16),
-      ),
+      // style: ElevatedButton.styleFrom(
+      //   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      //   textStyle: TextStyle(fontSize: 16),
+      // ),
     );
   }
 }

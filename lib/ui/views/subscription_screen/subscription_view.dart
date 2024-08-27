@@ -462,9 +462,9 @@ late BackupService backupService ;
                                       ),
                                       child: InkWell(
                                         onTap: () {
-                                          // if (!isVistor) {
+                                          if (!isVistor) {
                                           Get.to(LoginView());
-                                          // }
+                                          }
                                         },
                                         child: Text(
                                           !isVistor
