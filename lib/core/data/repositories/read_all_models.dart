@@ -424,8 +424,8 @@ class JsonReader {
     print("Thumbnail: ''''  $id fff $imageUrl");
     // Configure dynamic link parameters
     final dynamicLinkParams = DynamicLinkParameters(
-      link: Uri.parse("https://autoapp.page.link?myQuestion=$id"),
-      uriPrefix: "https://autoapp.page.link",
+      link: Uri.parse("https://autosy.page.link?myQuestion=$id"),
+      uriPrefix: "https://autosy.page.link",
       androidParameters: const AndroidParameters(
         packageName: "com.example.auto",
         // minimumVersion: 30,
@@ -466,7 +466,7 @@ class JsonReader {
  static Future<void> fetchDataAndStore() async {
     try {
       final response = await http.get(Uri.parse(url1));
-      print("gfncgfncgc ${response.body}");
+      // print("gfncgfncgc ${response.body}");
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         await _storeDataInJsonFile(data);

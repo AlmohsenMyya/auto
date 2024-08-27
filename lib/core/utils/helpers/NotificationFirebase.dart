@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:connectivity/connectivity.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -8,44 +9,98 @@ class NotificationSetUp {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
 
-  static init() async {
-    await Firebase.initializeApp();
-
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
-    String? fcmToken = await messaging.getToken();
-    print('FCM Token: $fcmToken');
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('fcmToken', fcmToken ?? "null problem");
-
-    if (Platform.isIOS) {
-      messaging.requestPermission(
-          badge: true, alert: true, sound: true, announcement: true);
+  static Future<void> init() async {
+    // تحقق من اتصال الإنترنت
+    if (!await _checkInternetConnection()) {
+      print('No internet connection.');
+      return;
     }
 
-    NotificationSettings settings = await messaging.requestPermission(
-      alert: true,
-      announcement: false,
-      badge: true,
-      carPlay: false,
-      criticalAlert: false,
-      provisional: false,
-      sound: true,
-    );
+    // تهيئة Firebase
+    await _initializeFirebase();
 
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
-    messaging.subscribeToTopic("newnoti");
-    await _setUpNotifications();
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      _showNotification(message);
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      _handleMessage(message);
-    });
+    // إعداد إشعارات FCM
+    await _setupFCM();
   }
+
+  // التحقق من اتصال الإنترنت
+  static Future<bool> _checkInternetConnection() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    return connectivityResult != ConnectivityResult.none;
+  }
+
+  // تهيئة Firebase
+  static Future<void> _initializeFirebase() async {
+    try {
+      await Firebase.initializeApp();
+    } on FirebaseException catch (e) {
+      print('Firebase initialization failed: $e');
+    } catch (e) {
+      print('An unexpected error occurred during Firebase initialization: $e');
+    }
+  }
+
+  // إعداد FCM وتخزين الـ FCM Token
+  static Future<void> _setupFCM() async {
+    try {
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+      // الحصول على FCM Token
+      String? fcmToken = await messaging.getToken();
+      print('FCM Token: $fcmToken');
+      await _storeFCMToken(fcmToken);
+
+      // إعدادات الإشعارات الخاصة بـ iOS
+      if (Platform.isIOS) {
+        await messaging.requestPermission(
+          badge: true,
+          alert: true,
+          sound: true,
+          announcement: true,
+        );
+      }
+
+      // طلب صلاحيات الإشعارات
+      NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+
+      // الاشتراك في الموضوع
+      await messaging.subscribeToTopic("newnoti");
+
+      // إعداد الإشعارات الخلفية
+      FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+      // إعداد الإشعارات المحلية
+      await _setUpNotifications();
+
+      // التعامل مع الإشعارات عند ورودها
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        _showNotification(message);
+      });
+
+      // التعامل مع الإشعارات عند فتح التطبيق
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+        _handleMessage(message);
+      });
+
+    } catch (e) {
+      print('Error setting up FCM: $e');
+    }
+  }
+
+  // تخزين FCM Token في SharedPreferences
+  static Future<void> _storeFCMToken(String? fcmToken) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('fcmToken', fcmToken ?? "null problem");
+  }
+
 
   static _setUpNotifications() async {
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
