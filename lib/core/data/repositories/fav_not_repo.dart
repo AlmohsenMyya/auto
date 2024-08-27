@@ -29,6 +29,15 @@ class FavoritesRepository {
     }
   }
 
+  Future<void> addComplaints(ComplaintsRequest request) async {
+    // try {
+    final response = await apiClient.post('complaints', request.toJson());
+    print('complaints complaints added: ${response.statusCode}${response.body}');
+    // } catch (e) {
+    //   print('Error adding note: $e');
+    //   throw e;
+    // }
+  }
   Future<void> addNote(NoteRequest request) async {
     // try {
       final response = await apiClient.post('notes', request.toJson());
