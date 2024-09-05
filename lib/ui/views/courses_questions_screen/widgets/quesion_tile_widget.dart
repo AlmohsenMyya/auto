@@ -111,48 +111,64 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-              IconButton(
-              icon: Icon(Icons.camera_alt, color: Colors.grey),
-            onPressed: () {
-              print("Image URL: ${controller.questions[widget.questionIndex].image}");
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    contentPadding: EdgeInsets.all(0), // إزالة التباعد الافتراضي
-                    content: controller.questions[widget.questionIndex].image == null
-                        ? Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text('لا يوجد صورة لهذا السؤال.'),
-                    )
-                        : Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      child: PhotoView(
-                        imageProvider: CachedNetworkImageProvider(
-                          controller.questions[widget.questionIndex].image!,
-                        ),
-                        backgroundDecoration: BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        minScale: PhotoViewComputedScale.contained,
-                        maxScale: PhotoViewComputedScale.covered * 2.0,
-                        heroAttributes: PhotoViewHeroAttributes(tag: "questionImage"),
-                      ),
+                  if (controller.questions[widget.questionIndex].image != null)
+                    IconButton(
+                      icon: Icon(Icons.camera_alt, color: Colors.grey),
+                      onPressed: () {
+                        print(
+                            "Image URL: ${controller.questions[widget.questionIndex].image}");
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              contentPadding: EdgeInsets.all(0),
+                              // إزالة التباعد الافتراضي
+                              content: controller
+                                          .questions[widget.questionIndex]
+                                          .image ==
+                                      null
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Text('لا يوجد صورة لهذا السؤال.'),
+                                    )
+                                  : Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.9,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.7,
+                                      child: PhotoView(
+                                        imageProvider:
+                                            CachedNetworkImageProvider(
+                                          controller
+                                              .questions[widget.questionIndex]
+                                              .image!,
+                                        ),
+                                        backgroundDecoration: BoxDecoration(
+                                          color: Colors.white,
+                                        ),
+                                        minScale:
+                                            PhotoViewComputedScale.contained,
+                                        maxScale:
+                                            PhotoViewComputedScale.covered *
+                                                2.0,
+                                        heroAttributes: PhotoViewHeroAttributes(
+                                            tag: "questionImage"),
+                                      ),
+                                    ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text(''),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                     ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: Text(''),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-          ),
                   IconButton(
                     icon: Icon(
                       Icons.star,
