@@ -1,10 +1,15 @@
-import 'package:auto/core/data/models/notification_model.dart';
+import 'package:auto/ui/views/notification_screen/service/notifications_service.dart';
+import 'package:flutter/material.dart';
+import 'package:auto/ui/shared/main_app_bar.dart';
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/core/utils/extension/widget_extension.dart';
-import 'package:auto/ui/shared/main_app_bar.dart';
-import 'package:auto/ui/views/notification_screen/widgets/NotificationListTile.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:auto/ui/views/notification_screen/widgets/NotificationListTile.dart';
+import 'package:shimmer/shimmer.dart';
+
+import '../../../core/data/models/notification_model.dart';
+import '../../../core/services/notification_service.dart';
+import 'notification_shimmer.dart'; // Add the shimmer package in pubspec.yaml
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -14,15 +19,13 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  List<NotificationModel> indexNotificationModel = [
-    NotificationModel(
-        url: '', type: 1, body: 'المدير  طلب رؤيتك', title: 'طلب حضور'),
-    NotificationModel(
-        url: '',
-        type: 1,
-        body: 'مدير  عقد اجتماع الساعة الثانية',
-        title: ' طلب حضور')
-  ];
+  late Future<List<NotificationResponse>> notificationsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    notificationsFuture = NotificationMohsenService.fetchNotifications();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +33,35 @@ class _NotificationScreenState extends State<NotificationScreen> {
       backgroundColor: context.exOnPrimaryContainer,
       appBar: MainAppBar(
         backGroundColor: context.exOnPrimaryContainer,
+        onTap: () => Navigator.of(context).pop(),
+        titleText: 'الإشعارات',
+      ),
+      body: FutureBuilder<List<NotificationResponse>>(
+        future: notificationsFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Show the improved shimmer while loading
+            return ListView.builder(
+              itemCount: 6, // Number of shimmer tiles to show while loading
+              itemBuilder: (context, index) {
+                return const NotificationShimmer(); // Use redesigned shimmer
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No notifications available'));
+          }
 
-          onTap: () => Navigator.of(context).pop(), titleText: 'الإشعارات'),
-      body: ListView.builder(
-        itemCount: indexNotificationModel.length,
-        itemBuilder: (context, index) => NotificationListTile(
-          notification: indexNotificationModel[index],
-        ),
-      ).paddingAll(14.w),
+          final notifications = snapshot.data!;
+
+          return ListView.builder(
+            itemCount: notifications.length,
+            itemBuilder: (context, index) => NotificationListTile(
+              notification: notifications[index],
+            ),
+          ).paddingAll(14.w);
+        },
+      ),
     );
-  }
-}
+  }}
