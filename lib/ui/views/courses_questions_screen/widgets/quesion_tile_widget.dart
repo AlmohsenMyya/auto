@@ -3,6 +3,7 @@ import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/ui/shared/custom_widgets/media_view/media_widget/cache_network_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:share_plus/share_plus.dart';
@@ -69,22 +70,37 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
             padding: EdgeInsets.all(8.0),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: TitleOfQuestions(
-                      question_index: widget.questionIndex,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.05), // لون شفاف للخلفية
+                      borderRadius: BorderRadius.circular(20), // حواف مستديرة
+                      boxShadow: [
+                        BoxShadow(
+                          color: context.primaryColor.withOpacity(0.2), // ظل خفيف
+                          blurRadius: 10, // نصف قطر التمويه
+                          spreadRadius: 8, // مدى الانتشار
+                          offset: Offset(0, 3), // إزاحة الظل للأسفل
+                        ),
+                      ],
                     ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.share, color: Colors.blue),
-                    onPressed: () {
-                      JsonReader.shareQuestion(questionId.toString());
-                    },
-                  ),
-                ],
+                    padding: EdgeInsets.all(15.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: TitleOfQuestions(
+                        question_index: widget.questionIndex,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.share, color: Colors.blue),
+                      onPressed: () {
+                        JsonReader.shareQuestion(questionId.toString());
+                      },
+                    ),
+                  ],
+                ),
               ),
               Divider(color: Colors.blueAccent,),
               controller.hideAllAnswers.value
