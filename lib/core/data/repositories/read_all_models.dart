@@ -3,7 +3,11 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -414,44 +418,90 @@ class JsonReader {
         .toList();
   }
 
-  static void shareQuestion(String id) async {
-    print("Processing video with ID: $id");
-
-    // إزالة أي بادئة غير ضرورية من سلسلة Base64
-    Uri? imageUrl = Uri.tryParse("https://firebasestorage.googleapis.com/v0/b/auto-2b136.appspot.com/o/logo.png?alt=media&token=124ffb8a-b004-4b4d-8e97-65134cfa91aa");
-
-    print("Thumbnail: ''''  $id fff $imageUrl");
-    // Configure dynamic link parameters
-    final dynamicLinkParams = DynamicLinkParameters(
-      link: Uri.parse("https://autosy.page.link?myQuestion=$id"),
-      uriPrefix: "https://autosy.page.link",
-      androidParameters: const AndroidParameters(
-        packageName: "com.example.auto",
-        // minimumVersion: 30,
-      ),
-      iosParameters: const IOSParameters(
-        bundleId: "com.example.auto",
-        // appStoreId: "123456789",
-        // minimumVersion: "1.0.1",
-      ),
-      // googleAnalyticsParameters: const GoogleAnalyticsParameters(
-      //   source: "twitter",
-      //   medium: "social",
-      //   campaign: "example-promo",
-      // ),
-      socialMetaTagParameters: SocialMetaTagParameters(
-        title: "تطبيق اوتو .. خيارك الافضل للنجاح",
-        description: "انقر على الرابط لعرض السؤال",
-        imageUrl: imageUrl,
-      ),
+  static void shareQuestion(BuildContext context, String id) async {
+    // إظهار لودر
+    showDialog(
+      context: context,
+      barrierDismissible: false, // يمنع الإغلاق عند النقر
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                CircularProgressIndicator(),
+                SizedBox(height: 15),
+                Text(
+                  'جارٍ توليد رابط المشاركة...',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
-    final dynamicLink =
-    await FirebaseDynamicLinks.instance.buildShortLink(dynamicLinkParams);
-    // Share the short URL
-    Share.share(dynamicLink.shortUrl.toString());
 
-    // Update the state to reflect the share
+    try {
+      print("Processing question with ID: $id");
+
+      // رابط الصورة
+      Uri? imageUrl = Uri.tryParse(
+          "https://firebasestorage.googleapis.com/v0/b/auto-2b136.appspot.com/o/logo.png?alt=media&token=124ffb8a-b004-4b4d-8e97-65134cfa91aa");
+
+      print("Thumbnail: $id fff $imageUrl");
+
+      // إعدادات الرابط الديناميكي
+      final dynamicLinkParams = DynamicLinkParameters(
+        link: Uri.parse("https://autosy.page.link?myQuestion=$id"),
+        uriPrefix: "https://autosy.page.link",
+        androidParameters: const AndroidParameters(
+          packageName: "com.example.auto",
+        ),
+        iosParameters: const IOSParameters(
+          bundleId: "com.example.auto",
+        ),
+        socialMetaTagParameters: SocialMetaTagParameters(
+          title: "تطبيق اوتو .. خيارك الافضل للنجاح",
+          description: "انقر على الرابط لعرض السؤال",
+          imageUrl: imageUrl,
+        ),
+      );
+
+      // بناء الرابط المختصر
+      final dynamicLink =
+      await FirebaseDynamicLinks.instance.buildShortLink(dynamicLinkParams);
+
+
+      // مشاركة الرابط المختصر
+     await Share.share(dynamicLink.shortUrl.toString());
+      // إخفاء اللودر
+      Navigator.of(context).pop();
+
+    } catch (e) {
+      print("Error while sharing question: $e");
+
+      // إخفاء اللودر
+      Navigator.of(context).pop();
+
+      // إظهار رسالة خطأ
+      Get.snackbar(
+        'فشل عملية مشاركة السؤال ',
+        'يرجى التأكد من اتصالك بالإنترنت وتشغيل VPN',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: Duration(seconds: 35)
+      );
+    }
   }
+
   // static List<Answer?> shuffleAnswers(List<Answer?> answers) {
   //   print("answer12 before $answers");
   //   final random = Random();

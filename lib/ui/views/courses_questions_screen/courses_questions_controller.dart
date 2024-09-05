@@ -100,6 +100,26 @@ class CoursesQuestionsController extends BaseController {
 
   void toggleHideQuestions() {
     hideAllAnswers.value = !hideAllAnswers.value;
+    if(hideAllAnswers.value){
+      // إظهار رسالة خطأ
+      Get.snackbar(
+          'تم اخفاء كل الاجوبة !!',
+          ' ',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green,
+          colorText: Colors.white,
+          duration: Duration(seconds: 2)
+      );
+    }else{
+      Get.snackbar(
+          'تم اظهار كل الاجوبة !!',
+          ' ',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.blue,
+          colorText: Colors.white,
+          duration: Duration(seconds: 2)
+      );
+    }
     update();
   }
 

@@ -96,7 +96,7 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                     IconButton(
                       icon: Icon(Icons.share, color: Colors.blue),
                       onPressed: () {
-                        JsonReader.shareQuestion(questionId.toString());
+                        JsonReader.shareQuestion(context, questionId.toString());
                       },
                     ),
                   ],
