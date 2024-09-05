@@ -21,7 +21,9 @@ import 'courses_according_to_unit_and_lessons_screen_controller.dart';
 class CoursesAccordingToUnitAndLessonsScreen extends StatefulWidget {
   Subject subject;
   Branch branch;
-  CoursesAccordingToUnitAndLessonsScreen({super.key,required this.branch, required this.subject});
+
+  CoursesAccordingToUnitAndLessonsScreen(
+      {super.key, required this.branch, required this.subject});
 
   @override
   State<CoursesAccordingToUnitAndLessonsScreen> createState() =>
@@ -77,7 +79,11 @@ class _CoursesAccordingToUnitAndLessonsScreenState
                 alignment: Alignment.topRight,
                 child: TextField(
                   onChanged: (query) {
-                    controller.filterparts(query);
+                    if (controller.parts.isEmpty) {
+                      unitController.filterunits(query);
+                    } else {
+                      controller.filterparts(query);
+                    }
                   },
                   controller: searchController,
                   onTap: () => openTextField.value = true,
@@ -133,7 +139,7 @@ class _CoursesAccordingToUnitAndLessonsScreenState
                       child: ListView.builder(
                         itemBuilder: (context, index) =>
                             CoursesAccordingToUnitAndLessonsScreenCardWidget(
-                              branch: widget.branch,
+                          branch: widget.branch,
                           subjectName: widget.subject.name,
                           index: index,
                         ),
