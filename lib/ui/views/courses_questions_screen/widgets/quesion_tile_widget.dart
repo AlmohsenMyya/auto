@@ -1,8 +1,10 @@
 import 'package:auto/core/data/repositories/read_all_models.dart';
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/ui/shared/custom_widgets/media_view/media_widget/cache_network_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:showcaseview/showcaseview.dart';
 
@@ -109,43 +111,48 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    icon: Icon(Icons.camera_alt, color: Colors.grey),
-                    onPressed: () {
-                      print("jhvjhbhjbj ${controller.questions[widget.questionIndex]
-                          .image}");
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(
-                              'صورة للسؤال',
-                              style: TextStyle(fontSize: 24),
-                            ),
-                            content: controller.questions[widget.questionIndex]
-                                        .image ==
-                                    null
-                                ? Text('لا يوجد صورة لهذا السؤال.')
-                                : CachedNetworkImage(
-                                    hash: '',
-                                    url: controller
-                                        .questions[widget.questionIndex].image!,
-                                    width: 200,
-                                    height: 200,
-                                  ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('إغلاق'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
+              IconButton(
+              icon: Icon(Icons.camera_alt, color: Colors.grey),
+            onPressed: () {
+              print("Image URL: ${controller.questions[widget.questionIndex].image}");
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    contentPadding: EdgeInsets.all(0), // إزالة التباعد الافتراضي
+                    content: controller.questions[widget.questionIndex].image == null
+                        ? Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text('لا يوجد صورة لهذا السؤال.'),
+                    )
+                        : Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      child: PhotoView(
+                        imageProvider: CachedNetworkImageProvider(
+                          controller.questions[widget.questionIndex].image!,
+                        ),
+                        backgroundDecoration: BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        minScale: PhotoViewComputedScale.contained,
+                        maxScale: PhotoViewComputedScale.covered * 2.0,
+                        heroAttributes: PhotoViewHeroAttributes(tag: "questionImage"),
+                      ),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text(''),
+                        onPressed: () {
+                          Navigator.of(context).pop();
                         },
-                      );
-                    },
-                  ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
                   IconButton(
                     icon: Icon(
                       Icons.star,
