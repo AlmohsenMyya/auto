@@ -488,7 +488,7 @@ late BackupService backupService ;
                       ),
                       SliverToBoxAdapter(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 50.0),
+                          padding: const EdgeInsets.only(top: 40.0 , bottom: 50.0),
                           child: SliderWidget(),
                         ),
                       ),
