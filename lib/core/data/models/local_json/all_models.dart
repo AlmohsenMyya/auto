@@ -274,12 +274,16 @@ class Bank {
   }
 }
 
-class Slider {
-  static fromJson(sliderJson) {
-    return Slider();
+class SliderModel {
+  final String imageUrl;
+
+  SliderModel({required this.imageUrl});
+
+  factory SliderModel.fromJson(Map<String, dynamic> json) {
+    return SliderModel(
+      imageUrl: json['image'],
+    );
   }
-// Define properties for Slider class if needed
-// (It's not clear from the provided JSON)
 }
 
 class City {

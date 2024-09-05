@@ -64,6 +64,7 @@ dependencies:
   audioplayers:
   youtube_player_flutter: ^9.0.3
   intl:
+  carousel_slider: ^5.0.0
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
 

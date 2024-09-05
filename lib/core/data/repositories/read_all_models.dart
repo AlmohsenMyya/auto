@@ -408,13 +408,12 @@ class JsonReader {
   }
 
   // Repeat the same for other data extraction methods...
-
-  static List extractSliders(Map<String, dynamic> jsonData) {
-    List sliders = (jsonData['sliders'] as List)
-        .map((sliderJson) => Slider.fromJson(sliderJson))
+  static List<SliderModel> extractSliders(Map<String, dynamic> jsonData) {
+    return (jsonData['sliders'] as List)
+        .map((sliderJson) => SliderModel.fromJson(sliderJson))
         .toList();
-    return sliders;
   }
+
   static void shareQuestion(String id) async {
     print("Processing video with ID: $id");
 

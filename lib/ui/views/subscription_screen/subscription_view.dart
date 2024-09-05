@@ -27,6 +27,7 @@ import '../explanation_screen/explanation_screen.dart';
 import '../login_screen/login_view.dart';
 import '../wellcom_screen/about_view.dart';
 import '../wellcom_screen/developers_view.dart';
+import '../wellcom_screen/sliders_widgets.dart';
 
 class SubscriptionView extends StatefulWidget {
   bool? isVistor;
@@ -484,7 +485,13 @@ late BackupService backupService ;
                             ).animate().scale(delay: 300.ms);
                           },
                         ),
-                      )
+                      ),
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 50.0),
+                          child: SliderWidget(),
+                        ),
+                      ),
                     ],
                   );
           })
