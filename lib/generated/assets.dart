@@ -11,13 +11,16 @@ class Assets {
   static const String fontsAlexandriaMedium = 'assets/fonts/Alexandria-Medium.ttf';
   static const String fontsAlexandriaRegular = 'assets/fonts/Alexandria-Regular.ttf';
   static const String fontsAlexandriaThin = 'assets/fonts/Alexandria-Thin.ttf';
-  static const String imagesAbd = 'assets/images/abd.jpg';
+  static const String imagesAbd = 'assets/images/abd.jpeg';
+  static const String imagesAlmheyar = 'assets/images/almheyar.jpeg';
   static const String imagesAlmohsen = 'assets/images/almohsen.jpg';
   static const String imagesCodeIcon = 'assets/images/code_icon.png';
   static const String imagesFacebook = 'assets/images/facebook.gif';
   static const String imagesIconApp = 'assets/images/icon_app.png';
   static const String imagesLinkedin = 'assets/images/linkedin.gif';
   static const String imagesLogo = 'assets/images/logo.png';
+  static const String imagesNour = 'assets/images/nour.jpeg';
+  static const String imagesNsreen = 'assets/images/nsreen.jpeg';
   static const String imagesTel = 'assets/images/tel.png';
   static const String imagesWhats = 'assets/images/whats.png';
   static const String imagesWhatsapp = 'assets/images/whatsapp.gif';

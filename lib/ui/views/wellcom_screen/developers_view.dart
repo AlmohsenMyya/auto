@@ -6,7 +6,7 @@ class DevelopersPage extends StatelessWidget {
   final List<Developer> developers = [
     Developer(
       name: 'Abdulrahman Al-Helou',
-      image: 'assets/images/abd.jpg',
+      image: 'assets/images/abd.jpeg',
       description:
           'Software Engineer | Full-stack Web developer | back end Laravel developer | helping clients building scalable and reliable solutions',
       facebook:
@@ -26,6 +26,34 @@ class DevelopersPage extends StatelessWidget {
           'https://www.linkedin.com/in/almohsen-myya-79230022b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
       whatsapp: '+963996367749',
     ),
+    Developer(
+      name: 'Almhyar Zahra',
+      image: 'assets/images/almheyar.jpeg',
+      description: 'Flutter Developer | Mobile Application',
+      facebook: 'https://www.facebook.com/almhyrzahra.zahra?mibextid=ZbWKwL',
+      linkedin:
+          'https://www.linkedin.com/in/almhyar-zahra-998010268?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+      whatsapp: '+963962245305',
+    ),
+    Developer(
+      name: 'Nisreen Mahmoud',
+      image: 'assets/images/nsreen.jpeg',
+      description: 'Graphic Designer',
+      facebook: 'https://www.facebook.com/nisreen.mahmoud.3597?mibextid=ZbWKwL',
+      linkedin:
+          'https://www.linkedin.com/in/nisreen-mahmoud-47306727b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+      whatsapp: '+963995537356',
+    ),
+    Developer(
+      name: 'Nour Alfarwie',
+      image: 'assets/images/nour.jpeg',
+      description: 'Software Engineer | Flutter Developer ',
+      facebook:
+          'https://www.facebook.com/profile.php?id=100087565640917&mibextid=ZbWKwL',
+      linkedin:
+          ' https://www.linkedin.com/in/noura-alfarwie-528b632b2?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app ',
+      whatsapp: '+963936134933',
+    )
     // Developer(
     //   name: 'Optimized Engineer ',
     //   image: 'assets/images/mia_photo.jpg',
@@ -53,7 +81,9 @@ class DevelopersPage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                   "من قام بتطوير هذا التطبيق هم مجموعة من المهندسين السوريين , سعيا منهم لتقديم تجربة مستخدم مميزة ومفيدة من خلال هذا التطبيق "
-                  "مع التمنيات بالتوفيق الدائم لجميع الطلاب ",style : context.exTextTheme.titleMedium!.copyWith(color: context.exOnBackground)),
+                  "مع التمنيات بالتوفيق الدائم لجميع الطلاب ",
+                  style: context.exTextTheme.titleMedium!
+                      .copyWith(color: context.exOnBackground)),
             ),
             SizedBox(
               height: 20,
@@ -63,6 +93,18 @@ class DevelopersPage extends StatelessWidget {
               height: 20,
             ),
             DeveloperListItem(developer: developers[1]),
+            SizedBox(
+              height: 20,
+            ),
+            DeveloperListItem(developer: developers[2]),
+            SizedBox(
+              height: 20,
+            ),
+            DeveloperListItem(developer: developers[3]),
+            SizedBox(
+              height: 20,
+            ),
+            DeveloperListItem(developer: developers[4]),
             // DeveloperListItem(developer: developers[2]),
             // Image.asset(
             //   "assets/images/code_icon.png",
