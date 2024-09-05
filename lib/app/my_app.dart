@@ -8,7 +8,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 import '../core/data/repositories/shared_preference_repository.dart';
 
@@ -73,10 +72,8 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
 
       designSize: const Size(375, 812),
-      builder:(context, child) =>StreamProvider(
-        create: (context) => connectivityService.connectivityStatusController.stream,
-        initialData: ConnectivityStatus.onLine,
-        child: GetMaterialApp(
+      builder:(context, child) =>
+        GetMaterialApp(
             theme: AppTheme.light,
             themeMode: SharedPreferenceRepository().getSavedThemeMode(),
             darkTheme: AppTheme.dark,
@@ -94,7 +91,7 @@ class MyApp extends StatelessWidget {
             title: 'Auto',
             home:const SplashView()
         ),
-      ),);
+      );
   }
 }
 

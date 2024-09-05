@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/core/utils/helpers/media_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:overscroll_pop/overscroll_pop.dart';
@@ -119,38 +118,7 @@ class _ImageViewScreenState extends State<ImageViewScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // IconButton(
-                          //   onPressed: () async {
-                          //     try {
-                          //       MediaHelper.downloadImage(
-                          //         widget.arg.imageUrl,
-                          //         outputMimeType:
-                          //         'image/${widget.arg.imageUrl.split('.').last}',
-                          //       );
-                          //
-                          //       // String? i = await ImageDownloader.downloadImage(
-                          //       //   widget.arg.imageUrl,
-                          //       //   outputMimeType:
-                          //       //       'image/${widget.arg.imageUrl.split('.').last}',
-                          //       // ).timeout(const Duration(seconds: 5));
-                          //
-                          //       // if (i == null) {
-                          //       //   BotToast.showText(text: 'error!');
-                          //       //   return;
-                          //       // } else {
-                          //       //   BotToast.showText(
-                          //       //     text: 'Downloaded Successfully',
-                          //       //   );
-                          //       // }
-                          //     } on PlatformException catch (error) {
-                          //       log(error.message.toString());
-                          //     }
-                          //   },
-                          //   icon: const Icon(
-                          //     Icons.download_rounded,
-                          //     color: Colors.white,
-                          //   ),
-                          // ),
+
                           Text(
                               widget.arg.bottomLeftCornerText ?? "",
                               style: context.exTextTheme.titleMedium
