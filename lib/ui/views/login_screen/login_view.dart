@@ -18,6 +18,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../../../core/data/repositories/read_all_models.dart';
+import '../explanation_screen/explanation_screen.dart';
+import '../wellcom_screen/contact_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -188,7 +190,7 @@ class _LoginViewState extends State<LoginView> {
                           circularBorder: screenWidth(10),
                         ),
                   const SizedBox(
-                    height: 50,
+                    height: 20,
                   ),
                   isLoggedIn
                       ? SizedBox()
@@ -217,7 +219,66 @@ class _LoginViewState extends State<LoginView> {
                             decorationThickness: 2,
                             decorationColor: AppColors.blueB4,
                           ),
-                        )
+                        ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        borderRadius: BorderRadius.circular(screenWidth(10)),
+                        splashColor: AppColors.blueB4,
+                        onTap: () {
+                          Get.to(
+                              ContactScreen()); // توجيه إلى صفحة الأسئلة المفضلة
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.contact_phone_rounded,
+                              color: AppColors.mainBlueColor,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            CustomText(
+                              textType: TextStyleType.custom,
+                              textColor: Colors.blue,
+                              text: "تواصل معنا ",
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 60,
+                      ),
+                      InkWell(
+                        borderRadius: BorderRadius.circular(screenWidth(10)),
+                        splashColor: AppColors.blueB4,
+                        onTap: () {
+                          Get.to(
+                              ExplanationPage()); // توجيه إلى صفحة الأسئلة المفضلة
+                        },
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.info_outline,
+                              color: AppColors.mainBlueColor,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            CustomText(
+                              textType: TextStyleType.custom,
+                              textColor: Colors.blue,
+                              text: "شرح التطبيق ",
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ].animate(interval: 50.ms).scale(delay: 300.ms),
               ),
             ),
