@@ -84,12 +84,14 @@ class NotificationSetUp {
 
       // التعامل مع الإشعارات عند ورودها
       FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+        print("Almohsen FirebaseMessaging.onMessage.listen((RemoteMessage message)");
         await JsonReader.fetchDataAndStore();
         _showNotification(message);
       });
 
       // التعامل مع الإشعارات عند فتح التطبيق
       FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+        print("Almohsen FirebaseMessaging.onMessageOpenedApp.listen");
         await JsonReader.fetchDataAndStore();
         _handleMessage(message);
       });

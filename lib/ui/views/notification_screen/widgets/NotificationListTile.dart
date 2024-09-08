@@ -1,10 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:auto/core/data/models/notification_model.dart';
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/core/utils/extension/widget_extension.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'package:intl/intl.dart'; // Import intl package
 
 class NotificationListTile extends StatelessWidget {
   const NotificationListTile({
@@ -15,7 +14,7 @@ class NotificationListTile extends StatelessWidget {
   final NotificationResponse notification;
 
   String _formatTime(DateTime dateTime) {
-    // Use the intl package to format the time (e.g., '12:50 PM')
+    // Format the time using intl package
     return DateFormat('hh:mm a').format(dateTime);
   }
 
@@ -24,7 +23,12 @@ class NotificationListTile extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
       onTap: () {
-        // Handle tap, e.g., open URL or navigate to post comments
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NotificationDetailPage(notification: notification),
+          ),
+        );
       },
       trailing: const SizedBox.shrink(),
       title: Row(
@@ -34,20 +38,20 @@ class NotificationListTile extends StatelessWidget {
             height: 11.sp,
             decoration: ShapeDecoration(
               shape: const CircleBorder(),
-              color: context.theme.colorScheme.error, // Modify as needed
+              color: context.theme.colorScheme.error,
             ),
           ),
           SizedBox(
             width: .6.sw,
             child: Text(
-              notification.title, // No need for null check since it's required
+              notification.title,
               overflow: TextOverflow.ellipsis,
               style: context.exTextTheme.titleLarge!
                   .copyWith(color: context.exOnBackground),
             ).paddingHorizontal(10.w),
           ),
           Text(
-            _formatTime(notification.createdAt), // Display the formatted time
+            _formatTime(notification.createdAt),
             style: context.exTextTheme.titleSmall!
                 .copyWith(color: context.exOnBackground),
           ),
@@ -62,10 +66,68 @@ class NotificationListTile extends StatelessWidget {
               color: context.theme.colorScheme.error,
             ).paddingHorizontal(5.5.sp),
             5.horizontalSpace,
-            SizedBox(width: .75.sw, child: Text(notification.body)),
+            SizedBox(
+              width: .75.sw,
+              child: Text(
+                notification.body,
+                maxLines: 3, // Limit to 3 lines
+                overflow: TextOverflow.ellipsis,
+                style: context.exTextTheme.bodyMedium!
+                    .copyWith(color: context.exOnBackground),
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+}
+
+class NotificationDetailPage extends StatelessWidget {
+  final NotificationResponse notification;
+
+  const NotificationDetailPage({Key? key, required this.notification}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('تفاصيل الاشعار'),
+        backgroundColor: context.exOnPrimaryContainer,
+        // backgroundColor: context.theme.colorScheme.primary,
+      ),
+      backgroundColor: context.exOnPrimaryContainer,
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              notification.title,
+              style: context.exTextTheme.headlineMedium!
+                  .copyWith(color: context.primaryColor),
+            ),
+            Divider(),
+            SizedBox(height: 16.h),
+            Text(
+              notification.body,
+              style: context.exTextTheme.bodyLarge!
+                  .copyWith(color: context.exOnBackground),
+            ),
+
+            SizedBox(height: 16.h),
+            Text(
+              "تم الاستلام في : \n${_formatTime(notification.createdAt)}",
+              style: context.exTextTheme.bodySmall!
+                  .copyWith(color: context.exOnBackground.withOpacity(0.6)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _formatTime(DateTime dateTime) {
+    return DateFormat('a hh:mm , dd MMM yyyy').format(dateTime);
   }
 }
