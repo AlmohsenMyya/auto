@@ -13,6 +13,7 @@ import '../../../../core/data/models/local_json/all_models.dart';
 import '../../wellcom_screen/not_widget.dart';
 import '../courses_questions_controller.dart';
 import 'answer_line_widget.dart';
+import 'image_display_widget.dart';
 import 'title_of_questions.dart';
 
 class QuestionTileWidget extends StatefulWidget {
@@ -131,60 +132,17 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                     IconButton(
                       icon: Icon(Icons.camera_alt, color: Colors.grey),
                       onPressed: () {
-                        print(
-                            "Image URL: ${controller.questions[widget.questionIndex].image}");
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialog(
-                              contentPadding: EdgeInsets.all(0),
-                              // إزالة التباعد الافتراضي
-                              content: controller
-                                          .questions[widget.questionIndex]
-                                          .image ==
-                                      null
-                                  ? Padding(
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Text('لا يوجد صورة لهذا السؤال.'),
-                                    )
-                                  : Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.9,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.7,
-                                      child: PhotoView(
-                                        imageProvider:
-                                            CachedNetworkImageProvider(
-                                          controller
-                                              .questions[widget.questionIndex]
-                                              .image!,
-                                        ),
-                                        backgroundDecoration: BoxDecoration(
-                                          color: Colors.white,
-                                        ),
-                                        minScale:
-                                            PhotoViewComputedScale.contained,
-                                        maxScale:
-                                            PhotoViewComputedScale.covered *
-                                                2.0,
-                                        heroAttributes: PhotoViewHeroAttributes(
-                                            tag: "questionImage"),
-                                      ),
-                                    ),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text(''),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
+                            return ImageDisplayWidget(
+                              imageUrl: controller.questions[widget.questionIndex].image,
                             );
                           },
                         );
                       },
                     ),
+
                   IconButton(
                     icon: Icon(
                       Icons.star,

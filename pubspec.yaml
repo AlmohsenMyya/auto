@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
- 
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -53,7 +53,7 @@ dependencies:
   flutter_countdown_timer: ^4.1.0
   photo_view: ^0.15.0
   flutter_local_notifications: ^17.2.2
-#  overscroll_pop: 0.0.9
+  #  overscroll_pop: 0.0.9
   extended_image: ^8.2.1
   shimmer: ^3.0.0
   flutter_blurhash: ^0.8.2
@@ -65,6 +65,7 @@ dependencies:
   youtube_player_flutter: ^9.0.3
   intl:
   carousel_slider: ^5.0.0
+  dio: ^5.7.0
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
 
@@ -103,7 +104,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
-#    - assets/icons/
+    #    - assets/icons/
     - assets/data1.json
     - assets/sounds/start.mp3
     - assets/sounds/pause.mp3
