@@ -77,7 +77,7 @@ class CoursesQuestionsController extends BaseController {
   late CountdownTimerController countdownTimerController;
   Map<int, RxInt> selectedAnswers = {};
   late List<Question> questions = <Question>[].obs;
-
+  late List<Question> mohsen_questions = <Question>[];
   final _expandedQuestions = <int, bool>{}.obs;
 
   RxList<int> favoriteQuestions = RxList<int>();
@@ -457,6 +457,8 @@ class CoursesQuestionsController extends BaseController {
 
     initializeAnswerColors();
     countOfDidnotAnswers.value = questions.length;
+    mohsen_questions.assignAll(questions);
+
     // تحديث حالة التحميل
     isLoading.value = false;
   }
@@ -489,6 +491,8 @@ class CoursesQuestionsController extends BaseController {
 
     initializeAnswerColors();
     countOfDidnotAnswers.value = questions.length;
+    mohsen_questions.assignAll(questions);
+
     // تحديث حالة التحميل
     isLoading.value = false;
   }
@@ -519,6 +523,8 @@ class CoursesQuestionsController extends BaseController {
 
     initializeAnswerColors();
     countOfDidnotAnswers.value = questions.length;
+    mohsen_questions.assignAll(questions);
+
     // تحديث حالة التحميل
     isLoading.value = false;
   }
@@ -545,6 +551,8 @@ class CoursesQuestionsController extends BaseController {
 
     initializeAnswerColors();
     countOfDidnotAnswers.value = questions.length;
+    mohsen_questions.assignAll(questions);
+
     // تحديث حالة التحميل
     isLoading.value = false;
   }
@@ -580,6 +588,8 @@ class CoursesQuestionsController extends BaseController {
 
     initializeAnswerColors();
     countOfDidnotAnswers.value = questions.length;
+    mohsen_questions.assignAll(questions);
+
     // تحديث حالة التحميل
     isLoading.value = false;
   }
@@ -606,6 +616,8 @@ class CoursesQuestionsController extends BaseController {
 
     initializeAnswerColors();
     countOfDidnotAnswers.value = questions.length;
+    mohsen_questions.assignAll(questions);
+
     // تحديث حالة التحميل
     isLoading.value = false;
   }
@@ -625,10 +637,11 @@ class CoursesQuestionsController extends BaseController {
   void searchQuestions(String query) {
     if (query.isEmpty) {
       // If search query is empty, show all questions
-      filteredQuestions.assignAll(questions);
+      filteredQuestions.assignAll(mohsen_questions);
     } else {
+      print("${questions.length}-- ${filteredQuestions.length} -- value $query -- ${mohsen_questions.length}" );
       // Filter questions based on search query
-      filteredQuestions.assignAll(questions
+      filteredQuestions.assignAll(mohsen_questions
           .where((question) => containsSearchWord(question, query))
           .toList());
     }

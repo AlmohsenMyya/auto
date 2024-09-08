@@ -62,8 +62,7 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
     } else{
       controller.readfileForCoursOrBank(
           widget.id_course_bank_lesson_unite, widget.type);
-    }
-  }
+    }  }
 
 // here first QuestionsView 887744556633
   @override
@@ -75,7 +74,6 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
     readFile();
     controller.initializeExpandedQuestions();
     // Listen to changes in search text field
-    searchController.addListener(onSearchTextChanged);
   }
 
   @override
@@ -85,9 +83,6 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
     super.dispose();
   }
 
-  void onSearchTextChanged() {
-    controller.searchQuestions(searchController.text);
-  }
 
   void _resetAnswers() {
     controller.resetAllStates();
@@ -173,8 +168,9 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                                 child: TextField(
                                   style: TextStyle(color: context.exOnPrimaryContainer),
                                   controller: searchController,
-                                  onChanged: (value) =>
-                                      controller.searchQuestions(value),
+                                  onChanged: (value) {
+                                    controller.searchQuestions(value);
+                                  },
                                   decoration: InputDecoration(
                                     hintText: 'ابحث عن سؤال',
                                     border: OutlineInputBorder(
@@ -360,7 +356,8 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                       ),
                       SizedBox(height: 20.h),
                       Obx(
-                        () => controller.isLoading.value
+                        () {
+                          return controller.isLoading.value
                             ? SpinKitThreeBounce(
                                 color: AppColors.blueB4,
                                 size: 50.0,
@@ -378,7 +375,8 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
                                   itemCount:
                                       controller.filteredQuestions.length,
                                 ),
-                              ),
+                              );
+                        },
                       ),
                     ],
                   ).paddingHorizontal(10.w);
