@@ -1,6 +1,58 @@
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
+
+class DeveloperAvatar extends StatelessWidget {
+  final String image;
+
+  const DeveloperAvatar({Key? key, required this.image}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => FullScreenAvatar(image: image),
+          ),
+        );
+      },
+      child: CircleAvatar(
+        radius: 80,
+        backgroundImage: AssetImage(image),
+      ),
+    );
+  }
+}
+
+class FullScreenAvatar extends StatelessWidget {
+  final String image;
+
+  const FullScreenAvatar({Key? key, required this.image}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: GestureDetector(
+        onTap: () {
+          Navigator.pop(context); // Close the image on tap
+        },
+        child: Center(
+          child: PhotoView(
+            imageProvider: AssetImage(image),
+            minScale: PhotoViewComputedScale.contained,
+            maxScale: PhotoViewComputedScale.covered * 2.0,
+            backgroundDecoration: BoxDecoration(color: Colors.black),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class DevelopersPage extends StatelessWidget {
   final List<Developer> developers = [
@@ -191,6 +243,7 @@ class DeveloperDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        // backgroundColor: context.exOnPrimaryContainer,
         body: Column(
           children: [
             Spacer(),
@@ -240,7 +293,7 @@ class DeveloperDetails extends StatelessWidget {
               child: Text(
                 developer.description,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16 , color: context.primaryColor),
+                style: TextStyle(fontSize: 18 , color: Colors.brown),
               ),
             ),
 
