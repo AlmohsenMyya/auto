@@ -53,6 +53,17 @@ class DevelopersPage extends StatelessWidget {
       linkedin:
           ' https://www.linkedin.com/in/noura-alfarwie-528b632b2?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app ',
       whatsapp: '+963936134933',
+    ),
+    Developer(
+      name: ' Mohammed Alsaleh',
+      image: 'assets/images/mhd_saleh.jpeg',
+      description:
+      'Fullstack Developer',
+      facebook:
+      'https://www.facebook.com/profile.php?id=100021914075162&mibextid=ZbWKwL',
+      linkedin:
+      'https://www.linkedin.com/in/mohamad-alsaleh-490035225?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+      whatsapp: '+963937954785',
     )
     // Developer(
     //   name: 'Optimized Engineer ',
