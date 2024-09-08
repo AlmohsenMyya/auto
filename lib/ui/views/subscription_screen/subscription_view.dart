@@ -408,6 +408,12 @@ late BackupService backupService ;
                       //   ),
                       // ),
 
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10.0 , bottom: 0.0),
+                          child: SliderWidget(),
+                        ),
+                      ),
                       SliverPadding(
                         padding: const EdgeInsetsDirectional.all(20),
                         sliver: SliverList.separated(
@@ -484,12 +490,6 @@ late BackupService backupService ;
                               ),
                             ).animate().scale(delay: 300.ms);
                           },
-                        ),
-                      ),
-                      SliverToBoxAdapter(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 40.0 , bottom: 50.0),
-                          child: SliderWidget(),
                         ),
                       ),
                     ],

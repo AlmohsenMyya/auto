@@ -15,6 +15,7 @@ class Assets {
   static const String imagesAlmheyar = 'assets/images/almheyar.jpeg';
   static const String imagesAlmohsen = 'assets/images/almohsen.jpg';
   static const String imagesCodeIcon = 'assets/images/code_icon.png';
+  static const String imagesDLogo = 'assets/images/d_logo.png';
   static const String imagesFacebook = 'assets/images/facebook.gif';
   static const String imagesIconApp = 'assets/images/icon_app.png';
   static const String imagesLinkedin = 'assets/images/linkedin.gif';

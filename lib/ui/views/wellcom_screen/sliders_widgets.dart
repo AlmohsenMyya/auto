@@ -51,12 +51,13 @@ class _SliderWidgetState extends State<SliderWidget> {
         ? SizedBox()
         : CarouselSlider(
       options: CarouselOptions(
-        height: 200.0,
-        enlargeCenterPage: true,
+        height: MediaQuery.of(context).size.width * 0.3, // Make it a square
+        enlargeCenterPage: false, // No need to enlarge center
         autoPlay: true,
         autoPlayInterval: Duration(seconds: 3),
         autoPlayAnimationDuration: Duration(milliseconds: 800),
-        aspectRatio: 16 / 9,
+        viewportFraction: 0.4, // Show two images per screen
+        aspectRatio: 1.0, // Make it a square aspect ratio
         initialPage: 0,
       ),
       items: sliders.map((slider) {
@@ -75,7 +76,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                 );
               },
               child: Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width * 0.5,
                 margin: EdgeInsets.symmetric(horizontal: 5.0),
                 decoration: BoxDecoration(
                   color: Colors.black12,
@@ -109,10 +110,6 @@ class FullScreenImageViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('عرض الصورة'),
-      //   backgroundColor: Colors.black,
-      // ),
       body: PhotoViewGallery.builder(
         itemCount: sliders.length,
         builder: (context, index) {

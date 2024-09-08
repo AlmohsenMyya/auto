@@ -57,12 +57,11 @@ class DevelopersPage extends StatelessWidget {
     Developer(
       name: ' Mohammed Alsaleh',
       image: 'assets/images/mhd_saleh.jpeg',
-      description:
-      'Fullstack Developer',
+      description: 'Fullstack Developer',
       facebook:
-      'https://www.facebook.com/profile.php?id=100021914075162&mibextid=ZbWKwL',
+          'https://www.facebook.com/profile.php?id=100021914075162&mibextid=ZbWKwL',
       linkedin:
-      'https://www.linkedin.com/in/mohamad-alsaleh-490035225?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+          'https://www.linkedin.com/in/mohamad-alsaleh-490035225?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
       whatsapp: '+963937954785',
     )
     // Developer(
@@ -116,6 +115,10 @@ class DevelopersPage extends StatelessWidget {
               height: 20,
             ),
             DeveloperListItem(developer: developers[4]),
+            SizedBox(
+              height: 20,
+            ),
+            DeveloperListItem(developer: developers[5]),
             // DeveloperListItem(developer: developers[2]),
             // Image.asset(
             //   "assets/images/code_icon.png",
@@ -237,9 +240,15 @@ class DeveloperDetails extends StatelessWidget {
               child: Text(
                 developer.description,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16 , color: context.primaryColor),
               ),
             ),
+
+            if(developer.name =="Almohsen Myya")...[
+              Image.asset(
+                "assets/images/d_logo.png",
+                height: 200,
+              ),],
             Spacer(),
           ],
         ),
