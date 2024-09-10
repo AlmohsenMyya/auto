@@ -80,6 +80,7 @@ class SubjectTile extends StatelessWidget {
                               children: [
                                 ElevatedButton(
                                   onPressed: () {
+                                    Navigator.pop(context);
                                     Get.to(CoursesQuestionsView(
                                       id_course_bank_lesson_unite: -1,
                                       subjectName: "الأسئلة المفضلة :",
@@ -104,6 +105,7 @@ class SubjectTile extends StatelessWidget {
                     );
                   },
                 );
+
               },
               icon: const Icon(
                 Icons.star,
