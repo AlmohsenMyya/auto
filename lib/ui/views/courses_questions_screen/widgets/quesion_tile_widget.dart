@@ -92,13 +92,8 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                     Expanded(
                       child: TitleOfQuestions(
                         question_index: widget.questionIndex,
+                        question_id: questionId.toString(),
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.share, color: Colors.blue),
-                      onPressed: () {
-                        JsonReader.shareQuestion(context, questionId.toString());
-                      },
                     ),
                   ],
                 ),

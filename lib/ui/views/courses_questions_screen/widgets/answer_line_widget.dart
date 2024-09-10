@@ -53,7 +53,8 @@ class _AnswerLineState extends State<AnswerLine> {
                           isExpanded ? widget.answer.text : answerPreview,
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 18,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w100
                           ),
                         ),
                         if (widget.answer.text.length > 200)

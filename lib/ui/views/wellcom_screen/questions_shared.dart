@@ -8,6 +8,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../core/data/repositories/read_all_models.dart';
 import '../courses_questions_screen/widgets/answer_line_widget.dart';
+import '../courses_questions_screen/widgets/image_display_widget.dart';
 
 class SingleQuestionPage extends StatefulWidget {
   final Question question;
@@ -76,7 +77,7 @@ class _SingleQuestionPageState extends State<SingleQuestionPage> {
                 SizedBox(
                   height: 260,
                   child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    // physics: NeverScrollableScrollPhysics(),
                     itemCount: widget.question.answers!.length,
                     itemBuilder: (context, index) {
                       final answer = widget.question.answers![index];
@@ -136,7 +137,9 @@ class _SingleQuestionPageState extends State<SingleQuestionPage> {
                                   'صورة للسؤال', style: TextStyle(fontSize: 24)),
                               content: widget.question.image == null
                                   ? Text('لا يوجد صورة لهذا السؤال.')
-                                  : Image.asset(widget.question.image!),
+                                  : ImageDisplayWidget(
+                                imageUrl: widget.question.image,
+                              ),
                               actions: <Widget>[
                                 TextButton(
                                   child: Text('إغلاق'),
