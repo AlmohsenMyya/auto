@@ -1,10 +1,8 @@
 import 'package:auto/ui/shared/colors.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_button.dart';
 import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
-import 'package:bot_toast/bot_toast.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 double screenWidth(double perecent) {
@@ -15,16 +13,7 @@ double screenHeight(double perecent) {
   return Get.size.height / perecent;
 }
 
-void customLoader() => BotToast.showCustomLoading(toastBuilder: (builder) {
-      return Container(
-        width: screenWidth(5),
-        height: screenWidth(5),
-        decoration: BoxDecoration(
-            color: AppColors.mainBlackColor.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(15)),
-        child: const SpinKitCircle(color: AppColors.mainYellowColor),
-      );
-    });
+
 
 Widget customFaildConnection({required VoidCallback onPressed}) => Column(
       children: [

@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
-import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -265,7 +264,7 @@ class CoursesQuestionsController extends BaseController {
     favoritesRepository = FavoritesRepository(apiClient: apiClient);
     initMyCode();
     // تهيئة وإعدادات أخرى عندما يتم دخول الصفحة لأول مرة
-    secureWindow();
+    // secureWindow();
     searchController = TextEditingController();
     countdownTimerController = CountdownTimerController(
       endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 60, // 1 minute
@@ -680,9 +679,9 @@ class CoursesQuestionsController extends BaseController {
 
   //
 
-  void secureWindow() async {
-    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-  }
+  // void secureWindow() async {
+  //   await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  // }
 
   ///timer
 

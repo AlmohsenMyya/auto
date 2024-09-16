@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:auto/core/services/base_controller.dart';
 import 'package:auto/ui/views/login_screen/login_view.dart';
 import 'package:auto/ui/views/wellcom_screen/wellcom_screen.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +20,7 @@ class SplashController extends BaseController {
     try {
       // تحقق من الاتصال بالإنترنت
       var connectivityResult = await (Connectivity().checkConnectivity());
-      if (connectivityResult == ConnectivityResult.none) {
+      if (connectivityResult.contains(ConnectivityResult.none)) {
         // إذا لم يكن هناك اتصال بالإنترنت، نرد بـ true
         return true;
       }
@@ -63,16 +63,21 @@ class SplashController extends BaseController {
       }
       prefs.setBool('isSubscribing', true);
       print(
-          "SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository().getFirstLanuch()}");
+          "SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository()
+              .getFirstLanuch()}");
       if (SharedPreferenceRepository().getFirstLanuch()) {
         print(
-            "SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository().getFirstLanuch()}");
-        await JsonReader.fetchDataAndStore();
+            "SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository()
+                .getFirstLanuch()}");
+        try {
+          await JsonReader.fetchDataAndStore();
+        } catch (e) {}
         SharedPreferenceRepository().setFirstLanuch(false);
         Get.to(() => const WelcomeScreen());
       } else {
         print(
-            "SharedPreferenceRepository().getFirstLanuch() --/ ${SharedPreferenceRepository().getFirstLanuch()}");
+            "SharedPreferenceRepository().getFirstLanuch() --/ ${SharedPreferenceRepository()
+                .getFirstLanuch()}");
         if (SharedPreferenceRepository().getIsLoggedIn()) {
           Get.to(() => SubscriptionView());
         } else {

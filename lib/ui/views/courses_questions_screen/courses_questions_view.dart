@@ -1,6 +1,7 @@
 import 'package:auto/core/utils/extension/context_extensions.dart';
 import 'package:auto/core/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -43,6 +44,23 @@ class CoursesQuestionsView extends StatefulWidget {
 }
 
 class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
+  static const platform = MethodChannel('com.example.auto/screenshot');
+
+  Future<void> _preventScreenshots() async {
+    try {
+      await platform.invokeMethod('preventScreenshots');
+    } on PlatformException catch (e) {
+      print("Failed to prevent screenshots: ${e.message}");
+    }
+  }
+
+  Future<void> _allowScreenshots() async {
+    try {
+      await platform.invokeMethod('allowScreenshots');
+    } on PlatformException catch (e) {
+      print("Failed to allow screenshots: ${e.message}");
+    }
+  }
 
   late CoursesQuestionsController controller;
   late TextEditingController searchController;
@@ -68,6 +86,7 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
   @override
   void initState() {
     super.initState();
+    _preventScreenshots();
     controller = Get.put(CoursesQuestionsController());
     searchController = TextEditingController();
     print("cid_course_bank_lesson_unite ${widget.id_course_bank_lesson_unite}");
@@ -79,6 +98,7 @@ class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
   @override
   void dispose() {
     Get.delete<CoursesQuestionsController>();
+    _allowScreenshots();
     searchController.dispose();
     super.dispose();
   }

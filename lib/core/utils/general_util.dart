@@ -17,13 +17,5 @@ bool get isOnline => Get.find<MyAppController>().connectionStatus == Connectivit
 //   Get.to(view, transition: Transition.fadeIn);
 // }
 
-void checkConnection(Function function) {
-  if (isOnline) {
-    function();
-  } else {
-    CustomToast.showMessage(
-      message: 'Please check internet connection',
-      messageType: MessageType.warning,
-    );
-  }
-}
+
+

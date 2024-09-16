@@ -36,7 +36,7 @@ class _LoginViewState extends State<LoginView> {
 
   Future<void> login(String muid) async {
     final connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
+    if (connectivityResult.contains(ConnectivityResult.none)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('لا يوجد اتصال بالإنترنت')),
       );

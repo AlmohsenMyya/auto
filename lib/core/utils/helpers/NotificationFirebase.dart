@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -13,7 +13,7 @@ class NotificationSetUp {
 
   static Future<void> init() async {
     // تحقق من اتصال الإنترنت
-    if (!await _checkInternetConnection()) {
+    if (await _checkInternetConnection()) {
       print('No internet connection.');
       return;
     }
@@ -28,7 +28,8 @@ class NotificationSetUp {
   // التحقق من اتصال الإنترنت
   static Future<bool> _checkInternetConnection() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
-    return connectivityResult != ConnectivityResult.none;
+    print("njjnckkdsnkj ${connectivityResult.contains(ConnectivityResult.none)} ${connectivityResult != ConnectivityResult.none}");
+    return connectivityResult.contains(ConnectivityResult.none);
   }
 
   // تهيئة Firebase

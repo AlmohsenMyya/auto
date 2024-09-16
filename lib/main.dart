@@ -15,21 +15,32 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/services/notification_service.dart';
 import 'firebase_options.dart';
+
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 Uri? deepLink;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await initDeepLink();
-  await NotificationSetUp.init();
-  await Get.putAsync(
-    () async {
-      var sharedPref = await SharedPreferences.getInstance();
-      return sharedPref;
-    },
-  );
+  try {
+
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {print("njjnckkdsnkj $e");}
+  try {
+    await initDeepLink();
+  } catch (e) {print("njjnckkdsnkj $e");}
+  try {
+    await NotificationSetUp.init();
+  } catch (e) {print("njjnckkdsnkj $e");}
+  try {
+    await Get.putAsync(
+      () async {
+        var sharedPref = await SharedPreferences.getInstance();
+        return sharedPref;
+      },
+    );
+  } catch (e) {print("njjnckkdsnkj $e");}
 
   Get.put(SharedPreferenceRepository());
   Get.put(ConnectivityService());
@@ -39,11 +50,13 @@ Future<void> main() async {
 
   runApp(const MyApp());
 }
+
 Future<void> initDeepLink() async {
   print(" dfvdfv start no thisn sdjkn jcn  s");
   print("dfvdfv initialLink out1  $deepLink");
   // Check if you received the link via `getInitialLink` first
-  final PendingDynamicLinkData? initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
+  final PendingDynamicLinkData? initialLink =
+      await FirebaseDynamicLinks.instance.getInitialLink();
 
   if (initialLink != null) {
     deepLink = initialLink.link;
@@ -54,10 +67,11 @@ Future<void> initDeepLink() async {
   }
 
   FirebaseDynamicLinks.instance.onLink.listen(
-        (pendingDynamicLinkData) async {
+    (pendingDynamicLinkData) async {
       // Set up the `onLink` event listener next as it may be received here
       deepLink = pendingDynamicLinkData.link;
-      print("dfvdfv eDynamicLinks.instance.onLink.listen deeeplinkk is  $deepLink");
+      print(
+          "dfvdfv eDynamicLinks.instance.onLink.listen deeeplinkk is  $deepLink");
       await _handleDeepLink(deepLink!);
       // Example of using the dynamic link to push the user to a different screen
       // Navigator.pushNamed(context, deepLink.path);
@@ -69,6 +83,7 @@ Future<void> initDeepLink() async {
 
   print("dfvdfv initialLink out2  $deepLink");
 }
+
 Future<void> _handleDeepLink(Uri deepLink) async {
   final Uri uri = deepLink;
   print("--dfvdfv --- $uri");
@@ -81,21 +96,21 @@ Future<void> _handleDeepLink(Uri deepLink) async {
     print("your ud dfvdfv $id");
     // Navigate to the video screen
     var jsonfile = await JsonReader.loadJsonData();
-    Question? question = await JsonReader.extractOneQuestionById(id ,jsonfile)  ;
+    Question? question = await JsonReader.extractOneQuestionById(id, jsonfile);
     print("66655jjj $question");
-    if (question != null ){
+    if (question != null) {
       print("question != null");
       Get.to(SingleQuestionPage(question: question));
-
     }
   } else {
     print("dfvdfv ID not found in the deep link");
   }
 }
-Future <void> init_notifcations ()async {
+
+Future<void> init_notifcations() async {
   final FlutterLocalNotificationsPlugin localNot =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
   final NotificationAppLaunchDetails? noti =
-  await localNot.getNotificationAppLaunchDetails();
+      await localNot.getNotificationAppLaunchDetails();
   print(" pppppgghjj ${noti?.notificationResponse?.payload}");
 }

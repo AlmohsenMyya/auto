@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../../../core/data/repositories/back_up_repo.dart';
 
@@ -18,7 +18,7 @@ class _DoBackupButtonState extends State<DoBackupButton> {
   Future<void> _backupData() async {
     // التحقق من الاتصال بالإنترنت
     final connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
+    if (connectivityResult.contains(ConnectivityResult.none)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('لا يوجد اتصال بالإنترنت')),
       );

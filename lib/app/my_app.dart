@@ -4,7 +4,6 @@ import 'package:auto/core/translation/app_translation.dart';
 import 'package:auto/core/utils/general_util.dart';
 import 'package:auto/ui/shared/colors.dart';
 import 'package:auto/ui/views/splash_screen/splash_view.dart';
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -84,8 +83,6 @@ class MyApp extends StatelessWidget {
             translations: AppTranlation(),
             locale: getLocal(),
             fallbackLocale: getLocal(),
-            builder: BotToastInit(),
-            navigatorObservers: [BotToastNavigatorObserver()],
             debugShowCheckedModeBanner: false,
 
             title: 'Auto',
