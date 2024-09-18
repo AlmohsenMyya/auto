@@ -40,18 +40,18 @@ class SubscriptionView extends StatefulWidget {
 
 class _SubscriptionViewState extends State<SubscriptionView> {
   late SubscriptionController controller;
-late ApiClient apiClient;
-late FavoritesRepository favoritesRepository;
-late BackupService backupService ;
+  late ApiClient apiClient;
+  late FavoritesRepository favoritesRepository;
+  late BackupService backupService;
+
   @override
   void initState() {
-
     apiClient = ApiClient(baseUrl: 'https://auto-sy.com/api');
     favoritesRepository = FavoritesRepository(apiClient: apiClient);
-    backupService =BackupService(favoritesRepository: favoritesRepository);
+    backupService = BackupService(favoritesRepository: favoritesRepository);
     controller = Get.put(SubscriptionController());
     controller.readfile(widget.isVistor);
-    JsonReader.fetchDataAndStore();
+
     super.initState();
   }
 
@@ -102,6 +102,16 @@ late BackupService backupService ;
             ),
             titleText: ' اتمتة',
             backGroundColor: context.exOnPrimaryContainer,
+            actionsWidget: [
+              Obx(() => controller.isUpdateLoading.value == true
+                  ? SizedBox.shrink()
+                  : IconButton(
+                      onPressed: () {
+                        controller.updateData();
+                      },
+                      icon: Icon(Icons.update))
+              )
+            ],
             // textStyle: const TextStyle(color: Colors.black)
           ),
           drawer: Padding(
@@ -349,14 +359,16 @@ late BackupService backupService ;
                         ],
                       ),
                     ),
-                     SizedBox(
-                      height:   SharedPreferenceRepository().getIsLoggedIn()
-                          ?  20 :0,
+                    SizedBox(
+                      height:
+                          SharedPreferenceRepository().getIsLoggedIn() ? 20 : 0,
                     ),
                     SharedPreferenceRepository().getIsLoggedIn()
                         ? BackupButton(
-                      backupService: backupService, // تمرير الـ BackupService هنا
-                    ):SizedBox(),
+                            backupService:
+                                backupService, // تمرير الـ BackupService هنا
+                          )
+                        : SizedBox(),
                     const SizedBox(
                       height: 20,
                     ),
@@ -410,7 +422,8 @@ late BackupService backupService ;
 
                       SliverToBoxAdapter(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 10.0 , bottom: 0.0),
+                          padding:
+                              const EdgeInsets.only(top: 10.0, bottom: 0.0),
                           child: SliderWidget(),
                         ),
                       ),
@@ -428,7 +441,7 @@ late BackupService backupService ;
                             return InkWell(
                               onTap: () async {
                                 // if (isVistor) {
-                                JsonReader.fetchDataAndStore();
+
                                 Get.to(() => SubjectView(
                                       branch: branch,
                                     ));
@@ -470,7 +483,7 @@ late BackupService backupService ;
                                       child: InkWell(
                                         onTap: () {
                                           if (!isVistor) {
-                                          Get.to(LoginView());
+                                            Get.to(LoginView());
                                           }
                                         },
                                         child: Text(

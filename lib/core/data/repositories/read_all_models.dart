@@ -520,7 +520,7 @@ class JsonReader {
         final data = jsonDecode(response.body);
         await _storeDataInJsonFile(data);
       } else {
-        throw Exception('Failed to load data');
+        throw Exception('فشل في تحميل البيانات يرجى التاكد من اتصالك بشبكة انترنت مستقرة');
       }
     } catch (e) {
       print('Error: $e');
@@ -537,7 +537,9 @@ class JsonReader {
       print('Data stored in $filePath');
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('jsonFilePath',filePath);
+      prefs.setString('jsonFilePath',filePath).then((onValue) {
+        print("file jd jed cedj $onValue");
+      });
     } catch (e) {
       print('Error storing data: $e');
     }
@@ -557,7 +559,6 @@ class JsonReader {
 
   // New method to load JSON data
   static Future<Map<String, dynamic>> loadJsonData() async {
-    fetchDataAndStore();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? jsonFilePath = prefs.getString('jsonFilePath');
 print("bh hjb jhbj jsonFilePath != null${jsonFilePath }  ");

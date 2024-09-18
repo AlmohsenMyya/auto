@@ -6,6 +6,7 @@ import 'package:auto/core/data/repositories/shared_preference_repository.dart';
 import 'package:auto/core/services/connectivity_service.dart';
 import 'package:auto/core/utils/helpers/NotificationFirebase.dart';
 import 'package:auto/ui/views/wellcom_screen/questions_shared.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
@@ -18,21 +19,35 @@ import 'firebase_options.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 Uri? deepLink;
+// التحقق من اتصال الإنترنت
+Future<bool> _checkInternetConnection() async {
+  final connectivityResult = await (Connectivity().checkConnectivity());
+  print(
+      "njjnckkdsnkj ${connectivityResult.contains(ConnectivityResult.none)} ${connectivityResult != ConnectivityResult.none}");
+  return connectivityResult.contains(ConnectivityResult.none);
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  } catch (e) {print("njjnckkdsnkj $e");}
+    if (!await _checkInternetConnection()) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+    }
+  } catch (e) {
+    print("njjnckkdsnkj $e");
+  }
   try {
     await initDeepLink();
-  } catch (e) {print("njjnckkdsnkj $e");}
+  } catch (e) {
+    print("njjnckkdsnkj $e");
+  }
   try {
     await NotificationSetUp.init();
-  } catch (e) {print("njjnckkdsnkj $e");}
+  } catch (e) {
+    print("njjnckkdsnkj $e");
+  }
   try {
     await Get.putAsync(
       () async {
@@ -40,7 +55,9 @@ Future<void> main() async {
         return sharedPref;
       },
     );
-  } catch (e) {print("njjnckkdsnkj $e");}
+  } catch (e) {
+    print("njjnckkdsnkj $e");
+  }
 
   Get.put(SharedPreferenceRepository());
   Get.put(ConnectivityService());

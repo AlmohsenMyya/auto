@@ -10,7 +10,20 @@ class SubscriptionController extends BaseController {
   late Map<String, dynamic> jsonfile;
   RxBool isLoading = true.obs;
 
+  RxBool isUpdateLoading = false.obs;
+
   late List<Branch> branchs;
+
+  void updateData() async {
+    isUpdateLoading.value = true;
+    isLoading.value = true;
+    update();
+    await JsonReader.fetchDataAndStore();
+
+    isUpdateLoading.value = false;
+    isLoading.value = false;
+    update();
+  }
 
   void readfile(bool? isVistor) async {
     isLoading.value = true;

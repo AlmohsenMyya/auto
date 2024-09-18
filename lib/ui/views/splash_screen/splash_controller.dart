@@ -28,8 +28,6 @@ class SplashController extends BaseController {
       // إذا كان هناك اتصال بالإنترنت، نتحقق من حالة المستخدم عبر API
       final response = await http
           .get(Uri.parse('https://auto-sy.com/api/is-active?code_id=$codeId'));
-      print(
-          "checkUserActivationStatus ${response.statusCode} ${response.body}");
       if (response.statusCode == 200) {
         // تحليل الاستجابة
         var data = json.decode(response.body);
@@ -54,30 +52,33 @@ class SplashController extends BaseController {
   @override
   void onInit() {
     Future.delayed(const Duration(seconds: 3)).then((value) async {
+
       bool isCodeActive = await checkUserActivationStatus();
       print("checkUserActivationStatus $isCodeActive");
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? jsonFilePath = prefs.getString('jsonFilePath');
       if (!isCodeActive) {
         await prefs.clear();
+        if (jsonFilePath!=null){
+        await prefs.setString("jsonFilePath", jsonFilePath);}
       }
       prefs.setBool('isSubscribing', true);
       print(
-          "SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository()
-              .getFirstLanuch()}");
+          "SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository().getFirstLanuch()}");
       if (SharedPreferenceRepository().getFirstLanuch()) {
         print(
-            "SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository()
-                .getFirstLanuch()}");
+            "SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository().getFirstLanuch()}");
         try {
-          await JsonReader.fetchDataAndStore();
+          if (  jsonFilePath == null) {
+            await JsonReader.fetchDataAndStore();
+          }
         } catch (e) {}
         SharedPreferenceRepository().setFirstLanuch(false);
         Get.to(() => const WelcomeScreen());
       } else {
         print(
-            "SharedPreferenceRepository().getFirstLanuch() --/ ${SharedPreferenceRepository()
-                .getFirstLanuch()}");
+            "SharedPreferenceRepository().getFirstLanuch() --/ ${SharedPreferenceRepository().getFirstLanuch()}");
         if (SharedPreferenceRepository().getIsLoggedIn()) {
           Get.to(() => SubscriptionView());
         } else {

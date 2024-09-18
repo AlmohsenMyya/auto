@@ -9,7 +9,7 @@ import '../../data/repositories/read_all_models.dart';
 
 class NotificationSetUp {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   static Future<void> init() async {
     // تحقق من اتصال الإنترنت
@@ -28,7 +28,8 @@ class NotificationSetUp {
   // التحقق من اتصال الإنترنت
   static Future<bool> _checkInternetConnection() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
-    print("njjnckkdsnkj ${connectivityResult.contains(ConnectivityResult.none)} ${connectivityResult != ConnectivityResult.none}");
+    print(
+        "njjnckkdsnkj ${connectivityResult.contains(ConnectivityResult.none)} ${connectivityResult != ConnectivityResult.none}");
     return connectivityResult.contains(ConnectivityResult.none);
   }
 
@@ -85,18 +86,18 @@ class NotificationSetUp {
 
       // التعامل مع الإشعارات عند ورودها
       FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-        print("Almohsen FirebaseMessaging.onMessage.listen((RemoteMessage message)");
+        print(
+            "Almohsen FirebaseMessaging.onMessage.listen((RemoteMessage message)");
         await JsonReader.fetchDataAndStore();
         _showNotification(message);
       });
 
       // التعامل مع الإشعارات عند فتح التطبيق
-      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      FirebaseMessaging.onMessageOpenedApp
+          .listen((RemoteMessage message) async {
         print("Almohsen FirebaseMessaging.onMessageOpenedApp.listen");
-        await JsonReader.fetchDataAndStore();
         _handleMessage(message);
       });
-
     } catch (e) {
       print('Error setting up FCM: $e');
     }
@@ -108,7 +109,6 @@ class NotificationSetUp {
     await prefs.setString('fcmToken', fcmToken ?? "null problem");
   }
 
-
   static _setUpNotifications() async {
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
       'newnoti', // id
@@ -118,34 +118,37 @@ class NotificationSetUp {
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>()
+            AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings("@mipmap/ic_launcher");
+        AndroidInitializationSettings("@mipmap/ic_launcher");
 
     const DarwinInitializationSettings initializationSettingsDarwin =
-    DarwinInitializationSettings(
+        DarwinInitializationSettings(
       requestSoundPermission: true,
       requestBadgePermission: true,
       requestAlertPermission: true,
     );
 
-    const InitializationSettings initializationSettings = InitializationSettings(
-        android: initializationSettingsAndroid,
-        iOS: initializationSettingsDarwin);
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsDarwin);
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) async {
-          final String? payload = notificationResponse.payload;
-          if (payload != null) {
-            print("Notification payload: $payload");
-            // يمكنك هنا تنفيذ منطق إضافي بناءً على البيانات في الـ payload
-          }
-        });
+        onDidReceiveNotificationResponse:
+            (NotificationResponse notificationResponse) async {
+      final String? payload = notificationResponse.payload;
+      if (payload != null) {
+        print("Notification payload: $payload");
+        // يمكنك هنا تنفيذ منطق إضافي بناءً على البيانات في الـ payload
+      }
+    });
   }
 
-  static Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  static Future<void> firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
     await Firebase.initializeApp();
     _showNotification(message);
     print("Handling a background message: ${message.messageId}");
@@ -179,7 +182,8 @@ class NotificationSetUp {
                 presentAlert: true,
                 subtitle: notification.title,
                 badgeNumber: 1,
-                presentSound: true, // تحديد ملف الصوت مع الامتداد الصحيح
+                presentSound: true,
+                // تحديد ملف الصوت مع الامتداد الصحيح
                 presentBanner: true,
                 presentList: true,
                 presentBadge: true,
