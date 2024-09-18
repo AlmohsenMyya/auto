@@ -36,7 +36,7 @@ class NotificationSetUp {
   // تهيئة Firebase
   static Future<void> _initializeFirebase() async {
     try {
-      await Firebase.initializeApp();
+      await Firebase.initializeApp().timeout(Duration(seconds: 5));
     } on FirebaseException catch (e) {
       print('Firebase initialization failed: $e');
     } catch (e) {
@@ -50,7 +50,8 @@ class NotificationSetUp {
       FirebaseMessaging messaging = FirebaseMessaging.instance;
 
       // الحصول على FCM Token
-      String? fcmToken = await messaging.getToken();
+      String? fcmToken =
+          await messaging.getToken().timeout(Duration(seconds: 5));
       print('FCM Token: $fcmToken');
       await _storeFCMToken(fcmToken);
 

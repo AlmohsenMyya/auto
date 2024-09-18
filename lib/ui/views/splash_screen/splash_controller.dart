@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:auto/core/data/repositories/shared_preference_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:auto/core/services/base_controller.dart';
 import 'package:auto/ui/views/login_screen/login_view.dart';
@@ -17,10 +18,12 @@ class SplashController extends BaseController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String codeId = prefs.getString("code_id") ?? "000";
+    String? jsonFilePath = prefs.getString('jsonFilePath');
     try {
       // تحقق من الاتصال بالإنترنت
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult.contains(ConnectivityResult.none)) {
+        print("checkUserActivationStatus noInternet");
         // إذا لم يكن هناك اتصال بالإنترنت، نرد بـ true
         return true;
       }
@@ -31,7 +34,15 @@ class SplashController extends BaseController {
       if (response.statusCode == 200) {
         // تحليل الاستجابة
         var data = json.decode(response.body);
+        print("checkUserActivationStatus ${data['is_active']}");
         if (data['is_active'] == 0) {
+          ;
+
+          await prefs.clear();
+          if (jsonFilePath != null) {
+            await prefs.setString("jsonFilePath", jsonFilePath);
+          }
+
           // إذا كان المستخدم غير مفعل، نرد بـ false
           return false;
         } else {
@@ -40,6 +51,8 @@ class SplashController extends BaseController {
         }
       } else {
         // في حال فشل الاتصال بالسيرفر لأي سبب آخر، نرد بـ true
+        print(
+            "checkUserActivationStatus error with server ${response.statusCode} ${response.body}");
         return true;
       }
     } catch (e) {
@@ -52,17 +65,12 @@ class SplashController extends BaseController {
   @override
   void onInit() {
     Future.delayed(const Duration(seconds: 3)).then((value) async {
-
-      bool isCodeActive = await checkUserActivationStatus();
-      print("checkUserActivationStatus $isCodeActive");
-
+      print("srfece sscsdvn ");
+      checkUserActivationStatus();
+      print("end sscsdvn ");
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? jsonFilePath = prefs.getString('jsonFilePath');
-      if (!isCodeActive) {
-        await prefs.clear();
-        if (jsonFilePath!=null){
-        await prefs.setString("jsonFilePath", jsonFilePath);}
-      }
+
       prefs.setBool('isSubscribing', true);
       print(
           "SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository().getFirstLanuch()}");
@@ -70,8 +78,27 @@ class SplashController extends BaseController {
         print(
             "SharedPreferenceRepository().getFirstLanuch() ${SharedPreferenceRepository().getFirstLanuch()}");
         try {
-          if (  jsonFilePath == null) {
+          if (jsonFilePath == null) {
+            // Display the Snackbar and get the SnackbarController
+            SnackbarController snackbarController = Get.showSnackbar(
+              GetSnackBar(
+                borderColor: Colors.blue,
+                title: "تنبيه",
+                message:
+                    "جاري تحميل البيانات هذه العملية قد تأخذ وقتاً في المرة الأولى",
+                backgroundColor: Colors.blueGrey,
+                isDismissible: false,
+                // Make the Snackbar non-dismissible by the user
+                duration:
+                    Duration(days: 1), // Set a long duration to keep it visible
+              ),
+            );
+
+            // Fetch data
             await JsonReader.fetchDataAndStore();
+
+            // Once the fetching is complete, dismiss the Snackbar
+            snackbarController.close(withAnimations: true);
           }
         } catch (e) {}
         SharedPreferenceRepository().setFirstLanuch(false);

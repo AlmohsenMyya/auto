@@ -12,6 +12,7 @@ import 'package:auto/ui/views/subjects_screen/subject_view.dart';
 import 'package:auto/ui/views/subscription_screen/subscription_controller.dart';
 import 'package:auto/ui/views/wellcom_screen/centers/centers_view.dart';
 import 'package:auto/ui/views/wellcom_screen/contact_view.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -106,8 +107,22 @@ class _SubscriptionViewState extends State<SubscriptionView> {
               Obx(() => controller.isUpdateLoading.value == true
                   ? SizedBox.shrink()
                   : IconButton(
-                      onPressed: () {
-                        controller.updateData();
+                      onPressed: ()async {
+                        var connectivityResult = await (Connectivity().checkConnectivity());
+                        if (connectivityResult.contains(ConnectivityResult.none)) {
+                          print("checkUserActivationStatus noInternet");
+                          // إذا لم يكن هناك اتصال بالإنترنت، نرد بـ true
+                          Get.showSnackbar(GetSnackBar(
+                            borderColor: Colors.blue,
+                            title: "تحذير ",
+                            backgroundColor: Colors.red,
+                            message:" يجب الاتصال بالانترنت لتحديث البيانات " ,
+                            duration: Duration(seconds: 2),
+                          ));
+                        }else {
+                          controller.updateData();
+                        }
+
                       },
                       icon: Icon(Icons.update))
               )

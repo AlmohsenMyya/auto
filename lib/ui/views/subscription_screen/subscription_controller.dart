@@ -1,5 +1,6 @@
 import 'package:auto/core/data/repositories/shared_preference_repository.dart';
 import 'package:auto/core/services/base_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,6 +16,18 @@ class SubscriptionController extends BaseController {
   late List<Branch> branchs;
 
   void updateData() async {
+    // Display the Snackbar and get the SnackbarController
+    SnackbarController snackbarController = Get.showSnackbar(
+      GetSnackBar(
+        borderColor: Colors.blue,
+        title: "تنبيه",
+        message: "جاري تحميل البيانات هذه العملية قد تأخذ وقتاً ",
+        backgroundColor: Colors.blueGrey,
+        isDismissible: false, // Make the Snackbar non-dismissible by the user
+        duration: Duration(days: 1), // Set a long duration to keep it visible
+      ),
+    );
+
     isUpdateLoading.value = true;
     isLoading.value = true;
     update();
@@ -22,6 +35,9 @@ class SubscriptionController extends BaseController {
 
     isUpdateLoading.value = false;
     isLoading.value = false;
+
+    // Once the fetching is complete, dismiss the Snackbar
+    snackbarController.close();
     update();
   }
 

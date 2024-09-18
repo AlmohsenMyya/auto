@@ -33,13 +33,13 @@ Future<void> main() async {
     if (!await _checkInternetConnection()) {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
-      );
+      ).timeout(Duration(seconds: 5));
     }
   } catch (e) {
     print("njjnckkdsnkj $e");
   }
   try {
-    await initDeepLink();
+    await initDeepLink().timeout(Duration(seconds: 5));
   } catch (e) {
     print("njjnckkdsnkj $e");
   }
