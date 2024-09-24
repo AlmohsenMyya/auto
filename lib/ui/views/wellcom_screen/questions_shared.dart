@@ -1,6 +1,6 @@
-import 'package:auto/core/data/models/local_json/all_models.dart';
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/ui/views/courses_questions_screen/courses_questions_controller.dart';
+import 'package:auto2/core/data/models/local_json/all_models.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
+import 'package:auto2/ui/views/courses_questions_screen/courses_questions_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';

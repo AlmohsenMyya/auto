@@ -1,8 +1,8 @@
 
 
-import 'package:auto/core/enums/connectivity_status.dart';
-import 'package:auto/core/services/base_controller.dart';
-import 'package:auto/core/utils/general_util.dart';
+import 'package:auto2/core/enums/connectivity_status.dart';
+import 'package:auto2/core/services/base_controller.dart';
+import 'package:auto2/core/utils/general_util.dart';
 
 class MyAppController extends BaseController {
   ConnectivityStatus connectionStatus = ConnectivityStatus.onLine;

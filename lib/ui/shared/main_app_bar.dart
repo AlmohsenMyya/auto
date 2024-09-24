@@ -1,4 +1,4 @@
-  import 'package:auto/core/utils/extension/widget_extension.dart';
+  import 'package:auto2/core/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 class MainAppBar extends AppBar {
   MainAppBar(

@@ -1,9 +1,9 @@
-import 'package:auto/config/theme/app_theme.dart';
-import 'package:auto/core/enums/connectivity_status.dart';
-import 'package:auto/core/translation/app_translation.dart';
-import 'package:auto/core/utils/general_util.dart';
-import 'package:auto/ui/shared/colors.dart';
-import 'package:auto/ui/views/splash_screen/splash_view.dart';
+import 'package:auto2/config/theme/app_theme.dart';
+import 'package:auto2/core/enums/connectivity_status.dart';
+import 'package:auto2/core/translation/app_translation.dart';
+import 'package:auto2/core/utils/general_util.dart';
+import 'package:auto2/ui/shared/colors.dart';
+import 'package:auto2/ui/views/splash_screen/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

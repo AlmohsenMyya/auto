@@ -7,7 +7,7 @@ import io.flutter.plugin.common.MethodChannel
 import android.view.WindowManager
 
 class MainActivity : FlutterActivity() {
-    private val CHANNEL = "com.example.auto/screenshot"
+    private val CHANNEL = "com.example.auto2/screenshot"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)

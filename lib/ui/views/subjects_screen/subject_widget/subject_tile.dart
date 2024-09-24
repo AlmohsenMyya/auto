@@ -1,8 +1,8 @@
-import 'package:auto/core/resource/consts/image_const.dart';
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/ui/shared/custom_widgets/custom_network_image.dart';
-import 'package:auto/ui/views/courses_questions_screen/courses_questions_view.dart';
-import 'package:auto/ui/views/subject_deails_screen/subject_details_screen.dart';
+import 'package:auto2/core/resource/consts/image_const.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
+import 'package:auto2/ui/shared/custom_widgets/custom_network_image.dart';
+import 'package:auto2/ui/views/courses_questions_screen/courses_questions_view.dart';
+import 'package:auto2/ui/views/subject_deails_screen/subject_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

@@ -1,4 +1,4 @@
-import 'package:auto/core/utils/extension/context_extensions.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
 import 'package:flutter/material.dart';
 
 class AboutScreen extends StatelessWidget {

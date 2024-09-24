@@ -1,10 +1,10 @@
-import 'package:auto/ui/views/notification_screen/service/notifications_service.dart';
+import 'package:auto2/ui/views/notification_screen/service/notifications_service.dart';
 import 'package:flutter/material.dart';
-import 'package:auto/ui/shared/main_app_bar.dart';
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/core/utils/extension/widget_extension.dart';
+import 'package:auto2/ui/shared/main_app_bar.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
+import 'package:auto2/core/utils/extension/widget_extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:auto/ui/views/notification_screen/widgets/NotificationListTile.dart';
+import 'package:auto2/ui/views/notification_screen/widgets/NotificationListTile.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../core/data/models/notification_model.dart';

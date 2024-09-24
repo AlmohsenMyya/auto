@@ -1,6 +1,6 @@
-import 'package:auto/core/data/repositories/read_all_models.dart';
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/ui/shared/custom_widgets/media_view/media_widget/cache_network_image.dart';
+import 'package:auto2/core/data/repositories/read_all_models.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
+import 'package:auto2/ui/shared/custom_widgets/media_view/media_widget/cache_network_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

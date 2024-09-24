@@ -1,7 +1,7 @@
-import 'package:auto/ui/shared/colors.dart';
-import 'package:auto/ui/shared/my_images.dart';
-import 'package:auto/ui/shared/utils.dart';
-import 'package:auto/ui/views/splash_screen/splash_controller.dart';
+import 'package:auto2/ui/shared/colors.dart';
+import 'package:auto2/ui/shared/my_images.dart';
+import 'package:auto2/ui/shared/utils.dart';
+import 'package:auto2/ui/views/splash_screen/splash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

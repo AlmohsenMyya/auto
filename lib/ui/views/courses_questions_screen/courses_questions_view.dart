@@ -1,5 +1,5 @@
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/core/utils/extension/widget_extension.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
+import 'package:auto2/core/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,7 +44,7 @@ class CoursesQuestionsView extends StatefulWidget {
 }
 
 class _CoursesQuestionsViewState extends State<CoursesQuestionsView> {
-  static const platform = MethodChannel('com.example.auto/screenshot');
+  static const platform = MethodChannel('com.example.auto2/screenshot');
 
   Future<void> _preventScreenshots() async {
     try {

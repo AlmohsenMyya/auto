@@ -1,4 +1,4 @@
-import 'package:auto/config/theme/typography.dart';
+import 'package:auto2/config/theme/typography.dart';
 import 'package:flutter/material.dart';
 
 part 'dark_color_scheme.dart';

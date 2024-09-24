@@ -1,4 +1,4 @@
-import 'package:auto/core/services/base_controller.dart';
+import 'package:auto2/core/services/base_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/data/models/local_json/all_models.dart';

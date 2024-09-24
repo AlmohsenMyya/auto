@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:auto/core/data/models/notification_model.dart';
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/core/utils/extension/widget_extension.dart';
+import 'package:auto2/core/data/models/notification_model.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
+import 'package:auto2/core/utils/extension/widget_extension.dart';
 
 class NotificationListTile extends StatelessWidget {
   const NotificationListTile({

@@ -1,8 +1,8 @@
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/ui/shared/main_app_bar.dart';
-import 'package:auto/ui/views/Banks/banks_view.dart';
-import 'package:auto/ui/views/courses/courses_view.dart';
-import 'package:auto/ui/views/subject_deails_screen/widget/subject_card_details.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
+import 'package:auto2/ui/shared/main_app_bar.dart';
+import 'package:auto2/ui/views/Banks/banks_view.dart';
+import 'package:auto2/ui/views/courses/courses_view.dart';
+import 'package:auto2/ui/views/subject_deails_screen/widget/subject_card_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

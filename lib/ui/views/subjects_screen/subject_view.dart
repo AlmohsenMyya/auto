@@ -1,8 +1,8 @@
-import 'package:auto/core/data/models/local_json/all_models.dart';
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/ui/shared/main_app_bar.dart';
-import 'package:auto/ui/views/subjects_screen/Subject_controller.dart';
-import 'package:auto/ui/views/subjects_screen/subject_widget/subject_tile.dart';
+import 'package:auto2/core/data/models/local_json/all_models.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
+import 'package:auto2/ui/shared/main_app_bar.dart';
+import 'package:auto2/ui/views/subjects_screen/Subject_controller.dart';
+import 'package:auto2/ui/views/subjects_screen/subject_widget/subject_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

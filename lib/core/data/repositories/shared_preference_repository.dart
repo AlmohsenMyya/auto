@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:auto/core/data/models/apis/token_info.dart';
-import 'package:auto/core/enums/data_type.dart';
+import 'package:auto2/core/data/models/apis/token_info.dart';
+import 'package:auto2/core/enums/data_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

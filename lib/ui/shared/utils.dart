@@ -1,6 +1,6 @@
-import 'package:auto/ui/shared/colors.dart';
-import 'package:auto/ui/shared/custom_widgets/custom_button.dart';
-import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
+import 'package:auto2/ui/shared/colors.dart';
+import 'package:auto2/ui/shared/custom_widgets/custom_button.dart';
+import 'package:auto2/ui/shared/custom_widgets/custom_text.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

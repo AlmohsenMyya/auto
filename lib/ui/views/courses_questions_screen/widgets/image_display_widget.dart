@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:auto/core/translation/app_translation.dart';
+import 'package:auto2/core/translation/app_translation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';

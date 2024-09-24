@@ -1,4 +1,4 @@
-import 'package:auto/core/ui/responsive_padding.dart';
+import 'package:auto2/core/ui/responsive_padding.dart';
 import 'package:flutter/material.dart';
 import 'context_extensions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

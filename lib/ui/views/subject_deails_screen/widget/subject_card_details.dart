@@ -1,6 +1,6 @@
-import 'package:auto/core/utils/extension/widget_extension.dart';
-import 'package:auto/ui/shared/colors.dart';
-import 'package:auto/ui/shared/main_app_bar.dart';
+import 'package:auto2/core/utils/extension/widget_extension.dart';
+import 'package:auto2/ui/shared/colors.dart';
+import 'package:auto2/ui/shared/main_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

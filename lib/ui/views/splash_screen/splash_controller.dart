@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:auto/core/data/repositories/shared_preference_repository.dart';
+import 'package:auto2/core/data/repositories/shared_preference_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:auto/core/services/base_controller.dart';
-import 'package:auto/ui/views/login_screen/login_view.dart';
-import 'package:auto/ui/views/wellcom_screen/wellcom_screen.dart';
+import 'package:auto2/core/services/base_controller.dart';
+import 'package:auto2/ui/views/login_screen/login_view.dart';
+import 'package:auto2/ui/views/wellcom_screen/wellcom_screen.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';

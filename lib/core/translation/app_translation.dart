@@ -1,5 +1,5 @@
-import 'package:auto/core/translation/languages/ar_languages.dart';
-import 'package:auto/core/translation/languages/en_languages.dart';
+import 'package:auto2/core/translation/languages/ar_languages.dart';
+import 'package:auto2/core/translation/languages/en_languages.dart';
 import 'package:get/get.dart';
 
 class AppTranlation extends Translations {

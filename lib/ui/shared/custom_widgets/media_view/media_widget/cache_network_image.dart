@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/ui/shared/custom_widgets/media_view/media_screens/image_view_screen.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
+import 'package:auto2/ui/shared/custom_widgets/media_view/media_screens/image_view_screen.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';

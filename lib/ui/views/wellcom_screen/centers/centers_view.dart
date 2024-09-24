@@ -1,5 +1,5 @@
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/ui/views/wellcom_screen/centers/centers_controller.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
+import 'package:auto2/ui/views/wellcom_screen/centers/centers_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

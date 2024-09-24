@@ -1,12 +1,12 @@
-import 'package:auto/core/resource/assets.dart';
-import 'package:auto/core/utils/extension/context_extensions.dart';
-import 'package:auto/core/utils/extension/widget_extensions.dart';
+import 'package:auto2/core/resource/assets.dart';
+import 'package:auto2/core/utils/extension/context_extensions.dart';
+import 'package:auto2/core/utils/extension/widget_extensions.dart';
 
-import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
-import 'package:auto/ui/shared/main_app_bar.dart';
-import 'package:auto/ui/views/UnitsByPart/widgets/units_screen_card_widget.dart';
+import 'package:auto2/ui/shared/custom_widgets/custom_text.dart';
+import 'package:auto2/ui/shared/main_app_bar.dart';
+import 'package:auto2/ui/views/UnitsByPart/widgets/units_screen_card_widget.dart';
 
-import 'package:auto/ui/views/lessons/widgets/lesson_screen_card_widget.dart';
+import 'package:auto2/ui/views/lessons/widgets/lesson_screen_card_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

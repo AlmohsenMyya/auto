@@ -1,7 +1,7 @@
 
 
-import 'package:auto/core/enums/request_type.dart';
-import 'package:auto/core/utils/general_util.dart';
+import 'package:auto2/core/enums/request_type.dart';
+import 'package:auto2/core/utils/general_util.dart';
 
 class NetworkConfig {
   static String baseAPI = 'api/web/';

@@ -1,7 +1,7 @@
-import 'package:auto/core/utils/almohsen_string.dart';
-import 'package:auto/ui/shared/colors.dart';
-import 'package:auto/ui/shared/custom_widgets/custom_text.dart';
-import 'package:auto/ui/shared/my_images.dart';
+import 'package:auto2/core/utils/almohsen_string.dart';
+import 'package:auto2/ui/shared/colors.dart';
+import 'package:auto2/ui/shared/custom_widgets/custom_text.dart';
+import 'package:auto2/ui/shared/my_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
