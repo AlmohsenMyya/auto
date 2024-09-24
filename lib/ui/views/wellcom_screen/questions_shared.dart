@@ -167,9 +167,14 @@ class _SingleQuestionPageState extends State<SingleQuestionPage> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: Text(
-                                  'شرح السؤال', style: TextStyle(fontSize: 24)),
-                              content: Text(widget.question.explain ??
-                                  'لا يوجد شرح لهذا السؤال.'),
+                                'شرح السؤال',
+                                style: TextStyle(fontSize: 24),
+                              ),
+                              content: SingleChildScrollView(
+                                child: Text(
+                                  widget.question.explain ?? 'لا يوجد شرح لهذا السؤال.',
+                                ),
+                              ),
                               actions: <Widget>[
                                 TextButton(
                                   child: Text('إغلاق'),
@@ -179,6 +184,7 @@ class _SingleQuestionPageState extends State<SingleQuestionPage> {
                                 ),
                               ],
                             );
+                            ;
                           },
                         );
                       },

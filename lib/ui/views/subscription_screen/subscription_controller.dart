@@ -15,7 +15,7 @@ class SubscriptionController extends BaseController {
 
   late List<Branch> branchs;
 
-  void updateData() async {
+  void updateData(bool? isVistore) async {
     // Display the Snackbar and get the SnackbarController
     SnackbarController snackbarController = Get.showSnackbar(
       GetSnackBar(
@@ -23,7 +23,8 @@ class SubscriptionController extends BaseController {
         title: "تنبيه",
         message: "جاري تحميل البيانات هذه العملية قد تأخذ وقتاً ",
         backgroundColor: Colors.blueGrey,
-        isDismissible: false, // Make the Snackbar non-dismissible by the user
+        isDismissible: false,
+        // Make the Snackbar non-dismissible by the user
         duration: Duration(days: 1), // Set a long duration to keep it visible
       ),
     );
@@ -32,7 +33,7 @@ class SubscriptionController extends BaseController {
     isLoading.value = true;
     update();
     await JsonReader.fetchDataAndStore();
-
+   await readfile(isVistore);
     isUpdateLoading.value = false;
     isLoading.value = false;
 
@@ -41,7 +42,7 @@ class SubscriptionController extends BaseController {
     update();
   }
 
-  void readfile(bool? isVistor) async {
+  Future<void> readfile(bool? isVistor) async {
     isLoading.value = true;
     // قراءة ملف الـ JSON
     jsonfile = await JsonReader.loadJsonData();

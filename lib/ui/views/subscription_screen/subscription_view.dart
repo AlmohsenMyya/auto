@@ -101,7 +101,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
               fontWeight: FontWeight.bold,
               // fontFamily: 'Alexandria'
             ),
-            titleText: ' اتمتة',
+            titleText: ' اتمتة test',
             backGroundColor: context.exOnPrimaryContainer,
             actionsWidget: [
               Obx(() => controller.isUpdateLoading.value == true
@@ -120,7 +120,7 @@ class _SubscriptionViewState extends State<SubscriptionView> {
                             duration: Duration(seconds: 2),
                           ));
                         }else {
-                          controller.updateData();
+                          controller.updateData(widget.isVistor);
                         }
 
                       },

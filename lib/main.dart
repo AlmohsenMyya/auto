@@ -29,22 +29,14 @@ Future<bool> _checkInternetConnection() async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   try {
-    if (!await _checkInternetConnection()) {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      ).timeout(Duration(seconds: 5));
-    }
+     initDeepLink().timeout(Duration(seconds: 5));
   } catch (e) {
     print("njjnckkdsnkj $e");
   }
   try {
-    await initDeepLink().timeout(Duration(seconds: 5));
-  } catch (e) {
-    print("njjnckkdsnkj $e");
-  }
-  try {
-    await NotificationSetUp.init();
+     NotificationSetUp.init();
   } catch (e) {
     print("njjnckkdsnkj $e");
   }
@@ -72,6 +64,9 @@ Future<void> initDeepLink() async {
   print(" dfvdfv start no thisn sdjkn jcn  s");
   print("dfvdfv initialLink out1  $deepLink");
   // Check if you received the link via `getInitialLink` first
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   final PendingDynamicLinkData? initialLink =
       await FirebaseDynamicLinks.instance.getInitialLink();
 

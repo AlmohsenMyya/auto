@@ -49,10 +49,10 @@ class _NoteDialogWidgetState extends State<NoteDialogWidget> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await noteStorage.saveNoteForQuestion(questionId, note);
 
-    String myCode = prefs.getString("code_id")??"000";
+    String myCode = prefs.getString("code_id") ?? "000";
     // Add note
-    favoritesRepository.addNote(
-        NoteRequest(codeId: myCode, text: note, questionId: questionId.toString()));
+    favoritesRepository.addNote(NoteRequest(
+        codeId: myCode, text: note, questionId: questionId.toString()));
 
     setState(() {
       _note = note;
@@ -61,11 +61,10 @@ class _NoteDialogWidgetState extends State<NoteDialogWidget> {
 
   void removeNoteForQuestion(int questionId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String myCode = prefs.getString("code_id")??"000";
+    String myCode = prefs.getString("code_id") ?? "000";
     // Add note
-    favoritesRepository.deleteNote(myCode ,questionId.toString());
+    favoritesRepository.deleteNote(myCode, questionId.toString());
     await noteStorage.removeNoteForQuestion(questionId);
-
 
     setState(() {
       _note = "";
@@ -84,28 +83,33 @@ class _NoteDialogWidgetState extends State<NoteDialogWidget> {
         decoration: InputDecoration(
           hintText: "أدخل ملاحظتك هنا",
         ),
-        maxLines: 3,
+        maxLines: 10,
       ),
       actions: <Widget>[
-        TextButton(
-          child: Text('حفظ'),
-          onPressed: () {
-            saveNoteForQuestion(widget.questionId, _noteController.text);
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: Text('إزالة الملاحظة'),
-          onPressed: () {
-            removeNoteForQuestion(widget.questionId);
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: Text('إغلاق'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              child: Text('حفظ'),
+              onPressed: () {
+                saveNoteForQuestion(widget.questionId, _noteController.text);
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('إزالة '),
+              onPressed: () {
+                removeNoteForQuestion(widget.questionId);
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('إغلاق'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         ),
       ],
     );

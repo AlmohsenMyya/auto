@@ -162,10 +162,12 @@ class _QuestionTileWidgetState extends State<QuestionTileWidget> {
                                 'شرح السؤال',
                                 style: TextStyle(fontSize: 24),
                               ),
-                              content: Text(controller
-                                      .questions[widget.questionIndex]
-                                      .explain ??
-                                  'لا يوجد شرح لهذا السؤال.'),
+                              content: SingleChildScrollView(
+                                child: Text(controller
+                                        .questions[widget.questionIndex]
+                                        .explain ??
+                                    'لا يوجد شرح لهذا السؤال.'),
+                              ),
                               actions: <Widget>[
                                 TextButton(
                                   child: Text('إغلاق'),

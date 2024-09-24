@@ -18,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 import '../../../core/data/repositories/read_all_models.dart';
+import '../../../firebase_options.dart';
 import '../explanation_screen/explanation_screen.dart';
 import '../wellcom_screen/contact_view.dart';
 
@@ -43,7 +44,9 @@ class _LoginViewState extends State<LoginView> {
       return;
     }
 
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
     FirebaseMessaging messaging = FirebaseMessaging.instance;
     String? fcmToken = await messaging.getToken();
