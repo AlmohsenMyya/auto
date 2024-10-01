@@ -57,28 +57,8 @@ class _SubscriptionViewState extends State<SubscriptionView> {
   }
 
   Future<bool> _showExitConfirmationDialog() async {
-    return await showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('هل أنت متأكد أنك تريد الخروج من التطبيق؟',
-                style: TextStyle(color: context.exPrimaryContainer)),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: Text('إلغاء',
-                    style: TextStyle(color: context.exPrimaryContainer)),
-              ),
-              TextButton(
-                onPressed: () {
-                  SystemNavigator.pop(); // Close the app
-                },
-                child: Text('موافق',
-                    style: TextStyle(color: context.exPrimaryContainer)),
-              ),
-            ],
-          ),
-        ) ??
-        false;
+    SystemNavigator.pop();
+    return true;
   }
 
   @override

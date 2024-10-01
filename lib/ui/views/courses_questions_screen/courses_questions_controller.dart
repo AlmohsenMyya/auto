@@ -99,6 +99,7 @@ class CoursesQuestionsController extends BaseController {
 
   void toggleHideQuestions() {
     hideAllAnswers.value = !hideAllAnswers.value;
+    Get.closeAllSnackbars();
     if(hideAllAnswers.value){
       // إظهار رسالة خطأ
       Get.snackbar(

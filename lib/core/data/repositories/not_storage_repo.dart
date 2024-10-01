@@ -12,14 +12,15 @@ class Note {
   });
 
   Map<String, dynamic> toJson() => {
-        'questionId': questionId,
-        'note': note,
+        'question_id': questionId,
+        'text': note,
       };
 
   factory Note.fromJson(Map<String, dynamic> json) {
+    print("nkjnkjnknjknj $json");
     return Note(
-      questionId: json['questionId'],
-      note: json['note'],
+      questionId: json['question_id'],
+      note: json['text'],
     );
   }
 }
@@ -30,15 +31,17 @@ class NoteStorage {
   Future<List<Note>> getNotes() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? notesJson = prefs.getString(_notesKey);
+
     if (notesJson == null) {
       return [];
     }
-
+print("jknjlnlkj --- $_notesKey  $notesJson ... ");
     List<dynamic> notesList = json.decode(notesJson);
     return notesList.map((noteJson) => Note.fromJson(noteJson)).toList();
   }
 
   Future<void> saveNoteForQuestion(int questionId, String noteText) async {
+    print(" jknjlnlkj $questionId  $noteText");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<Note> notes = await getNotes();
 

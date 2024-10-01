@@ -322,20 +322,20 @@ class JsonReader {
     print("Question By Part Id $partId");
     return extractQuestions(jsonData, partId, 'part',isCourse);
   }
-
   static List<Lesson> extractLessonByUnitId(
       Map<String, dynamic> jsonData, int unitId) {
     List<Lesson> lessons = [];
-    if (jsonData['lessons'] != null &&
-        jsonData['lessons'][unitId.toString()] != null) {
-      var lessonJsonList = jsonData['lessons'][unitId.toString()] as List;
+    if (jsonData['lessons'] != null) {
+      var lessonJsonList = jsonData['lessons'] as List;
       lessons = lessonJsonList
+          .where((lessonJson) => lessonJson['unit_id'] == unitId)
           .map((lessonJson) => Lesson.fromJson(lessonJson))
           .toList();
     }
     print("lesson JsonReader ${lessons.length}");
     return lessons;
   }
+
 
   static List<Unit> extractUnitsBySubjectId(
       Map<String, dynamic> jsonData, int subjectId) {
@@ -478,27 +478,30 @@ class JsonReader {
       final dynamicLink =
       await FirebaseDynamicLinks.instance.buildShortLink(dynamicLinkParams);
 
-
       // مشاركة الرابط المختصر
      await Share.share(dynamicLink.shortUrl.toString());
       // إخفاء اللودر
       Navigator.of(context).pop();
-
     } catch (e) {
       print("Error while sharing question: $e");
 
       // إخفاء اللودر
       Navigator.of(context).pop();
 
-      // إظهار رسالة خطأ
-      Get.snackbar(
-        'فشل عملية مشاركة السؤال ',
-        'يرجى التأكد من اتصالك بالإنترنت وتشغيل VPN',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        duration: Duration(seconds: 35)
-      );
+      // التحقق إذا كان هنالك Snackbar مفتوح بالفعل
+      if (!Get.isSnackbarOpen) {
+        Get.closeAllSnackbars();
+        // إظهار رسالة خطأ
+        Get.snackbar(
+          'فشل عملية مشاركة السؤال',
+          'يرجى التأكد من اتصالك بالإنترنت وتشغيل VPN',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          duration: Duration(seconds: 10),
+          isDismissible: true, // السماح للمستخدم بإخفاء الـ Snackbar عند السحب// اتجاه السحب
+        );
+      }
     }
   }
 

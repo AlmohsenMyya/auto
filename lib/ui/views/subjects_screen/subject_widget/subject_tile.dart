@@ -59,52 +59,59 @@ class SubjectTile extends StatelessWidget {
             Spacer(),
             IconButton(
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Dialog(
-                      child: Container(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'عرض الأسئلة المفضلة لمادة "${subject.name}"',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 16.0),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    Get.to(CoursesQuestionsView(
-                                      id_course_bank_lesson_unite: -1,
-                                      subjectName: "الأسئلة المفضلة :",
-                                      coursName: subject.name,
-                                      favoriteSubject: subject.subject_id,
-                                      type: "",
-                                    ));
-                                  },
-                                  child: Text('انتقال'),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text('إغلاق'),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
+                Get.to(CoursesQuestionsView(
+                  id_course_bank_lesson_unite: -1,
+                  subjectName: "الأسئلة المفضلة :",
+                  coursName: subject.name,
+                  favoriteSubject: subject.subject_id,
+                  type: "",
+                ));
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context) {
+                //     return Dialog(
+                //       child: Container(
+                //         padding: const EdgeInsets.all(16.0),
+                //         child: Column(
+                //           mainAxisSize: MainAxisSize.min,
+                //           children: [
+                //             Text(
+                //               'عرض الأسئلة المفضلة لمادة "${subject.name}"',
+                //               style: TextStyle(
+                //                 fontWeight: FontWeight.bold,
+                //               ),
+                //             ),
+                //             SizedBox(height: 16.0),
+                //             Row(
+                //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //               children: [
+                //                 ElevatedButton(
+                //                   onPressed: () {
+                //                     Navigator.pop(context);
+                //                     Get.to(CoursesQuestionsView(
+                //                       id_course_bank_lesson_unite: -1,
+                //                       subjectName: "الأسئلة المفضلة :",
+                //                       coursName: subject.name,
+                //                       favoriteSubject: subject.subject_id,
+                //                       type: "",
+                //                     ));
+                //                   },
+                //                   child: Text('انتقال'),
+                //                 ),
+                //                 ElevatedButton(
+                //                   onPressed: () {
+                //                     Navigator.of(context).pop();
+                //                   },
+                //                   child: Text('إغلاق'),
+                //                 ),
+                //               ],
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     );
+                //   },
+                // );
 
               },
               icon: const Icon(
